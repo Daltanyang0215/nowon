@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Unity\\Study\\nowon\\FirstProject\\FirstProject.csproj": {}
+    "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\FirstProject\\FirstProject.csproj": {}
   },
   "projects": {
-    "D:\\Unity\\Study\\nowon\\FirstProject\\FirstProject.csproj": {
+    "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\FirstProject\\FirstProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Unity\\Study\\nowon\\FirstProject\\FirstProject.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\FirstProject\\FirstProject.csproj",
         "projectName": "FirstProject",
-        "projectPath": "D:\\Unity\\Study\\nowon\\FirstProject\\FirstProject.csproj",
-        "packagesPath": "C:\\Users\\taxz0\\.nuget\\packages\\",
-        "outputPath": "D:\\Unity\\Study\\nowon\\FirstProject\\obj\\",
+        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\FirstProject\\FirstProject.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\FirstProject\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\taxz0\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -58,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

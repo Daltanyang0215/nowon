@@ -1,0 +1,15 @@
+C:\Users\User\Documents\GitHub\UnityEngineBasic_Nowon_2000_2200\FirstProject\bin\Debug\net6.0\FirstProject.exe
+C:\Users\User\Documents\GitHub\UnityEngineBasic_Nowon_2000_2200\FirstProject\bin\Debug\net6.0\FirstProject.deps.json
+C:\Users\User\Documents\GitHub\UnityEngineBasic_Nowon_2000_2200\FirstProject\bin\Debug\net6.0\FirstProject.runtimeconfig.json
+C:\Users\User\Documents\GitHub\UnityEngineBasic_Nowon_2000_2200\FirstProject\bin\Debug\net6.0\FirstProject.dll
+C:\Users\User\Documents\GitHub\UnityEngineBasic_Nowon_2000_2200\FirstProject\bin\Debug\net6.0\ref\FirstProject.dll
+C:\Users\User\Documents\GitHub\UnityEngineBasic_Nowon_2000_2200\FirstProject\bin\Debug\net6.0\FirstProject.pdb
+C:\Users\User\Documents\GitHub\UnityEngineBasic_Nowon_2000_2200\FirstProject\obj\Debug\net6.0\FirstProject.csproj.AssemblyReference.cache
+C:\Users\User\Documents\GitHub\UnityEngineBasic_Nowon_2000_2200\FirstProject\obj\Debug\net6.0\FirstProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\GitHub\UnityEngineBasic_Nowon_2000_2200\FirstProject\obj\Debug\net6.0\FirstProject.AssemblyInfoInputs.cache
+C:\Users\User\Documents\GitHub\UnityEngineBasic_Nowon_2000_2200\FirstProject\obj\Debug\net6.0\FirstProject.AssemblyInfo.cs
+C:\Users\User\Documents\GitHub\UnityEngineBasic_Nowon_2000_2200\FirstProject\obj\Debug\net6.0\FirstProject.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\GitHub\UnityEngineBasic_Nowon_2000_2200\FirstProject\obj\Debug\net6.0\FirstProject.dll
+C:\Users\User\Documents\GitHub\UnityEngineBasic_Nowon_2000_2200\FirstProject\obj\Debug\net6.0\ref\FirstProject.dll
+C:\Users\User\Documents\GitHub\UnityEngineBasic_Nowon_2000_2200\FirstProject\obj\Debug\net6.0\FirstProject.pdb
+C:\Users\User\Documents\GitHub\UnityEngineBasic_Nowon_2000_2200\FirstProject\obj\Debug\net6.0\FirstProject.genruntimeconfig.cache
