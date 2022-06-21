@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "ScY5RHOlOJ/ig7O6HanPq5ohcatF4CqE+QTjCXEhmXxYYMqWSwuPlcDUsTGAf9TyfuByV4hShuVrqGdtBRADvQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\OperatorMethods\\OperatorMethods.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.13\\microsoft.netcore.app.host.win-x64.5.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}

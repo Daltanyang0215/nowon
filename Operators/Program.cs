@@ -114,6 +114,22 @@ namespace Operators
 
             // 조건부 and
             Console.WriteLine(A && B);
+
+            // 비트연산자
+
+            // 비트 연산 or
+            Console.WriteLine(a | b);
+            // 비트 연산 and
+            Console.WriteLine(a & b);
+            // 비트 연산 xor
+            Console.WriteLine(a ^ b);
+            // 비트 연산 not
+            Console.WriteLine(~a);
+
+            // 비트 연산 shift
+            Console.WriteLine(a<<1);
+            Console.WriteLine(a >> 1);
+
         }
     }
 }

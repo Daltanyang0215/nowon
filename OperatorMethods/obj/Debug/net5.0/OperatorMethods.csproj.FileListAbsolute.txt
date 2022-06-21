@@ -1,0 +1,15 @@
+C:\Users\User\Documents\GitHub\EC\nowon\OperatorMethods\bin\Debug\net5.0\OperatorMethods.exe
+C:\Users\User\Documents\GitHub\EC\nowon\OperatorMethods\bin\Debug\net5.0\OperatorMethods.deps.json
+C:\Users\User\Documents\GitHub\EC\nowon\OperatorMethods\bin\Debug\net5.0\OperatorMethods.runtimeconfig.json
+C:\Users\User\Documents\GitHub\EC\nowon\OperatorMethods\bin\Debug\net5.0\OperatorMethods.runtimeconfig.dev.json
+C:\Users\User\Documents\GitHub\EC\nowon\OperatorMethods\bin\Debug\net5.0\OperatorMethods.dll
+C:\Users\User\Documents\GitHub\EC\nowon\OperatorMethods\bin\Debug\net5.0\ref\OperatorMethods.dll
+C:\Users\User\Documents\GitHub\EC\nowon\OperatorMethods\bin\Debug\net5.0\OperatorMethods.pdb
+C:\Users\User\Documents\GitHub\EC\nowon\OperatorMethods\obj\Debug\net5.0\OperatorMethods.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\GitHub\EC\nowon\OperatorMethods\obj\Debug\net5.0\OperatorMethods.AssemblyInfoInputs.cache
+C:\Users\User\Documents\GitHub\EC\nowon\OperatorMethods\obj\Debug\net5.0\OperatorMethods.AssemblyInfo.cs
+C:\Users\User\Documents\GitHub\EC\nowon\OperatorMethods\obj\Debug\net5.0\OperatorMethods.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\GitHub\EC\nowon\OperatorMethods\obj\Debug\net5.0\OperatorMethods.dll
+C:\Users\User\Documents\GitHub\EC\nowon\OperatorMethods\obj\Debug\net5.0\ref\OperatorMethods.dll
+C:\Users\User\Documents\GitHub\EC\nowon\OperatorMethods\obj\Debug\net5.0\OperatorMethods.pdb
+C:\Users\User\Documents\GitHub\EC\nowon\OperatorMethods\obj\Debug\net5.0\OperatorMethods.genruntimeconfig.cache
