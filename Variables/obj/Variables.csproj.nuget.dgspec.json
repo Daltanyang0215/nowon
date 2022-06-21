@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\Variables\\Variables.csproj": {}
+    "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\Variables\\Variables.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\Variables\\Variables.csproj": {
+    "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\Variables\\Variables.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\Variables\\Variables.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\Variables\\Variables.csproj",
         "projectName": "Variables",
-        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\Variables\\Variables.csproj",
+        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\Variables\\Variables.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\Variables\\obj\\",
+        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\Variables\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

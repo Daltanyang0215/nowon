@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\InstantiationExample\\InstantiationExample.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\InstantiationExample\\InstantiationExample.csproj",
       "projectName": "InstantiationExample",
-      "projectPath": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\InstantiationExample\\InstantiationExample.csproj",
+      "projectPath": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\InstantiationExample\\InstantiationExample.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\InstantiationExample\\obj\\",
+      "outputPath": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\InstantiationExample\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

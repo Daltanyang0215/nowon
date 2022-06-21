@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\ClassObjectInstance\\ClassObjectInstance.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\ClassObjectInstance\\ClassObjectInstance.csproj",
       "projectName": "ClassObjectInstance",
-      "projectPath": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\ClassObjectInstance\\ClassObjectInstance.csproj",
+      "projectPath": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\ClassObjectInstance\\ClassObjectInstance.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\ClassObjectInstance\\obj\\",
+      "outputPath": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\ClassObjectInstance\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

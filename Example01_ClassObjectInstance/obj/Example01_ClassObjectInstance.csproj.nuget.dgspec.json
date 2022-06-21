@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\Example01_ClassObjectInstance\\Example01_ClassObjectInstance.csproj": {}
+    "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\Example01_ClassObjectInstance\\Example01_ClassObjectInstance.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\Example01_ClassObjectInstance\\Example01_ClassObjectInstance.csproj": {
+    "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\Example01_ClassObjectInstance\\Example01_ClassObjectInstance.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\Example01_ClassObjectInstance\\Example01_ClassObjectInstance.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\Example01_ClassObjectInstance\\Example01_ClassObjectInstance.csproj",
         "projectName": "Example01_ClassObjectInstance",
-        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\Example01_ClassObjectInstance\\Example01_ClassObjectInstance.csproj",
+        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\Example01_ClassObjectInstance\\Example01_ClassObjectInstance.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\Example01_ClassObjectInstance\\obj\\",
+        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\Example01_ClassObjectInstance\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

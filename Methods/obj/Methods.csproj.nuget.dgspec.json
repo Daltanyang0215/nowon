@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\Methods\\Methods.csproj": {}
+    "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\Methods\\Methods.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\Methods\\Methods.csproj": {
+    "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\Methods\\Methods.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\Methods\\Methods.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\Methods\\Methods.csproj",
         "projectName": "Methods",
-        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\Methods\\Methods.csproj",
+        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\Methods\\Methods.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\Methods\\obj\\",
+        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\Methods\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

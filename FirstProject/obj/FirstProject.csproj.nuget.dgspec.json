@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\FirstProject\\FirstProject.csproj": {}
+    "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\FirstProject\\FirstProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\FirstProject\\FirstProject.csproj": {
+    "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\FirstProject\\FirstProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\FirstProject\\FirstProject.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\FirstProject\\FirstProject.csproj",
         "projectName": "FirstProject",
-        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\FirstProject\\FirstProject.csproj",
+        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\FirstProject\\FirstProject.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\FirstProject\\obj\\",
+        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\FirstProject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

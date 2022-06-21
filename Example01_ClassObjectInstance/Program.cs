@@ -43,6 +43,7 @@ namespace Example01_ClassObjectInstance
 			}
 
 			orc1.TryJumpAndSmash();
+			orc2.TryJumpAndSmash();
 		}
     }
 
@@ -66,7 +67,7 @@ namespace Example01_ClassObjectInstance
         {
 			// this 키워드 
 			// 객체 자기자신을 참조하는 키워드
-			if (this.isResting)
+			if (isResting)
 			{
 				this.Jump();
 				this.Smash();

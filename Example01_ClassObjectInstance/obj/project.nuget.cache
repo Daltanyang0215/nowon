@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jwOPai32Lu1Tuhb73w2bKzVJWQrY5KkVpwjeZ1YMVTI4SEU7G8rD6oeLPTw8wn6ry0xmugVEOENARPHcqWWjOQ==",
+  "dgSpecHash": "js/k7rBg/EPTyleWJfdLFll1N5xMgIWu5d8lR5wZ2Pio3DSXVWhJu/WQOBJRHI0kzKaKwf9TJbj22jEdarTSbA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\User\\Documents\\GitHub\\UnityEngineBasic_Nowon_2000_2200\\Example01_ClassObjectInstance\\Example01_ClassObjectInstance.csproj",
+  "projectFilePath": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\Example01_ClassObjectInstance\\Example01_ClassObjectInstance.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\User\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.13\\microsoft.netcore.app.host.win-x64.5.0.13.nupkg.sha512"
   ],
