@@ -53,7 +53,13 @@ namespace OperatorMethods
             return a | b;
         }
 
-
-
+        static public bool And(bool a, bool b)
+        {
+            return a & b;
+        }
+        static public bool Xor(bool a, bool b)
+        {
+            return a ^ b;
+        }
     }
 }
