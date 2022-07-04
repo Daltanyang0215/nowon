@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "T0/R+4GKVuPRiS/YQB1QUu/sd8cwqot4wut3EKEXPmI9lqIvEmvPUQ7xYjVegseCSZoQOazqckN8LtvvRr0yxw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\Calssinheriatane\\Calssinheriatane.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.13\\microsoft.netcore.app.host.win-x64.5.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}
