@@ -1,0 +1,16 @@
+D:\GitHub\nowon\DiecGame\bin\Debug\net5.0\DiecGame.exe
+D:\GitHub\nowon\DiecGame\bin\Debug\net5.0\DiecGame.deps.json
+D:\GitHub\nowon\DiecGame\bin\Debug\net5.0\DiecGame.runtimeconfig.json
+D:\GitHub\nowon\DiecGame\bin\Debug\net5.0\DiecGame.runtimeconfig.dev.json
+D:\GitHub\nowon\DiecGame\bin\Debug\net5.0\DiecGame.dll
+D:\GitHub\nowon\DiecGame\bin\Debug\net5.0\DiecGame.pdb
+D:\GitHub\nowon\DiecGame\obj\Debug\net5.0\DiecGame.csproj.AssemblyReference.cache
+D:\GitHub\nowon\DiecGame\obj\Debug\net5.0\DiecGame.GeneratedMSBuildEditorConfig.editorconfig
+D:\GitHub\nowon\DiecGame\obj\Debug\net5.0\DiecGame.AssemblyInfoInputs.cache
+D:\GitHub\nowon\DiecGame\obj\Debug\net5.0\DiecGame.AssemblyInfo.cs
+D:\GitHub\nowon\DiecGame\obj\Debug\net5.0\DiecGame.csproj.CoreCompileInputs.cache
+D:\GitHub\nowon\DiecGame\obj\Debug\net5.0\DiecGame.dll
+D:\GitHub\nowon\DiecGame\obj\Debug\net5.0\refint\DiecGame.dll
+D:\GitHub\nowon\DiecGame\obj\Debug\net5.0\DiecGame.pdb
+D:\GitHub\nowon\DiecGame\obj\Debug\net5.0\DiecGame.genruntimeconfig.cache
+D:\GitHub\nowon\DiecGame\obj\Debug\net5.0\ref\DiecGame.dll
