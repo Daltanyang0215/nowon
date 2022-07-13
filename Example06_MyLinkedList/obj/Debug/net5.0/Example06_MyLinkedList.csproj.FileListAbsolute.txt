@@ -1,0 +1,16 @@
+C:\Users\User\Documents\GitHub\EC\nowon\Example06_MyLinkedList\bin\Debug\net5.0\Example06_MyLinkedList.exe
+C:\Users\User\Documents\GitHub\EC\nowon\Example06_MyLinkedList\bin\Debug\net5.0\Example06_MyLinkedList.deps.json
+C:\Users\User\Documents\GitHub\EC\nowon\Example06_MyLinkedList\bin\Debug\net5.0\Example06_MyLinkedList.runtimeconfig.json
+C:\Users\User\Documents\GitHub\EC\nowon\Example06_MyLinkedList\bin\Debug\net5.0\Example06_MyLinkedList.runtimeconfig.dev.json
+C:\Users\User\Documents\GitHub\EC\nowon\Example06_MyLinkedList\bin\Debug\net5.0\Example06_MyLinkedList.dll
+C:\Users\User\Documents\GitHub\EC\nowon\Example06_MyLinkedList\bin\Debug\net5.0\ref\Example06_MyLinkedList.dll
+C:\Users\User\Documents\GitHub\EC\nowon\Example06_MyLinkedList\bin\Debug\net5.0\Example06_MyLinkedList.pdb
+C:\Users\User\Documents\GitHub\EC\nowon\Example06_MyLinkedList\obj\Debug\net5.0\Example06_MyLinkedList.csproj.AssemblyReference.cache
+C:\Users\User\Documents\GitHub\EC\nowon\Example06_MyLinkedList\obj\Debug\net5.0\Example06_MyLinkedList.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\GitHub\EC\nowon\Example06_MyLinkedList\obj\Debug\net5.0\Example06_MyLinkedList.AssemblyInfoInputs.cache
+C:\Users\User\Documents\GitHub\EC\nowon\Example06_MyLinkedList\obj\Debug\net5.0\Example06_MyLinkedList.AssemblyInfo.cs
+C:\Users\User\Documents\GitHub\EC\nowon\Example06_MyLinkedList\obj\Debug\net5.0\Example06_MyLinkedList.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\GitHub\EC\nowon\Example06_MyLinkedList\obj\Debug\net5.0\Example06_MyLinkedList.dll
+C:\Users\User\Documents\GitHub\EC\nowon\Example06_MyLinkedList\obj\Debug\net5.0\ref\Example06_MyLinkedList.dll
+C:\Users\User\Documents\GitHub\EC\nowon\Example06_MyLinkedList\obj\Debug\net5.0\Example06_MyLinkedList.pdb
+C:\Users\User\Documents\GitHub\EC\nowon\Example06_MyLinkedList\obj\Debug\net5.0\Example06_MyLinkedList.genruntimeconfig.cache
