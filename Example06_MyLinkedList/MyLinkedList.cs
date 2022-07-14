@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,23 +8,23 @@ using System.Threading.Tasks;
 namespace Example06_MyLinkedList
 {
 
+    public sealed class Node<K>
+    {
+        public K value;
+        public Node<K> prev;
+        public Node<K> next;
 
+        public Node(K value)
+        {
+            this.value = value;
+        }
 
-    internal class MyLinkedList<T>
+    }
+
+    internal class MyLinkedList<T> : IEnumerable<T>
     {
         // inner class : 클래스 내에 클래스 타입정의
-        public class Node<K>
-        {
-            public K value;
-            public Node<K> prev;
-            public Node<K> next;
-
-            public Node(K value)
-            {
-                this.value = value;
-            }
-
-        }
+        
 
         Node<T> first, last, tmp1, tmp2;
         
@@ -224,6 +225,69 @@ namespace Example06_MyLinkedList
                 tmp1 = tmp1.next;
             }
             return nodes;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return new ArrayEnum<T>(first);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw null;
+        }
+    }
+
+    public class ArrayEnum<T> : IEnumerator<T>
+    {
+        private bool _firstFlag = false;
+        private Node<T> _current;
+        private Node<T> _first;
+
+        public T Current
+        {
+            get
+            {
+                // 예외 채기 시도
+                try
+                {
+                    return _current.value;
+                }
+                // 예외(에러) 발생시 진행 내용
+                catch
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+        }
+
+        object IEnumerator.Current { get => Current; }
+
+        public ArrayEnum(Node<T> first)
+        {
+            _current = first;
+            _first = first;
+        }
+
+        public bool MoveNext()
+        {
+            if (_firstFlag)
+                _current = _current.next;
+            else
+                _firstFlag = true;
+         
+            return _current != null;
+        }
+
+        public void Reset()
+        {
+            _firstFlag = false;
+            _current = _first;
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }
