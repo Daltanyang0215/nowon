@@ -39,7 +39,7 @@ namespace Example06_MyLinkedList
 
     public class EnumeratorTest
     {
-        
+        // FSM(finite State Machine : 유한상태머신) 을 작성할때도 유용함
         public IEnumerable<int> PrintFactorial(int num)
         {
             int tmpResult = 1;

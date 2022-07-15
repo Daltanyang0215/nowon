@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "Lm26KLE9oL9/SJYppUlJYSxOhte6ZKPpLBNsALGmcQqwa/MxxWQOIDYn6FNieIDI4az+hnu7CKiH//FOHYfjxQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\User\\Documents\\GitHub\\EC\\nowon\\Example07_MyHashTable\\Example07_MyHashtable.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.13\\microsoft.netcore.app.host.win-x64.5.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}
