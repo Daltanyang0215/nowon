@@ -422,7 +422,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1010647936}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 1f5f6b0d2d1c17b44970f16cb963177d, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5000001
@@ -522,8 +522,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac61f941f58be84ea5d5b849cb385e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 7
   rotateSpeed: 8
+  moveVec: {x: 0, y: 0, z: 0}
+  isDash: 0
+  dashVec: {x: 0, y: 0, z: 0}
   bullet: {fileID: 9122865398567764807, guid: ca4e4dfaa7f63934b8469b07f3341818, type: 3}
   blocks: []
 --- !u!1 &1554162810
