@@ -8,6 +8,8 @@ public class Spawn_Box : MonoBehaviour
     public Player player;
 
     public float spwanRange;
+    public float spwangheiht;
+
     public int spwanCount;
 
     // Start is called before the first frame update
@@ -27,7 +29,7 @@ public class Spawn_Box : MonoBehaviour
     {
         for (int i = 0; i < spwanCount; i++)
         {
-            GameObject addblock = Instantiate(spwanBox, new Vector3(Random.Range(-spwanRange, spwanRange), 3, Random.Range(-spwanRange, spwanRange)), Quaternion.identity);
+            GameObject addblock = Instantiate(spwanBox, new Vector3(Random.Range(-spwanRange, spwanRange), Random.Range(3, spwangheiht), Random.Range(-spwanRange, spwanRange)), Quaternion.identity);
             addblock.transform.parent = transform;
             addblock.GetComponent<Box_Script>().player = player;
         }
@@ -39,7 +41,7 @@ public class Spawn_Box : MonoBehaviour
         {
             if (!transform.GetChild(i).gameObject.activeSelf)
             {
-                transform.GetChild(i).gameObject.transform.position = new Vector3(Random.Range(-spwanRange, spwanRange), 3, Random.Range(-spwanRange, spwanRange));
+                transform.GetChild(i).gameObject.transform.position = new Vector3(Random.Range(-spwanRange, spwanRange), Random.Range(3, spwangheiht), Random.Range(-spwanRange, spwanRange));
                 transform.GetChild(i).gameObject.SetActive(true);
             }
         }

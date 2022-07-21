@@ -12,7 +12,7 @@ public class Horse : MonoBehaviour
     private float _targetDistance;
     private bool _doMove;
 
-    bool isFinish = false;
+    public bool isFinish = false;
 
     public void StartMove(float target)
     {
@@ -33,6 +33,9 @@ public class Horse : MonoBehaviour
         transform.Translate(moveVec);
 
         _moveDistance += moveVec.z;
+
+        if(_moveDistance >= _targetDistance)
+            isFinish = true;
     }
 
     private void OnTriggerEnter(Collider other)
