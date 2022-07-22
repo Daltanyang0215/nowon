@@ -4,25 +4,19 @@ using UnityEngine;
 
 public class Spawn_Box : MonoBehaviour
 {
-    public GameObject spwanBox;
-    public Player player;
+    [SerializeField] private GameObject spwanBox; // box asset
+    [SerializeField] private Player player;
 
-    public float spwanRange;
-    public float spwangheiht;
+    [SerializeField] private float spwanRange;
+    [SerializeField] private float spwangheiht;
 
-    public int spwanCount;
+    [SerializeField] private int spwanCount;
 
     // Start is called before the first frame update
     void Start()
     {
         SpwanBox();
         InvokeRepeating("ResetBox", 5f,5f);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void SpwanBox()

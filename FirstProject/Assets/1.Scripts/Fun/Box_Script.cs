@@ -11,21 +11,23 @@ public class Box_Script : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            player.blocks.Add(gameObject);
-            GetComponent<MeshRenderer>().material.color = Color.red;
+            player.TargetQueue(gameObject);
         }
     }
 
     private void OnMouseDown()
     {
-        player.blocks.Add(gameObject);
-        GetComponent<MeshRenderer>().material.color = Color.red;
-
+        player.TargetQueue(gameObject);
     }
 
     private void OnEnable()
     {
         GetComponent<MeshRenderer>().material.color = Color.white;
+    }
+
+    public void Targeting(bool targeting)
+    {
+        GetComponent<MeshRenderer>().material.color = targeting ? Color.red : Color.white;
     }
 
 }

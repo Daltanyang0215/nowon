@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance;
+
     [Header("Move")]
-    
     private float forwad, right;
     public float moveSpeed;
     private Vector3 moveVec;
@@ -17,24 +18,32 @@ public class Player : MonoBehaviour
     [Header("Camera")]
 
     private float rotateX, rotateY;
-    [SerializeField] private float rotateX_Min, rotateX_Max;
+    [SerializeField] 
+    private float rotateX_Min, rotateX_Max;
     public float rotateYSpeed;
     public float rotateXSpeed;
-    [SerializeField] private Transform cameraAnchor;
+    [SerializeField] 
+    private Transform cameraAnchor;
     private bool clampCTR= false;
 
     [Space]
     [Header("Block Target")]
     
-    [SerializeField] private GameObject bullet;
-    public List<GameObject> blocks = new List<GameObject>();
-    public Queue<GameObject> blocksQueue = new Queue<GameObject>();
+    [SerializeField] 
+    private GameObject bullet;
+    //public List<GameObject> blocks = new List<GameObject>();
+    public Queue<GameObject> blocksQueue;
     public int maxTargetBlock;
+
+    private void Awake()
+    {
+        Instance= this;
+    }
 
     private void Start()
     {
+        blocksQueue = new Queue<GameObject>();
         StartCoroutine(BulletShot());
-        
     }
 
     void Update()
@@ -45,7 +54,6 @@ public class Player : MonoBehaviour
         
         Dash();
         CameraRotate();
-        TargetQueue();
     }
 
     void FixedUpdate()
@@ -53,7 +61,7 @@ public class Player : MonoBehaviour
         Move();
     }
 
-    public void GetInput()
+    private void GetInput()
     {
         rotateY = Input.GetAxis("Mouse X");
         rotateX = Input.GetAxis("Mouse Y");
@@ -62,9 +70,16 @@ public class Player : MonoBehaviour
         clampCTR = Input.GetKey(KeyCode.LeftControl);
     }
 
-    void TargetQueue()
+    public void TargetQueue(GameObject target)
     {
+        if (!blocksQueue.Contains(target))
+        {
+            target.GetComponent<Box_Script>().Targeting(true);
+            blocksQueue.Enqueue(target);
+            if(blocksQueue.Count > maxTargetBlock)
+                blocksQueue.Dequeue().GetComponent<Box_Script>().Targeting(false);
 
+        }
     }
 
     void CameraRotate()
@@ -95,7 +110,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Move()
+    private void Move()
     {
         if (!isDash)
             moveVec = new Vector3(right, 0, forwad).normalized;
@@ -105,7 +120,7 @@ public class Player : MonoBehaviour
         transform.Translate(moveVec * moveSpeed * Time.fixedDeltaTime);
     }
 
-    public void Dash()
+    private void Dash()
     {
         if(moveVec != Vector3.zero && !isDash && Input.GetKeyDown(KeyCode.Space))
         {
@@ -117,7 +132,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Undash()
+    private void Undash()
     {
         isDash = false;
         moveSpeed /= 4;
@@ -141,13 +156,22 @@ public class Player : MonoBehaviour
         while (true) {
             if (Input.GetMouseButtonUp(0))
             {
-                for (int i = 0; i < blocks.Count; i++)
+                //for (int i = 0; i < blocks.Count; i++)
+                //{
+                //    GameObject shotbullet = Instantiate(bullet, transform.position, Quaternion.identity);
+                //    shotbullet.GetComponent<Bullet>().target = blocks[i].transform;
+                //    yield return new WaitForSeconds(0.05f);
+                //}
+                //blocks.Clear();
+
+                while(blocksQueue.Count != 0)
                 {
-                    GameObject shotbullet = Instantiate(bullet, transform.position, Quaternion.identity);
-                    shotbullet.GetComponent<Bullet>().target = blocks[i].transform;
+                    GameObject shotbullet = Instantiate(bullet, transform.position, transform.rotation);
+                    shotbullet.GetComponent<Bullet>().target = blocksQueue.Dequeue().transform;
                     yield return new WaitForSeconds(0.05f);
                 }
-                blocks.Clear();
+
+
             }
             yield return null ;
         }
