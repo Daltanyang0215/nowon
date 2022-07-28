@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class Box_Script : MonoBehaviour
 {
-    public Player player;
+    public PlayerBulletShot player;
 
     private void OnMouseEnter()
     {

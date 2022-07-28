@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     public Transform target;
 
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float moveSpeed_correction;
     [SerializeField] private float rotateSpeed;
     [SerializeField] private float rotateSpeed_correction;
 
@@ -35,6 +36,7 @@ public class Bullet : MonoBehaviour
         if(!target.gameObject.activeSelf)
             Destroy(gameObject);
 
+        moveSpeed += moveSpeed_correction * Time.deltaTime;
         rotateSpeed += rotateSpeed_correction* Time.deltaTime;
         if (Vector3.Distance(transform.position, target.position) < rotateSpeed * 2) rotateSpeed *= 1.5f;
     }
@@ -46,6 +48,7 @@ public class Bullet : MonoBehaviour
             if (other.gameObject == target.gameObject)
             {
                 other.gameObject.SetActive(false);
+                PlayerBulletShot.Instance.stack++;
                 Destroy(gameObject);
             }
         }

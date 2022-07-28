@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spawn_Box : MonoBehaviour
 {
     [SerializeField] private GameObject spwanBox; // box asset
-    [SerializeField] private Player player;
+    [SerializeField] private PlayerBulletShot player;
 
     [SerializeField] private float spwanRange;
     [SerializeField] private float spwangheiht;
