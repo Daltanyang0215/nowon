@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6237350201fec9940b9eb46d65412d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 3
+  index: 2
   tileName: "\uBE48\uCE78"
   discription: "\uC77C\uBC18\uCE78\uC785\uB2C8\uB2E4"
 --- !u!1 &63682072
@@ -432,6 +432,7 @@ RectTransform:
   - {fileID: 1500546056}
   - {fileID: 232518474}
   - {fileID: 1562928593}
+  - {fileID: 1859763186}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -490,6 +491,9 @@ MonoBehaviour:
   - {fileID: 808181692}
   - {fileID: 382614415}
   - {fileID: 779790328}
+  _starScoreText: {fileID: 835626387}
+  _diceNumText: {fileID: 205180073}
+  _goldenDiceNumText: {fileID: 1470571682}
 --- !u!4 &149664886
 Transform:
   m_ObjectHideFlags: 0
@@ -592,7 +596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6237350201fec9940b9eb46d65412d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 2
+  index: 1
   tileName: "\uBE48\uCE78"
   discription: "\uC77C\uBC18\uCE78\uC785\uB2C8\uB2E4"
 --- !u!1 &205180071
@@ -926,7 +930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b535ed8574e94f1459357db0c2020d22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 5
+  index: 4
   tileName: "\uBCC4\uCE78"
   discription: "\uBCC4\uCE78\uC785\uB2C8\uB2E4"
   _starValueText: {fileID: 435760514}
@@ -1018,7 +1022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6237350201fec9940b9eb46d65412d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 19
+  index: 18
   tileName: "\uBE48\uCE78"
   discription: "\uC77C\uBC18\uCE78\uC785\uB2C8\uB2E4"
 --- !u!1 &435760512
@@ -1188,7 +1192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6237350201fec9940b9eb46d65412d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 1
+  index: 0
   tileName: "\uBE48\uCE78"
   discription: "\uC77C\uBC18\uCE78\uC785\uB2C8\uB2E4"
 --- !u!1 &513376736
@@ -1279,7 +1283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6237350201fec9940b9eb46d65412d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 14
+  index: 13
   tileName: "\uBE48\uCE78"
   discription: "\uC77C\uBC18\uCE78\uC785\uB2C8\uB2E4"
 --- !u!1 &519420028
@@ -1508,7 +1512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6237350201fec9940b9eb46d65412d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 9
+  index: 8
   tileName: "\uBE48\uCE78"
   discription: "\uC77C\uBC18\uCE78\uC785\uB2C8\uB2E4"
 --- !u!1 &638861766
@@ -1550,6 +1554,81 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &768092319
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 768092320}
+  - component: {fileID: 768092322}
+  - component: {fileID: 768092321}
+  m_Layer: 5
+  m_Name: Animation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &768092320
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768092319}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1859763186}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 250, y: 250}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &768092321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768092319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 8493299474940345846, guid: 93da4ad298114b0469a27eadd837e50d, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &768092322
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768092319}
+  m_CullTransparentMesh: 1
 --- !u!1 &779790324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1639,7 +1718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b535ed8574e94f1459357db0c2020d22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 20
+  index: 19
   tileName: "\uBCC4\uCE78"
   discription: "\uBCC4\uCE78\uC785\uB2C8\uB2E4"
   _starValueText: {fileID: 1278951267}
@@ -1731,7 +1810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6237350201fec9940b9eb46d65412d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 18
+  index: 17
   tileName: "\uBE48\uCE78"
   discription: "\uC77C\uBC18\uCE78\uC785\uB2C8\uB2E4"
 --- !u!1 &835626385
@@ -1812,6 +1891,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 835626385}
+  m_CullTransparentMesh: 1
+--- !u!1 &854770703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 854770704}
+  - component: {fileID: 854770706}
+  - component: {fileID: 854770705}
+  m_Layer: 5
+  m_Name: BG
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &854770704
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854770703}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1859763186}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -10}
+  m_SizeDelta: {x: 288, y: 309}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &854770705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854770703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 96d4d4384de924045abe5d240e8b191a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &854770706
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854770703}
   m_CullTransparentMesh: 1
 --- !u!1 &892524782
 GameObject:
@@ -1981,7 +2135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b535ed8574e94f1459357db0c2020d22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 15
+  index: 14
   tileName: "\uBCC4\uCE78"
   discription: "\uBCC4\uCE78\uC785\uB2C8\uB2E4"
   _starValueText: {fileID: 892524783}
@@ -2073,7 +2227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6237350201fec9940b9eb46d65412d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 11
+  index: 10
   tileName: "\uBE48\uCE78"
   discription: "\uC77C\uBC18\uCE78\uC785\uB2C8\uB2E4"
 --- !u!1 &1175997536
@@ -2240,7 +2394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b535ed8574e94f1459357db0c2020d22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 10
+  index: 9
   tileName: "\uBCC4\uCE78"
   discription: "\uBCC4\uCE78\uC785\uB2C8\uB2E4"
   _starValueText: {fileID: 1641687638}
@@ -2411,7 +2565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6237350201fec9940b9eb46d65412d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 8
+  index: 7
   tileName: "\uBE48\uCE78"
   discription: "\uC77C\uBC18\uCE78\uC785\uB2C8\uB2E4"
 --- !u!1 &1366483028
@@ -2768,7 +2922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6237350201fec9940b9eb46d65412d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 12
+  index: 11
   tileName: "\uBE48\uCE78"
   discription: "\uC77C\uBC18\uCE78\uC785\uB2C8\uB2E4"
 --- !u!1 &1562928592
@@ -2935,7 +3089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6237350201fec9940b9eb46d65412d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 13
+  index: 12
   tileName: "\uBE48\uCE78"
   discription: "\uC77C\uBC18\uCE78\uC785\uB2C8\uB2E4"
 --- !u!1 &1641687637
@@ -3105,7 +3259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6237350201fec9940b9eb46d65412d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 6
+  index: 5
   tileName: "\uBE48\uCE78"
   discription: "\uC77C\uBC18\uCE78\uC785\uB2C8\uB2E4"
 --- !u!1 &1702585400
@@ -3196,7 +3350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6237350201fec9940b9eb46d65412d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 4
+  index: 3
   tileName: "\uBE48\uCE78"
   discription: "\uC77C\uBC18\uCE78\uC785\uB2C8\uB2E4"
 --- !u!1 &1772949383
@@ -3539,9 +3693,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6237350201fec9940b9eb46d65412d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 7
+  index: 6
   tileName: "\uBE48\uCE78"
   discription: "\uC77C\uBC18\uCE78\uC785\uB2C8\uB2E4"
+--- !u!1 &1859763185
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1859763186}
+  - component: {fileID: 1859763187}
+  m_Layer: 5
+  m_Name: DiceAnimation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1859763186
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859763185}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 854770704}
+  - {fileID: 768092320}
+  m_Father: {fileID: 146131956}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -200, y: 200}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 1, y: 0}
+--- !u!114 &1859763187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859763185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d92768e5c2c5745a06f2c980e0663c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Image: {fileID: 768092321}
+  _animationDelay: 0.05
+  _animationTime: 1
 --- !u!1 &1939428836
 GameObject:
   m_ObjectHideFlags: 0
@@ -3630,7 +3837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6237350201fec9940b9eb46d65412d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 17
+  index: 16
   tileName: "\uBE48\uCE78"
   discription: "\uC77C\uBC18\uCE78\uC785\uB2C8\uB2E4"
 --- !u!1 &2054350940
@@ -3721,6 +3928,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6237350201fec9940b9eb46d65412d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 16
+  index: 15
   tileName: "\uBE48\uCE78"
   discription: "\uC77C\uBC18\uCE78\uC785\uB2C8\uB2E4"

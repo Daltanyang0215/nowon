@@ -10,6 +10,6 @@ public class TileInfo : MonoBehaviour
 
     public virtual void OnTile()
     {
-        Debug.Log($"{index} 번째 칸인 {tileName},{discription}");
+        Debug.Log($"{index+1} 번째 칸인 {tileName},{discription}");
     }
 }

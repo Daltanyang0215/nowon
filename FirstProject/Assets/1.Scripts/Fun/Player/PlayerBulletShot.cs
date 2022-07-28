@@ -108,7 +108,7 @@ public class PlayerBulletShot : MonoBehaviour
                     GameObject shotbullet = Instantiate(bullet, bulletSpwanPoint.position, bulletSpwanPoint.rotation);
                     shotbullet.transform.Rotate(Vector3.up * Random.Range(-80, 80));
                     shotbullet.GetComponent<Bullet>().target = blocksQueue.Dequeue().transform;
-                    yield return new WaitForSeconds(0.05f);
+                    yield return new WaitForSeconds(0.1f);
                 }
 
 
@@ -123,13 +123,18 @@ public class PlayerBulletShot : MonoBehaviour
 
         if (stack >= stack_Max)
         {
-            stack -= stack_Max;
+            
 
-            if (_stackNesting < _stackNesting_Max)
+            if (_stackNesting < _stackNesting_Max-1)
             {
-                _stack_Max *= 2;
+                stack -= stack_Max;
+                stack_Max *= 2;
                 maxTargetBlock *= 2;
                 _stackNesting++;
+            }
+            else
+            {
+                stack = stack_Max;
             }
 
 
@@ -137,12 +142,12 @@ public class PlayerBulletShot : MonoBehaviour
         }
         else if (stack <= 0)
         {
-            stack = stack_Max;
-            if (_stackNesting > 1)
+            if (_stackNesting >= 1)
             {
-                _stack_Max /= 2;
+                stack_Max /= 2;
                 maxTargetBlock /= 2;
                 _stackNesting--;
+                stack = stack_Max;
             }
         }
 
