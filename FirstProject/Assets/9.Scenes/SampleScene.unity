@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.25, g: 0.65, b: 0.85, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -608,7 +608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.25, g: 0.8, b: 0.85, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -885,13 +885,16 @@ MonoBehaviour:
   _stack: 0
   _stack_Max: 10
   _stackNesting: 0
-  _stackNesting_Max: 3
+  _stackNesting_Max: 4
   stackColors:
   - {r: 0.25, g: 0.8, b: 0.85, a: 1}
   - {r: 0.25, g: 0.6, b: 0.85, a: 1}
   - {r: 0.25, g: 0.4, b: 0.85, a: 1}
   - {r: 0.25, g: 0.2, b: 0.85, a: 1}
+  - {r: 0.25, g: 0, b: 1, a: 1}
+  - {r: 0.85, g: 0, b: 0.2, a: 1}
   _stackSlider: {fileID: 2067126089}
+  finalTime: 5
 --- !u!1 &1218333515
 GameObject:
   m_ObjectHideFlags: 0

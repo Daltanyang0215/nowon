@@ -45,6 +45,10 @@ public class PlayerBulletShot : MonoBehaviour
     [SerializeField]
     private Slider _stackSlider;
 
+    [SerializeField]
+    private float finalTime;
+    private bool final;
+
     public float stack
     {
         get
@@ -119,26 +123,26 @@ public class PlayerBulletShot : MonoBehaviour
 
     void StackUpdata()
     {
-        stack -= Time.deltaTime * (_stackNesting + 1);
+        if (final) return;
+
+        stack -= Time.deltaTime * (_stackNesting + 1) * 1.5f;
 
         if (stack >= stack_Max)
         {
-            
-
-            if (_stackNesting < _stackNesting_Max-1)
+            if (_stackNesting < _stackNesting_Max - 1)
             {
                 stack -= stack_Max;
                 stack_Max *= 2;
                 maxTargetBlock *= 2;
                 _stackNesting++;
+
+                SliderColorSet(_stackNesting, _stackNesting + 1);
             }
-            else
+            else // max stack, max nest
             {
                 stack = stack_Max;
+                StartCoroutine(FinalShot());
             }
-
-
-
         }
         else if (stack <= 0)
         {
@@ -148,11 +152,42 @@ public class PlayerBulletShot : MonoBehaviour
                 maxTargetBlock /= 2;
                 _stackNesting--;
                 stack = stack_Max;
+
+                SliderColorSet(_stackNesting, _stackNesting + 1);
             }
         }
+    }
 
-        _stackSlider.transform.GetChild(0).GetComponent<Image>().color = stackColors[_stackNesting ];
-        _stackSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = stackColors[_stackNesting+1];
+    public IEnumerator FinalShot()
+    {
+        final = true;
+        SliderColorSet(0, _stackNesting_Max + 1);
+        _stackSlider.maxValue = finalTime;
+        _stackSlider.value = finalTime;
+        while (finalTime > 0)
+        {
+            _stackSlider.value = finalTime;
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                // Â÷Áö ¹× ¼¦
+            }
+
+
+            finalTime -= Time.deltaTime;
+            yield return null;
+        }
+        final = false;
+        _stackNesting = 0;
+        stack = 0;
+        SliderColorSet(_stackNesting, _stackNesting + 1);
+    }
+
+    private void SliderColorSet(int _back, int _fward)
+    {
+        _stackSlider.transform.GetChild(0).GetComponent<Image>().color = stackColors[_back];
+        _stackSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = stackColors[_fward];
 
     }
+
 }
