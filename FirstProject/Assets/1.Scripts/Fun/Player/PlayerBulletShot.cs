@@ -14,7 +14,7 @@ public class PlayerBulletShot : MonoBehaviour
     //public List<GameObject> blocks = new List<GameObject>();
     public Queue<GameObject> blocksQueue;
     public int maxTargetBlock;
-
+    private WaitForSeconds shotDelay = new WaitForSeconds(0.1f);
 
     [Header("Stack")]
     [SerializeField]
@@ -46,8 +46,12 @@ public class PlayerBulletShot : MonoBehaviour
     private Slider _stackSlider;
 
     [SerializeField]
+    private Transform bulletSpwanPoint_f;
+    [SerializeField]
     private float finalTime;
     private bool final;
+    [SerializeField]
+    private Transform boxParent;
 
     public float stack
     {
@@ -82,15 +86,14 @@ public class PlayerBulletShot : MonoBehaviour
         StackUpdata();
     }
 
-    public void TargetQueue(GameObject target)
+    public void TargetQueue(GameObject target, bool _final = false)
     {
         if (!blocksQueue.Contains(target))
         {
             target.GetComponent<Box_Script>().Targeting(true);
             blocksQueue.Enqueue(target);
-            if (blocksQueue.Count > maxTargetBlock)
+            if ((blocksQueue.Count > maxTargetBlock) && !_final)
                 blocksQueue.Dequeue().GetComponent<Box_Script>().Targeting(false);
-
         }
     }
     public IEnumerator BulletShot()
@@ -112,20 +115,43 @@ public class PlayerBulletShot : MonoBehaviour
                     GameObject shotbullet = Instantiate(bullet, bulletSpwanPoint.position, bulletSpwanPoint.rotation);
                     shotbullet.transform.Rotate(Vector3.up * Random.Range(-80, 80));
                     shotbullet.GetComponent<Bullet>().target = blocksQueue.Dequeue().transform;
-                    yield return new WaitForSeconds(0.1f);
+                    yield return shotDelay;
                 }
-
-
             }
             yield return null;
         }
     }
 
+    public IEnumerator BulletShot_Final()
+    {
+        Camera cam = Camera.main;
+        Vector3 pos = Vector3.zero;
+        for (int i = 0; i < boxParent.childCount; i++)
+        {
+            pos = cam.WorldToViewportPoint(boxParent.GetChild(i).transform.position);
+            if (pos.x <= 1 && pos.x >= 0 && pos.y <= 1 && pos.y >= 0 && pos.z > 0)
+            {
+                TargetQueue(boxParent.GetChild(i).gameObject, true);
+            }
+        }
+        //Debug.Log(blocksQueue);
+        while (blocksQueue.Count != 0)
+        {
+
+            GameObject shotbullet = Instantiate(bullet, bulletSpwanPoint_f.position + new Vector3(Random.Range(-10f,10f), Random.Range(0f, 5f), Random.Range(-1f, 3f)), bulletSpwanPoint_f.rotation);
+            shotbullet.GetComponent<Bullet>().curve = false;
+            shotbullet.GetComponent<Bullet>().target = blocksQueue.Dequeue().transform;
+            shotbullet.GetComponent<Bullet>().DelayShot();
+            yield return null;
+        }
+    }
+
+
     void StackUpdata()
     {
         if (final) return;
 
-        stack -= Time.deltaTime * (_stackNesting + 1) * 1.5f;
+        stack -= Time.deltaTime * (_stackNesting + 1) ;
 
         if (stack >= stack_Max)
         {
@@ -164,17 +190,18 @@ public class PlayerBulletShot : MonoBehaviour
         SliderColorSet(0, _stackNesting_Max + 1);
         _stackSlider.maxValue = finalTime;
         _stackSlider.value = finalTime;
-        while (finalTime > 0)
+        float shottime = finalTime;
+        while (shottime > 0)
         {
-            _stackSlider.value = finalTime;
+            _stackSlider.value = shottime;
 
             if (Input.GetKeyDown(KeyCode.F))
             {
                 // Â÷Áö ¹× ¼¦
+                yield return StartCoroutine(BulletShot_Final());
+                shottime = 0;
             }
-
-
-            finalTime -= Time.deltaTime;
+            shottime -= Time.deltaTime;
             yield return null;
         }
         final = false;
@@ -187,7 +214,6 @@ public class PlayerBulletShot : MonoBehaviour
     {
         _stackSlider.transform.GetChild(0).GetComponent<Image>().color = stackColors[_back];
         _stackSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = stackColors[_fward];
-
     }
 
 }

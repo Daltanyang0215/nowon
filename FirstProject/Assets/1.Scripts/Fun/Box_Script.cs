@@ -32,6 +32,7 @@ public class Box_Script : MonoBehaviour
     {
         lockOnAnchor.gameObject.SetActive(false);
         GetComponent<MeshRenderer>().material.color = Color.white;
+        Targeting(false);
     }
 
     public void Targeting(bool targeting)
