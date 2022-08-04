@@ -14,7 +14,7 @@ public class PlayerBulletShot : MonoBehaviour
     //public List<GameObject> blocks = new List<GameObject>();
     public Queue<GameObject> blocksQueue;
     public int maxTargetBlock;
-    private WaitForSeconds shotDelay = new WaitForSeconds(0.1f);
+    private WaitForSeconds shotDelay = new WaitForSeconds(0.05f);
 
     [Header("Stack")]
     [SerializeField]
@@ -62,11 +62,16 @@ public class PlayerBulletShot : MonoBehaviour
         set
         {
             _stack = value < 0 ? 0 : value;
-
             _stackSlider.value = _stack;
-
-
         }
+    }
+
+    void Init()
+    {
+        stack = 0;
+        stack_Max = 4;
+        maxTargetBlock = 4;
+        _stackNesting = 0;
     }
 
     private void Awake()
@@ -135,9 +140,8 @@ public class PlayerBulletShot : MonoBehaviour
             }
         }
         //Debug.Log(blocksQueue);
-        while (blocksQueue.Count != 0)
+        while (blocksQueue.Count > 0)
         {
-
             GameObject shotbullet = Instantiate(bullet, bulletSpwanPoint_f.position + new Vector3(Random.Range(-10f,10f), Random.Range(0f, 5f), Random.Range(-1f, 3f)), bulletSpwanPoint_f.rotation);
             shotbullet.GetComponent<Bullet>().curve = false;
             shotbullet.GetComponent<Bullet>().target = blocksQueue.Dequeue().transform;
@@ -198,15 +202,17 @@ public class PlayerBulletShot : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 // Â÷Áö ¹× ¼¦
+                StopCoroutine(BulletShot_Final());
                 yield return StartCoroutine(BulletShot_Final());
-                shottime = 0;
+                break;
             }
             shottime -= Time.deltaTime;
             yield return null;
         }
         final = false;
-        _stackNesting = 0;
-        stack = 0;
+
+        Init();
+        blocksQueue.Clear();
         SliderColorSet(_stackNesting, _stackNesting + 1);
     }
 

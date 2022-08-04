@@ -5,20 +5,24 @@ using UnityEngine.EventSystems;
 
 public class Box_Script : MonoBehaviour
 {
-    public PlayerBulletShot player;
-    [SerializeField] private Transform lockOnAnchor;
+    private Transform lockOnAnchor;
+
+    private void Awake()
+    {
+        lockOnAnchor = transform.GetChild(0);
+    }
 
     private void OnMouseEnter()
     {
         if (Input.GetMouseButton(0))
         {
-            player.TargetQueue(gameObject);
+            PlayerBulletShot.Instance.TargetQueue(gameObject);
         }
     }
 
     private void OnMouseDown()
     {
-        player.TargetQueue(gameObject);
+        PlayerBulletShot.Instance.TargetQueue(gameObject);
     }
 
     private void Update()

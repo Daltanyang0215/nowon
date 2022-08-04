@@ -25,7 +25,6 @@ public class Spawn_Box : MonoBehaviour
         {
             GameObject addblock = Instantiate(spwanBox, new Vector3(Random.Range(-spwanRange, spwanRange), Random.Range(3, spwangheiht), Random.Range(-spwanRange, spwanRange)), Quaternion.identity);
             addblock.transform.parent = transform;
-            addblock.GetComponent<Box_Script>().player = player;
         }
     }
 

@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class Note : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public KeyCode keyCode;
+    private Transform _tr;
+    public float speed;
+
+    private void Awake()
     {
-        
+        _tr = GetComponent<Transform>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        
+        Move();
     }
+
+    private void Move()
+    {
+        _tr.Translate(Vector2.down * speed * Time.fixedDeltaTime);
+    }
+
 }
