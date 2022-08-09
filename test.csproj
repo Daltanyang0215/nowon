@@ -1,0 +1,388 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{BE041B25-64E5-4C7F-98D0-8E7F44837EDC}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>ConsoleApplication</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>test</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
+    <None Include=".git\config" />
+    <None Include=".git\description" />
+    <None Include=".git\FETCH_HEAD" />
+    <None Include=".git\HEAD" />
+    <None Include=".git\hooks\applypatch-msg.sample" />
+    <None Include=".git\hooks\commit-msg.sample" />
+    <None Include=".git\hooks\fsmonitor-watchman.sample" />
+    <None Include=".git\hooks\post-update.sample" />
+    <None Include=".git\hooks\pre-applypatch.sample" />
+    <None Include=".git\hooks\pre-commit.sample" />
+    <None Include=".git\hooks\pre-merge-commit.sample" />
+    <None Include=".git\hooks\pre-push.sample" />
+    <None Include=".git\hooks\pre-rebase.sample" />
+    <None Include=".git\hooks\pre-receive.sample" />
+    <None Include=".git\hooks\prepare-commit-msg.sample" />
+    <None Include=".git\hooks\push-to-checkout.sample" />
+    <None Include=".git\hooks\update.sample" />
+    <None Include=".git\index" />
+    <None Include=".git\info\exclude" />
+    <None Include=".git\logs\HEAD" />
+    <None Include=".git\logs\refs\heads\main" />
+    <None Include=".git\logs\refs\remotes\origin\HEAD" />
+    <None Include=".git\logs\refs\remotes\origin\main" />
+    <None Include=".git\objects\pack\pack-069eb904454aad4b9f17c01e0ac590e023b694fc.idx" />
+    <None Include=".git\objects\pack\pack-069eb904454aad4b9f17c01e0ac590e023b694fc.pack" />
+    <None Include=".git\objects\pack\pack-61e66404897cfe5d69275604d7e12ae588bc4da4.idx" />
+    <None Include=".git\objects\pack\pack-61e66404897cfe5d69275604d7e12ae588bc4da4.pack" />
+    <None Include=".git\ORIG_HEAD" />
+    <None Include=".git\packed-refs" />
+    <None Include=".git\refs\heads\main" />
+    <None Include=".git\refs\remotes\origin\HEAD" />
+    <None Include=".git\refs\remotes\origin\main" />
+    <None Include="Array\obj\Array.csproj.nuget.dgspec.json" />
+    <None Include="Array\obj\Array.csproj.nuget.g.props" />
+    <None Include="Array\obj\Array.csproj.nuget.g.targets" />
+    <None Include="Array\obj\Debug\net5.0\Array.AssemblyInfoInputs.cache" />
+    <None Include="Array\obj\Debug\net5.0\Array.assets.cache" />
+    <None Include="Array\obj\Debug\net5.0\Array.csproj.AssemblyReference.cache" />
+    <None Include="Array\obj\Debug\net5.0\Array.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="Array\obj\project.assets.json" />
+    <None Include="Array\obj\project.nuget.cache" />
+    <None Include="Calssinheriatane\bin\Debug\net5.0\Calssinheriatane.deps.json" />
+    <None Include="Calssinheriatane\bin\Debug\net5.0\Calssinheriatane.runtimeconfig.dev.json" />
+    <None Include="Calssinheriatane\bin\Debug\net5.0\Calssinheriatane.runtimeconfig.json" />
+    <None Include="Calssinheriatane\obj\Calssinheriatane.csproj.nuget.dgspec.json" />
+    <None Include="Calssinheriatane\obj\Calssinheriatane.csproj.nuget.g.props" />
+    <None Include="Calssinheriatane\obj\Calssinheriatane.csproj.nuget.g.targets" />
+    <None Include="Calssinheriatane\obj\Debug\net5.0\Calssinheriatane.AssemblyInfoInputs.cache" />
+    <None Include="Calssinheriatane\obj\Debug\net5.0\Calssinheriatane.assets.cache" />
+    <None Include="Calssinheriatane\obj\Debug\net5.0\Calssinheriatane.csproj.AssemblyReference.cache" />
+    <None Include="Calssinheriatane\obj\Debug\net5.0\Calssinheriatane.csproj.CoreCompileInputs.cache" />
+    <None Include="Calssinheriatane\obj\Debug\net5.0\Calssinheriatane.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="Calssinheriatane\obj\Debug\net5.0\Calssinheriatane.genruntimeconfig.cache" />
+    <None Include="Calssinheriatane\obj\project.assets.json" />
+    <None Include="Calssinheriatane\obj\project.nuget.cache" />
+    <None Include="ClassObjectInstance\bin\Debug\net5.0\ClassObjectInstance.deps.json" />
+    <None Include="ClassObjectInstance\bin\Debug\net5.0\ClassObjectInstance.runtimeconfig.dev.json" />
+    <None Include="ClassObjectInstance\bin\Debug\net5.0\ClassObjectInstance.runtimeconfig.json" />
+    <None Include="ClassObjectInstance\obj\ClassObjectInstance.csproj.nuget.dgspec.json" />
+    <None Include="ClassObjectInstance\obj\ClassObjectInstance.csproj.nuget.g.props" />
+    <None Include="ClassObjectInstance\obj\ClassObjectInstance.csproj.nuget.g.targets" />
+    <None Include="ClassObjectInstance\obj\Debug\net5.0\ClassObjectInstance.AssemblyInfoInputs.cache" />
+    <None Include="ClassObjectInstance\obj\Debug\net5.0\ClassObjectInstance.assets.cache" />
+    <None Include="ClassObjectInstance\obj\Debug\net5.0\ClassObjectInstance.csproj.AssemblyReference.cache" />
+    <None Include="ClassObjectInstance\obj\Debug\net5.0\ClassObjectInstance.csproj.CoreCompileInputs.cache" />
+    <None Include="ClassObjectInstance\obj\Debug\net5.0\ClassObjectInstance.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="ClassObjectInstance\obj\Debug\net5.0\ClassObjectInstance.genruntimeconfig.cache" />
+    <None Include="ClassObjectInstance\obj\project.assets.json" />
+    <None Include="ClassObjectInstance\obj\project.nuget.cache" />
+    <None Include="CSharpBasic.drawio" />
+    <None Include="Delegate\obj\Debug\net5.0\Delegate.AssemblyInfoInputs.cache" />
+    <None Include="Delegate\obj\Debug\net5.0\Delegate.assets.cache" />
+    <None Include="Delegate\obj\Debug\net5.0\Delegate.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="Delegate\obj\Delegate.csproj.nuget.dgspec.json" />
+    <None Include="Delegate\obj\Delegate.csproj.nuget.g.props" />
+    <None Include="Delegate\obj\Delegate.csproj.nuget.g.targets" />
+    <None Include="Delegate\obj\project.assets.json" />
+    <None Include="Delegate\obj\project.nuget.cache" />
+    <None Include="Example01_ClassObjectInstance\obj\Debug\net5.0\Example01_ClassObjectInstance.AssemblyInfoInputs.cache" />
+    <None Include="Example01_ClassObjectInstance\obj\Debug\net5.0\Example01_ClassObjectInstance.assets.cache" />
+    <None Include="Example01_ClassObjectInstance\obj\Debug\net5.0\Example01_ClassObjectInstance.csproj.AssemblyReference.cache" />
+    <None Include="Example01_ClassObjectInstance\obj\Debug\net5.0\Example01_ClassObjectInstance.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="Example01_ClassObjectInstance\obj\Example01_ClassObjectInstance.csproj.nuget.dgspec.json" />
+    <None Include="Example01_ClassObjectInstance\obj\Example01_ClassObjectInstance.csproj.nuget.g.props" />
+    <None Include="Example01_ClassObjectInstance\obj\Example01_ClassObjectInstance.csproj.nuget.g.targets" />
+    <None Include="Example01_ClassObjectInstance\obj\project.assets.json" />
+    <None Include="Example01_ClassObjectInstance\obj\project.nuget.cache" />
+    <None Include="FirstProject\.vs\FirstProject\DesignTimeBuild\.dtbcache.v2" />
+    <None Include="FirstProject\.vs\FirstProject\FileContentIndex\17abd293-6181-4da2-afe0-b2525c49c106.vsidx" />
+    <None Include="FirstProject\.vs\FirstProject\FileContentIndex\read.lock" />
+    <None Include="FirstProject\.vs\FirstProject\v17\.futdcache.v1" />
+    <None Include="FirstProject\.vs\FirstProject\v17\.suo" />
+    <None Include="FirstProject\.vs\ProjectEvaluation\firstproject.metadata.v2" />
+    <None Include="FirstProject\.vs\ProjectEvaluation\firstproject.projects.v2" />
+    <None Include="FirstProject\bin\Debug\net6.0\FirstProject.deps.json" />
+    <None Include="FirstProject\bin\Debug\net6.0\FirstProject.runtimeconfig.json" />
+    <None Include="FirstProject\FirstProject.csproj" />
+    <None Include="FirstProject\obj\Debug\net6.0\FirstProject.AssemblyInfoInputs.cache" />
+    <None Include="FirstProject\obj\Debug\net6.0\FirstProject.assets.cache" />
+    <None Include="FirstProject\obj\Debug\net6.0\FirstProject.csproj.AssemblyReference.cache" />
+    <None Include="FirstProject\obj\Debug\net6.0\FirstProject.csproj.CoreCompileInputs.cache" />
+    <None Include="FirstProject\obj\Debug\net6.0\FirstProject.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="FirstProject\obj\Debug\net6.0\FirstProject.genruntimeconfig.cache" />
+    <None Include="FirstProject\obj\FirstProject.csproj.nuget.dgspec.json" />
+    <None Include="FirstProject\obj\FirstProject.csproj.nuget.g.props" />
+    <None Include="FirstProject\obj\FirstProject.csproj.nuget.g.targets" />
+    <None Include="FirstProject\obj\project.assets.json" />
+    <None Include="FirstProject\obj\project.nuget.cache" />
+    <None Include="GitHub.drawio" />
+    <None Include="InstantiationExample\bin\Debug\net5.0\InstantiationExample.deps.json" />
+    <None Include="InstantiationExample\bin\Debug\net5.0\InstantiationExample.runtimeconfig.dev.json" />
+    <None Include="InstantiationExample\bin\Debug\net5.0\InstantiationExample.runtimeconfig.json" />
+    <None Include="InstantiationExample\obj\Debug\net5.0\InstantiationExample.AssemblyInfoInputs.cache" />
+    <None Include="InstantiationExample\obj\Debug\net5.0\InstantiationExample.assets.cache" />
+    <None Include="InstantiationExample\obj\Debug\net5.0\InstantiationExample.csproj.AssemblyReference.cache" />
+    <None Include="InstantiationExample\obj\Debug\net5.0\InstantiationExample.csproj.CoreCompileInputs.cache" />
+    <None Include="InstantiationExample\obj\Debug\net5.0\InstantiationExample.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="InstantiationExample\obj\Debug\net5.0\InstantiationExample.genruntimeconfig.cache" />
+    <None Include="InstantiationExample\obj\InstantiationExample.csproj.nuget.dgspec.json" />
+    <None Include="InstantiationExample\obj\InstantiationExample.csproj.nuget.g.props" />
+    <None Include="InstantiationExample\obj\InstantiationExample.csproj.nuget.g.targets" />
+    <None Include="InstantiationExample\obj\project.assets.json" />
+    <None Include="InstantiationExample\obj\project.nuget.cache" />
+    <None Include="Methods\bin\Debug\net5.0\Methods.deps.json" />
+    <None Include="Methods\bin\Debug\net5.0\Methods.runtimeconfig.dev.json" />
+    <None Include="Methods\bin\Debug\net5.0\Methods.runtimeconfig.json" />
+    <None Include="Methods\obj\Debug\net5.0\Methods.AssemblyInfoInputs.cache" />
+    <None Include="Methods\obj\Debug\net5.0\Methods.assets.cache" />
+    <None Include="Methods\obj\Debug\net5.0\Methods.csproj.AssemblyReference.cache" />
+    <None Include="Methods\obj\Debug\net5.0\Methods.csproj.CoreCompileInputs.cache" />
+    <None Include="Methods\obj\Debug\net5.0\Methods.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="Methods\obj\Debug\net5.0\Methods.genruntimeconfig.cache" />
+    <None Include="Methods\obj\Methods.csproj.nuget.dgspec.json" />
+    <None Include="Methods\obj\Methods.csproj.nuget.g.props" />
+    <None Include="Methods\obj\Methods.csproj.nuget.g.targets" />
+    <None Include="Methods\obj\project.assets.json" />
+    <None Include="Methods\obj\project.nuget.cache" />
+    <None Include="OperatorMethods\bin\Debug\net5.0\OperatorMethods.deps.json" />
+    <None Include="OperatorMethods\bin\Debug\net5.0\OperatorMethods.runtimeconfig.dev.json" />
+    <None Include="OperatorMethods\bin\Debug\net5.0\OperatorMethods.runtimeconfig.json" />
+    <None Include="OperatorMethods\obj\Debug\net5.0\OperatorMethods.AssemblyInfoInputs.cache" />
+    <None Include="OperatorMethods\obj\Debug\net5.0\OperatorMethods.assets.cache" />
+    <None Include="OperatorMethods\obj\Debug\net5.0\OperatorMethods.csproj.AssemblyReference.cache" />
+    <None Include="OperatorMethods\obj\Debug\net5.0\OperatorMethods.csproj.CoreCompileInputs.cache" />
+    <None Include="OperatorMethods\obj\Debug\net5.0\OperatorMethods.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="OperatorMethods\obj\Debug\net5.0\OperatorMethods.genruntimeconfig.cache" />
+    <None Include="OperatorMethods\obj\OperatorMethods.csproj.nuget.dgspec.json" />
+    <None Include="OperatorMethods\obj\OperatorMethods.csproj.nuget.g.props" />
+    <None Include="OperatorMethods\obj\OperatorMethods.csproj.nuget.g.targets" />
+    <None Include="OperatorMethods\obj\project.assets.json" />
+    <None Include="OperatorMethods\obj\project.nuget.cache" />
+    <None Include="Operators\bin\Debug\net5.0\Operators.deps.json" />
+    <None Include="Operators\bin\Debug\net5.0\Operators.runtimeconfig.dev.json" />
+    <None Include="Operators\bin\Debug\net5.0\Operators.runtimeconfig.json" />
+    <None Include="Operators\obj\Debug\net5.0\Operators.AssemblyInfoInputs.cache" />
+    <None Include="Operators\obj\Debug\net5.0\Operators.assets.cache" />
+    <None Include="Operators\obj\Debug\net5.0\Operators.csproj.AssemblyReference.cache" />
+    <None Include="Operators\obj\Debug\net5.0\Operators.csproj.CoreCompileInputs.cache" />
+    <None Include="Operators\obj\Debug\net5.0\Operators.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="Operators\obj\Debug\net5.0\Operators.genruntimeconfig.cache" />
+    <None Include="Operators\obj\Operators.csproj.nuget.dgspec.json" />
+    <None Include="Operators\obj\Operators.csproj.nuget.g.props" />
+    <None Include="Operators\obj\Operators.csproj.nuget.g.targets" />
+    <None Include="Operators\obj\project.assets.json" />
+    <None Include="Operators\obj\project.nuget.cache" />
+    <None Include="README.md" />
+    <None Include="Statements.drawio" />
+    <None Include="Statement_If\bin\Debug\net5.0\Statement_If.deps.json" />
+    <None Include="Statement_If\bin\Debug\net5.0\Statement_If.runtimeconfig.dev.json" />
+    <None Include="Statement_If\bin\Debug\net5.0\Statement_If.runtimeconfig.json" />
+    <None Include="Statement_If\obj\Debug\net5.0\Statement_If.AssemblyInfoInputs.cache" />
+    <None Include="Statement_If\obj\Debug\net5.0\Statement_If.assets.cache" />
+    <None Include="Statement_If\obj\Debug\net5.0\Statement_If.csproj.AssemblyReference.cache" />
+    <None Include="Statement_If\obj\Debug\net5.0\Statement_If.csproj.CoreCompileInputs.cache" />
+    <None Include="Statement_If\obj\Debug\net5.0\Statement_If.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="Statement_If\obj\Debug\net5.0\Statement_If.genruntimeconfig.cache" />
+    <None Include="Statement_If\obj\project.assets.json" />
+    <None Include="Statement_If\obj\project.nuget.cache" />
+    <None Include="Statement_If\obj\Statement_If.csproj.nuget.dgspec.json" />
+    <None Include="Statement_If\obj\Statement_If.csproj.nuget.g.props" />
+    <None Include="Statement_If\obj\Statement_If.csproj.nuget.g.targets" />
+    <None Include="Structure\obj\Debug\net5.0\Structure.AssemblyInfoInputs.cache" />
+    <None Include="Structure\obj\Debug\net5.0\Structure.assets.cache" />
+    <None Include="Structure\obj\Debug\net5.0\Structure.csproj.AssemblyReference.cache" />
+    <None Include="Structure\obj\Debug\net5.0\Structure.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="Structure\obj\project.assets.json" />
+    <None Include="Structure\obj\project.nuget.cache" />
+    <None Include="Structure\obj\Structure.csproj.nuget.dgspec.json" />
+    <None Include="Structure\obj\Structure.csproj.nuget.g.props" />
+    <None Include="Structure\obj\Structure.csproj.nuget.g.targets" />
+    <None Include="Variables\bin\Debug\net5.0\Variables.deps.json" />
+    <None Include="Variables\bin\Debug\net5.0\Variables.runtimeconfig.dev.json" />
+    <None Include="Variables\bin\Debug\net5.0\Variables.runtimeconfig.json" />
+    <None Include="Variables\obj\Debug\net5.0\Variables.AssemblyInfoInputs.cache" />
+    <None Include="Variables\obj\Debug\net5.0\Variables.assets.cache" />
+    <None Include="Variables\obj\Debug\net5.0\Variables.csproj.AssemblyReference.cache" />
+    <None Include="Variables\obj\Debug\net5.0\Variables.csproj.CoreCompileInputs.cache" />
+    <None Include="Variables\obj\Debug\net5.0\Variables.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="Variables\obj\Debug\net5.0\Variables.genruntimeconfig.cache" />
+    <None Include="Variables\obj\project.assets.json" />
+    <None Include="Variables\obj\project.nuget.cache" />
+    <None Include="Variables\obj\Variables.csproj.nuget.dgspec.json" />
+    <None Include="Variables\obj\Variables.csproj.nuget.g.props" />
+    <None Include="Variables\obj\Variables.csproj.nuget.g.targets" />
+    <None Include="노션_노원게임학원.url" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".git\ms-persist.xml" />
+    <Content Include="Calssinheriatane\bin\Debug\net5.0\Calssinheriatane.dll" />
+    <Content Include="Calssinheriatane\bin\Debug\net5.0\Calssinheriatane.exe" />
+    <Content Include="Calssinheriatane\bin\Debug\net5.0\ref\Calssinheriatane.dll" />
+    <Content Include="Calssinheriatane\obj\Debug\net5.0\apphost.exe" />
+    <Content Include="Calssinheriatane\obj\Debug\net5.0\Calssinheriatane.csproj.FileListAbsolute.txt" />
+    <Content Include="Calssinheriatane\obj\Debug\net5.0\Calssinheriatane.dll" />
+    <Content Include="Calssinheriatane\obj\Debug\net5.0\ref\Calssinheriatane.dll" />
+    <Content Include="ClassObjectInstance\bin\Debug\net5.0\ClassObjectInstance.dll" />
+    <Content Include="ClassObjectInstance\bin\Debug\net5.0\ClassObjectInstance.exe" />
+    <Content Include="ClassObjectInstance\bin\Debug\net5.0\ref\ClassObjectInstance.dll" />
+    <Content Include="ClassObjectInstance\obj\Debug\net5.0\apphost.exe" />
+    <Content Include="ClassObjectInstance\obj\Debug\net5.0\ClassObjectInstance.csproj.FileListAbsolute.txt" />
+    <Content Include="ClassObjectInstance\obj\Debug\net5.0\ClassObjectInstance.dll" />
+    <Content Include="ClassObjectInstance\obj\Debug\net5.0\ref\ClassObjectInstance.dll" />
+    <Content Include="FirstProject\bin\Debug\net6.0\FirstProject.dll" />
+    <Content Include="FirstProject\bin\Debug\net6.0\FirstProject.exe" />
+    <Content Include="FirstProject\bin\Debug\net6.0\FirstProject.pdb" />
+    <Content Include="FirstProject\bin\Debug\net6.0\ref\FirstProject.dll" />
+    <Content Include="FirstProject\FirstProject.sln" />
+    <Content Include="FirstProject\obj\Debug\net6.0\apphost.exe" />
+    <Content Include="FirstProject\obj\Debug\net6.0\FirstProject.csproj.FileListAbsolute.txt" />
+    <Content Include="FirstProject\obj\Debug\net6.0\FirstProject.dll" />
+    <Content Include="FirstProject\obj\Debug\net6.0\FirstProject.pdb" />
+    <Content Include="FirstProject\obj\Debug\net6.0\refint\FirstProject.dll" />
+    <Content Include="FirstProject\obj\Debug\net6.0\ref\FirstProject.dll" />
+    <Content Include="InstantiationExample\bin\Debug\net5.0\InstantiationExample.dll" />
+    <Content Include="InstantiationExample\bin\Debug\net5.0\InstantiationExample.exe" />
+    <Content Include="InstantiationExample\bin\Debug\net5.0\ref\InstantiationExample.dll" />
+    <Content Include="InstantiationExample\obj\Debug\net5.0\apphost.exe" />
+    <Content Include="InstantiationExample\obj\Debug\net5.0\InstantiationExample.csproj.FileListAbsolute.txt" />
+    <Content Include="InstantiationExample\obj\Debug\net5.0\InstantiationExample.dll" />
+    <Content Include="InstantiationExample\obj\Debug\net5.0\ref\InstantiationExample.dll" />
+    <Content Include="MainSymbol.png" />
+    <Content Include="Methods\bin\Debug\net5.0\Methods.dll" />
+    <Content Include="Methods\bin\Debug\net5.0\Methods.exe" />
+    <Content Include="Methods\bin\Debug\net5.0\ref\Methods.dll" />
+    <Content Include="Methods\obj\Debug\net5.0\apphost.exe" />
+    <Content Include="Methods\obj\Debug\net5.0\Methods.csproj.FileListAbsolute.txt" />
+    <Content Include="Methods\obj\Debug\net5.0\Methods.dll" />
+    <Content Include="Methods\obj\Debug\net5.0\ref\Methods.dll" />
+    <Content Include="OperatorMethods\bin\Debug\net5.0\OperatorMethods.dll" />
+    <Content Include="OperatorMethods\bin\Debug\net5.0\OperatorMethods.exe" />
+    <Content Include="OperatorMethods\bin\Debug\net5.0\ref\OperatorMethods.dll" />
+    <Content Include="OperatorMethods\obj\Debug\net5.0\apphost.exe" />
+    <Content Include="OperatorMethods\obj\Debug\net5.0\OperatorMethods.csproj.FileListAbsolute.txt" />
+    <Content Include="OperatorMethods\obj\Debug\net5.0\OperatorMethods.dll" />
+    <Content Include="OperatorMethods\obj\Debug\net5.0\ref\OperatorMethods.dll" />
+    <Content Include="Operators\bin\Debug\net5.0\Operators.dll" />
+    <Content Include="Operators\bin\Debug\net5.0\Operators.exe" />
+    <Content Include="Operators\bin\Debug\net5.0\ref\Operators.dll" />
+    <Content Include="Operators\obj\Debug\net5.0\apphost.exe" />
+    <Content Include="Operators\obj\Debug\net5.0\Operators.csproj.FileListAbsolute.txt" />
+    <Content Include="Operators\obj\Debug\net5.0\Operators.dll" />
+    <Content Include="Operators\obj\Debug\net5.0\ref\Operators.dll" />
+    <Content Include="Statement_If\bin\Debug\net5.0\ref\Statement_If.dll" />
+    <Content Include="Statement_If\bin\Debug\net5.0\Statement_If.dll" />
+    <Content Include="Statement_If\bin\Debug\net5.0\Statement_If.exe" />
+    <Content Include="Statement_If\obj\Debug\net5.0\apphost.exe" />
+    <Content Include="Statement_If\obj\Debug\net5.0\ref\Statement_If.dll" />
+    <Content Include="Statement_If\obj\Debug\net5.0\Statement_If.csproj.FileListAbsolute.txt" />
+    <Content Include="Statement_If\obj\Debug\net5.0\Statement_If.dll" />
+    <Content Include="Test.jpg" />
+    <Content Include="TestText.txt" />
+    <Content Include="TestText2.txt" />
+    <Content Include="Variables\bin\Debug\net5.0\ref\Variables.dll" />
+    <Content Include="Variables\bin\Debug\net5.0\Variables.dll" />
+    <Content Include="Variables\bin\Debug\net5.0\Variables.exe" />
+    <Content Include="Variables\obj\Debug\net5.0\apphost.exe" />
+    <Content Include="Variables\obj\Debug\net5.0\ref\Variables.dll" />
+    <Content Include="Variables\obj\Debug\net5.0\Variables.csproj.FileListAbsolute.txt" />
+    <Content Include="Variables\obj\Debug\net5.0\Variables.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Array\obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
+    <Compile Include="Array\obj\Debug\net5.0\Array.AssemblyInfo.cs" />
+    <Compile Include="Array\Program.cs" />
+    <Compile Include="Calssinheriatane\BlackMan.cs" />
+    <Compile Include="Calssinheriatane\Creature.cs" />
+    <Compile Include="Calssinheriatane\Dog.cs" />
+    <Compile Include="Calssinheriatane\Human.cs" />
+    <Compile Include="Calssinheriatane\IFourLeggedWalker.cs" />
+    <Compile Include="Calssinheriatane\ITwoLeggedWalker.cs" />
+    <Compile Include="Calssinheriatane\obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
+    <Compile Include="Calssinheriatane\obj\Debug\net5.0\Calssinheriatane.AssemblyInfo.cs" />
+    <Compile Include="Calssinheriatane\Program.cs" />
+    <Compile Include="Calssinheriatane\Whiteman.cs" />
+    <Compile Include="Calssinheriatane\Yellowman.cs" />
+    <Compile Include="ClassObjectInstance\obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
+    <Compile Include="ClassObjectInstance\obj\Debug\net5.0\ClassObjectInstance.AssemblyInfo.cs" />
+    <Compile Include="ClassObjectInstance\Program.cs" />
+    <Compile Include="Delegate\obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
+    <Compile Include="Delegate\obj\Debug\net5.0\Delegate.AssemblyInfo.cs" />
+    <Compile Include="Delegate\OPs.cs" />
+    <Compile Include="Delegate\Program.cs" />
+    <Compile Include="Example01_ClassObjectInstance\obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
+    <Compile Include="Example01_ClassObjectInstance\obj\Debug\net5.0\Example01_ClassObjectInstance.AssemblyInfo.cs" />
+    <Compile Include="Example01_ClassObjectInstance\Program.cs" />
+    <Compile Include="FirstProject\obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" />
+    <Compile Include="FirstProject\obj\Debug\net6.0\FirstProject.AssemblyInfo.cs" />
+    <Compile Include="FirstProject\obj\Debug\net6.0\FirstProject.GlobalUsings.g.cs" />
+    <Compile Include="FirstProject\Program.cs" />
+    <Compile Include="InstantiationExample\obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
+    <Compile Include="InstantiationExample\obj\Debug\net5.0\InstantiationExample.AssemblyInfo.cs" />
+    <Compile Include="InstantiationExample\Program.cs" />
+    <Compile Include="Methods\obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
+    <Compile Include="Methods\obj\Debug\net5.0\Methods.AssemblyInfo.cs" />
+    <Compile Include="Methods\Program.cs" />
+    <Compile Include="OperatorMethods\obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
+    <Compile Include="OperatorMethods\obj\Debug\net5.0\OperatorMethods.AssemblyInfo.cs" />
+    <Compile Include="OperatorMethods\OperatorMethods.cs" />
+    <Compile Include="OperatorMethods\Program.cs" />
+    <Compile Include="Operators\obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
+    <Compile Include="Operators\obj\Debug\net5.0\Operators.AssemblyInfo.cs" />
+    <Compile Include="Operators\Program.cs" />
+    <Compile Include="Statement_If\obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
+    <Compile Include="Statement_If\obj\Debug\net5.0\Statement_If.AssemblyInfo.cs" />
+    <Compile Include="Statement_If\Program.cs" />
+    <Compile Include="Structure\obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
+    <Compile Include="Structure\obj\Debug\net5.0\Structure.AssemblyInfo.cs" />
+    <Compile Include="Structure\Program.cs" />
+    <Compile Include="Variables\obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
+    <Compile Include="Variables\obj\Debug\net5.0\Variables.AssemblyInfo.cs" />
+    <Compile Include="Variables\Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".git\objects\info\" />
+    <Folder Include=".git\refs\tags\" />
+    <Folder Include=".vs\test\v17\" />
+    <Folder Include="FirstProject\.vs\FirstProject\FileContentIndex\merges\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>

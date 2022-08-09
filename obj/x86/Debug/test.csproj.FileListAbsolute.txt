@@ -1,0 +1,2 @@
+D:\GitHub\nowon\obj\x86\Debug\test.csproj.AssemblyReference.cache
+D:\GitHub\nowon\obj\x86\Debug\test.csproj.CoreCompileInputs.cache
