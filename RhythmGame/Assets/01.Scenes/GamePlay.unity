@@ -617,7 +617,7 @@ GameObject:
   - component: {fileID: 570631062}
   - component: {fileID: 570631063}
   m_Layer: 0
-  m_Name: NoteSpawner_J
+  m_Name: NoteHitter_J
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -700,6 +700,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940bb84433005ed45a0a030173144f5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keyCode: 106
+  _pressedColor: {r: 0.5030705, g: 0.6910156, b: 0.8018868, a: 1}
 --- !u!1 &579788498
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,7 +848,7 @@ GameObject:
   - component: {fileID: 595405035}
   - component: {fileID: 595405036}
   m_Layer: 0
-  m_Name: NoteSpawner_S
+  m_Name: NoteHitter_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -929,6 +931,102 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940bb84433005ed45a0a030173144f5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keyCode: 115
+  _pressedColor: {r: 0.5030705, g: 0.6910156, b: 0.8018868, a: 1}
+--- !u!1 &863736409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 863736410}
+  - component: {fileID: 863736412}
+  - component: {fileID: 863736411}
+  - component: {fileID: 863736413}
+  m_Layer: 5
+  m_Name: Text - Score
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &863736410
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863736409}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1472360585}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -720, y: 0}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &863736411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863736409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 99
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 300
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: 0
+--- !u!222 &863736412
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863736409}
+  m_CullTransparentMesh: 1
+--- !u!114 &863736413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863736409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36d4f232f2afda4cabc2eeb55fbd2ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 863736411}
+  _scoringTime: 0.1
 --- !u!1 &885149890
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,7 +1142,7 @@ GameObject:
   - component: {fileID: 1013345238}
   - component: {fileID: 1013345239}
   m_Layer: 0
-  m_Name: NoteSpawner_D
+  m_Name: NoteHitter_D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1127,6 +1225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940bb84433005ed45a0a030173144f5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keyCode: 100
+  _pressedColor: {r: 0.5030705, g: 0.6910156, b: 0.8018868, a: 1}
 --- !u!1 &1017047915
 GameObject:
   m_ObjectHideFlags: 0
@@ -1695,6 +1795,7 @@ RectTransform:
   - {fileID: 1017047916}
   - {fileID: 2129892489}
   - {fileID: 2128893324}
+  - {fileID: 863736410}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1715,7 +1816,7 @@ GameObject:
   - component: {fileID: 1643716335}
   - component: {fileID: 1643716336}
   m_Layer: 0
-  m_Name: NoteSpawner_L
+  m_Name: NoteHitter_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1798,6 +1899,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940bb84433005ed45a0a030173144f5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keyCode: 108
+  _pressedColor: {r: 0.5030705, g: 0.6910156, b: 0.8018868, a: 1}
 --- !u!1 &1692463843
 GameObject:
   m_ObjectHideFlags: 0
@@ -1810,7 +1913,7 @@ GameObject:
   - component: {fileID: 1692463845}
   - component: {fileID: 1692463846}
   m_Layer: 0
-  m_Name: NoteSpawner_K
+  m_Name: NoteHitter_K
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1893,6 +1996,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940bb84433005ed45a0a030173144f5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keyCode: 107
+  _pressedColor: {r: 0.5030705, g: 0.6910156, b: 0.8018868, a: 1}
 --- !u!1 &1764590949
 GameObject:
   m_ObjectHideFlags: 0
@@ -1905,7 +2010,7 @@ GameObject:
   - component: {fileID: 1764590951}
   - component: {fileID: 1764590952}
   m_Layer: 0
-  m_Name: NoteSpawner_Space
+  m_Name: NoteHitter_Space
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1988,6 +2093,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940bb84433005ed45a0a030173144f5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keyCode: 32
+  _pressedColor: {r: 0.5030705, g: 0.6910156, b: 0.8018868, a: 1}
 --- !u!1 &1880017411
 GameObject:
   m_ObjectHideFlags: 0
@@ -2176,7 +2283,7 @@ GameObject:
   - component: {fileID: 2069326130}
   - component: {fileID: 2069326131}
   m_Layer: 0
-  m_Name: NoteSpawner_F
+  m_Name: NoteHitter_F
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2259,6 +2366,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940bb84433005ed45a0a030173144f5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keyCode: 102
+  _pressedColor: {r: 0.5030705, g: 0.6910156, b: 0.8018868, a: 1}
 --- !u!1 &2088622028
 GameObject:
   m_ObjectHideFlags: 0

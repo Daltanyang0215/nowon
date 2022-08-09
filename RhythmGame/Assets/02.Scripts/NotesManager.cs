@@ -5,7 +5,7 @@ using UnityEngine.Video;
 
 public class NotesManager : MonoBehaviour
 {
-    public static float noteSpeedScale = 3f;
+    public static float noteSpeedScale = 5f;
 
     private Dictionary<KeyCode, NoteSpawner> _spawners = new Dictionary<KeyCode, NoteSpawner>();
     private Queue<NoteData> _noteDataQueue = new Queue<NoteData>();
@@ -65,23 +65,27 @@ public class NotesManager : MonoBehaviour
     {
         if (_noteDataQueue.Count > 0)
         {
-            _videoPlayer.clip =SongSelector.instance.clip;
-            _videoPlayer.Play();
             StartCoroutine(E_Spawning());
+            Invoke("PlayVideoPlayer", noteFallingTime);
         }
+    }
+    private void PlayVideoPlayer()
+    {
+        _videoPlayer.clip = SongSelector.instance.clip;
+        _videoPlayer.Play();
     }
     IEnumerator E_Spawning()
     {
         float startTimeMark = Time.time;
-        while(_noteDataQueue.Count > 0)
+        while (_noteDataQueue.Count > 0)
         {
             for (int i = 0; i < _noteDataQueue.Count; i++)
             {
-                if (_noteDataQueue.Peek().time < (Time.time - startTimeMark) / noteSpeedScale)
+                if (_noteDataQueue.Peek().time < (Time.time - startTimeMark))
                 {
                     NoteData noteData = _noteDataQueue.Dequeue();
 
-                    _spawners[noteData.keyCode].SpawnNote().speed *= noteData.speedScale;
+                    _spawners[noteData.keyCode].SpawnNote().speed *= noteData.speedScale* noteSpeedScale;
                 }
                 else
                 {
@@ -97,9 +101,9 @@ public class NotesManager : MonoBehaviour
     {
         for (int i = 0; i < _noteDataQueue.Count; i++)
         {
-                NoteData noteData = _noteDataQueue.Dequeue();
+            NoteData noteData = _noteDataQueue.Dequeue();
 
-                _spawners[noteData.keyCode].SpawnNote_Debug(noteData.time).speed =0;
+            _spawners[noteData.keyCode].SpawnNote_Debug(noteData.time).speed = 0;
         }
     }
 }
