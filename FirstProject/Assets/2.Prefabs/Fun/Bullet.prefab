@@ -114,6 +114,7 @@ MonoBehaviour:
   moveSpeed_correction: 0
   rotateSpeed: 3
   rotateSpeed_correction: 4
+  curve: 1
 --- !u!96 &5513667823251132899
 TrailRenderer:
   serializedVersion: 2

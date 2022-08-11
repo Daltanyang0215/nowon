@@ -911,6 +911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 9122865398567764807, guid: ca4e4dfaa7f63934b8469b07f3341818, type: 3}
+  bullet_F: {fileID: 9122865398567764807, guid: 6d3ec0259b0af5b4c98e68bf681ad6bd, type: 3}
   bulletSpwanPoint: {fileID: 1939901369}
   maxTargetBlock: 4
   _stack: 0

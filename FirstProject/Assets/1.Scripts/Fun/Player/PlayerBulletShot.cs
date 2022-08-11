@@ -10,6 +10,8 @@ public class PlayerBulletShot : MonoBehaviour
     [SerializeField]
     private GameObject bullet;
     [SerializeField]
+    private GameObject bullet_F;
+    [SerializeField]
     private Transform bulletSpwanPoint;
     //public List<GameObject> blocks = new List<GameObject>();
     public Queue<GameObject> blocksQueue;
@@ -69,7 +71,7 @@ public class PlayerBulletShot : MonoBehaviour
     void Init()
     {
         stack = 0;
-        stack_Max = 4;
+        stack_Max = 10;
         maxTargetBlock = 4;
         _stackNesting = 0;
     }
@@ -142,8 +144,9 @@ public class PlayerBulletShot : MonoBehaviour
         //Debug.Log(blocksQueue);
         while (blocksQueue.Count > 0)
         {
-            GameObject shotbullet = Instantiate(bullet, bulletSpwanPoint_f.position + new Vector3(Random.Range(-10f,10f), Random.Range(0f, 5f), Random.Range(-1f, 3f)), bulletSpwanPoint_f.rotation);
+            GameObject shotbullet = Instantiate(bullet_F, bulletSpwanPoint_f.position +new Vector3(Random.Range(-10f,10f), Random.Range(0f, 5f), Random.Range(-1f, 3f)), bulletSpwanPoint_f.rotation);
             shotbullet.GetComponent<Bullet>().curve = false;
+            shotbullet.GetComponent<Bullet>().transform.LookAt(blocksQueue.Peek().transform);
             shotbullet.GetComponent<Bullet>().target = blocksQueue.Dequeue().transform;
             shotbullet.GetComponent<Bullet>().DelayShot();
             yield return null;
