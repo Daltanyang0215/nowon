@@ -12,7 +12,9 @@ public class PlayerController : MonoBehaviour
         Fall,
         Attack,
         Dash,
-        Slide
+        Slide,
+        Crouch,
+        DownJump
     }
     private enum IdleState
     {
@@ -70,6 +72,23 @@ public class PlayerController : MonoBehaviour
         onAction,
         Finish
     }
+    private enum CrouchState
+    {
+        Idle,
+        Prepare,
+        Casting,
+        onAction,
+        Finish
+    }
+
+    private enum DownJumpState
+    {
+        Idle,
+        Prepare,
+        Casting,
+        onAction,
+        Finish
+    }
 
     public State state;
     [SerializeField] private IdleState _idleState;
@@ -79,17 +98,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SlideState _slideState;
     [SerializeField] private AttackState _attackState;
     [SerializeField] private DashState _dashState;
+    [SerializeField] private CrouchState _crouchState;
+    [SerializeField] private DownJumpState _downJumpState;
 
     private Vector2 _move;
     [SerializeField] private float _moveSpeed = 1f;
     [SerializeField] private float _jumpForce = 3.0f;
     [SerializeField] private float _slideSpeed = 2.0f;
     [SerializeField] private float _dashSpeed = 1.5f;
+    [SerializeField] private float _downJumpForce = 0.3f;
 
     [SerializeField] private Vector2 _attackHitCastCenter;
     [SerializeField] private Vector2 _attackHitCastSize;
     [SerializeField] private LayerMask _attackTargetLayer;
 
+
+    [SerializeField] private KeyCode _jumpKey;
+    [SerializeField] private KeyCode _slideKey;
+    [SerializeField] private KeyCode _attackKey;
+    [SerializeField] private KeyCode _dashKey;
 
     // -1 : left ,+1 : right
     private int _direction;
@@ -165,20 +192,34 @@ public class PlayerController : MonoBehaviour
             else
                 ChangeState(State.Idle);
         }
-        if (state != State.Jump && state != State.Fall)
+
+        if (Input.GetKeyDown(_jumpKey) && (state != State.Jump && state != State.Fall && state != State.DownJump))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (state == State.Crouch)
+            {
+                ChangeState(State.DownJump);
+            }
+            else
+            {
                 ChangeState(State.Jump);
-            if (Input.GetKeyUp(KeyCode.LeftShift))
-                ChangeState(State.Slide);
+            }
         }
-        if (Input.GetKeyDown(KeyCode.Z) && (state == State.Idle || state == State.Move || state == State.Jump || state == State.Fall))
+        if (Input.GetKeyUp(_slideKey) && (state != State.Jump && state != State.Fall))
+        {
+            ChangeState(State.Slide);
+        }
+        if (Input.GetKeyDown(_attackKey) && (state == State.Idle || state == State.Move || state == State.Jump || state == State.Fall))
         {
             ChangeState(State.Attack);
         }
-        if (Input.GetKeyUp(KeyCode.LeftControl) && (state == State.Idle || state == State.Move || state == State.Jump || state == State.Fall))
+        if (Input.GetKeyUp(_dashKey) && (state == State.Idle || state == State.Move || state == State.Jump || state == State.Fall))
         {
             ChangeState(State.Dash);
+        }
+
+        if (Input.GetKey(KeyCode.DownArrow) && (state == State.Idle || state == State.Move))
+        {
+            ChangeState(State.Crouch);
         }
 
         UpdataState();
@@ -213,6 +254,12 @@ public class PlayerController : MonoBehaviour
                 break;
             case State.Slide:
                 UpDataSlideState();
+                break;
+            case State.Crouch:
+                UpDataCrouchState();
+                break;
+            case State.DownJump:
+                UpDataDownJumpState();
                 break;
             default:
                 break;
@@ -250,6 +297,14 @@ public class PlayerController : MonoBehaviour
                 _col.offset = _colOffsetOrigin;
                 _col.size = _colSizeOrigin;
                 break;
+            case State.Crouch:
+                _crouchState = CrouchState.Idle;
+                _col.offset = _colOffsetOrigin;
+                _col.size = _colSizeOrigin;
+                break;
+            case State.DownJump:
+                _downJumpState = DownJumpState.Idle;
+                break;
             default:
                 break;
         }
@@ -278,6 +333,14 @@ public class PlayerController : MonoBehaviour
                 _slideState = SlideState.Prepare;
                 _col.offset = _colOffsetCrouch;
                 _col.size = _colSizeCrouch;
+                break;
+            case State.Crouch:
+                _crouchState = CrouchState.Prepare;
+                _col.offset = _colOffsetCrouch;
+                _col.size = _colSizeCrouch;
+                break;
+            case State.DownJump:
+                _downJumpState = DownJumpState.Prepare;
                 break;
             default:
                 break;
@@ -503,6 +566,66 @@ public class PlayerController : MonoBehaviour
                 _animationTimer -= Time.deltaTime;
                 break;
             case AttackState.Finish:
+                break;
+            default:
+                break;
+        }
+    }
+    private void UpDataCrouchState()
+    {
+        switch (_crouchState)
+        {
+            case CrouchState.Idle:
+                break;
+            case CrouchState.Prepare:
+                _move.x = 0;
+                isMovable = false;
+                isDirectionChangable = true;
+                _animator.Play("Crouch");
+                _crouchState = CrouchState.onAction;
+                break;
+            case CrouchState.Casting:
+                break;
+            case CrouchState.onAction:
+                if (Input.GetKeyUp(KeyCode.DownArrow))
+                {
+                    ChangeState(State.Idle);
+                }
+                break;
+            case CrouchState.Finish:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void UpDataDownJumpState()
+    {
+        switch (_downJumpState)
+        {
+            case DownJumpState.Idle:
+                break;
+            case DownJumpState.Prepare:
+                isMovable = false;
+                isDirectionChangable = true;
+                _animator.Play("JumpToFall");
+                _rb.velocity = new Vector2(_rb.velocity.x, 0);
+                _groundDetector.IgnoreLastGround();
+                _downJumpState++;
+                break;
+            case DownJumpState.Casting:
+                _rb.velocity = new Vector2(_rb.velocity.x, 0);
+                _rb.AddForce(Vector2.up * _downJumpForce, ForceMode2D.Impulse);
+                _downJumpState++;
+                break;
+            case DownJumpState.onAction:
+                if (_rb.velocity.y < 0) _animator.Play("Fall");
+                if (!_groundDetector.isIgnoringGround)
+                {
+                    ChangeState(State.Idle);
+                }
+                break;
+            case DownJumpState.Finish:
                 break;
             default:
                 break;
