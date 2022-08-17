@@ -25,7 +25,7 @@ public class Boomber : MonoBehaviour
 
     public bool islock
     {
-        get { return _timelock.islock; }
+        get { return _timelock != null ? _timelock.islock:false; }
     }
 
     private void Awake()

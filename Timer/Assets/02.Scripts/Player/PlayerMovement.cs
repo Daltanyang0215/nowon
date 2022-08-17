@@ -18,7 +18,16 @@ public class PlayerMovement : MonoBehaviour
     private float _hAxis { get => Input.GetAxisRaw("Horizontal"); }
     private float _vAxis { get => Input.GetAxisRaw("Vertical"); }
 
-    public Vector3 moveVec;
+    private Vector3 _moveVec;
+    public Vector3 moveVec
+    {
+        get => _moveVec;
+        set
+        {
+            _moveVec = value;
+            model.transform.LookAt(model.transform.position + moveVec);
+        }
+    }
     private Vector3 nextVec;
 
     private Rigidbody _rb;
@@ -28,15 +37,14 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-        Turn();
+        //Turn();
     }
 
     void Move()
     {
         if (!isAttack)
         {
-            moveVec = new Vector3(_hAxis, 0, _vAxis).normalized;
-            moveVec = Quaternion.AngleAxis(45, Vector3.up) * moveVec; // movevec 를 45도 회전 ( 카메라에 맞게 정렬)
+            moveVec = Quaternion.AngleAxis(45, Vector3.up) * new Vector3(_hAxis, 0, _vAxis).normalized; ; // movevec 를 45도 회전 ( 카메라에 맞게 정렬)
         }
 
 
@@ -50,9 +58,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Turn()
-    {
-        model.transform.LookAt(model.transform.position + moveVec);
-    }
+    //void Turn()
+    //{
+    //    model.transform.LookAt(model.transform.position + moveVec);
+    //}
 
 }

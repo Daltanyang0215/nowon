@@ -15,7 +15,10 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    [SerializeField] private float bulletCool;
+    [SerializeField] private float _slashCool;
+    [SerializeField] private BoxCollider _slashCol;
+    [SerializeField] private LayerMask _slashTarget;
+    [SerializeField] private float _bulletCool;
     [SerializeField] private GameObject _bullet;
 
     [SerializeField] private LayerMask _targetMask;
@@ -30,23 +33,38 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
-        if (Input.GetMouseButtonDown(1)) // 원거리
+        if (!AttackCool)
         {
-            if (_bullet.activeSelf)
+            if (Input.GetMouseButtonDown(0)) // 근거리
             {
-                _bullet.transform.position = PlayerMovement.instance.model.position;
-                _bullet.SetActive(false);
-                if (_islock)
+                MouseClick(_slashTarget);
+                Collider[] hit = Physics.OverlapBox(_slashCol.gameObject.transform.position, _slashCol.size / 2, _slashCol.gameObject.transform.rotation, _slashTarget);
+                foreach (var item in hit)
                 {
-                    _lockTarget.Lock(false);
-                    _islock=false;
+                    Debug.Log(item.gameObject.name);
                 }
-            }
-            else
-            {
+
                 AttackCool = true;
-                BulletMovePoint(MouseClick());
-                Invoke("UnAttack", bulletCool);
+                Invoke("UnAttack", _slashCool);
+            }
+            if (Input.GetMouseButtonDown(1)) // 원거리
+            {
+                if (_bullet.activeSelf)
+                {
+                    _bullet.transform.position = PlayerMovement.instance.model.position;
+                    _bullet.SetActive(false);
+                    if (_islock)
+                    {
+                        _lockTarget.Lock(false);
+                        _islock = false;
+                    }
+                }
+                else
+                {
+                    AttackCool = true;
+                    BulletMovePoint(MouseClick(_targetMask));
+                    Invoke("UnAttack", _bulletCool);
+                }
             }
         }
     }
@@ -57,22 +75,16 @@ public class PlayerAttack : MonoBehaviour
         //slash.SetActive(false);
     }
 
-    private Vector3 MouseClick()
+    private Vector3 MouseClick(LayerMask target)
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit rayHit;
         Vector3 nextVec = Vector3.zero;
-        if (Physics.Raycast(ray, out rayHit, 1000, _targetMask))
+        if (Physics.Raycast(ray, out rayHit, 1000, target))
         {
             nextVec = rayHit.point - transform.position;
             Vector3 viewVec = new Vector3(nextVec.x, 0, nextVec.z);
             PlayerMovement.instance.moveVec = viewVec;
-
-            if(rayHit.collider.gameObject.TryGetComponent<TimeLock>(out _lockTarget)) // rayhit check . component<timelock>
-            {
-                _islock = true;
-                _lockTarget.Lock(true);
-            }
         }
         return nextVec;
     }
@@ -87,6 +99,19 @@ public class PlayerAttack : MonoBehaviour
             _bullet.transform.position = rayHit.point;
             _bullet.transform.rotation = Quaternion.LookRotation(rayVec.normalized);
             _bullet.gameObject.SetActive(true);
+
+            if (rayHit.collider.gameObject.TryGetComponent<TimeLock>(out _lockTarget)) // rayhit check . component<timelock>
+            {
+                _islock = true;
+                _lockTarget.Lock(true);
+            }
         }
     }
+
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireCube(transform.position + _slashCol.center, _slashCol.size / 2);
+
+    //}
 }
