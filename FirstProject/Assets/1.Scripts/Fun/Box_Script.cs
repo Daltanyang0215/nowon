@@ -5,44 +5,31 @@ using UnityEngine.EventSystems;
 
 public class Box_Script : MonoBehaviour
 {
-    private Transform lockOnAnchor;
+    private Transform _lockOnAnchor;
+    private MeshRenderer _meshRenderer;
 
     private void Awake()
     {
-        lockOnAnchor = transform.GetChild(0);
-    }
-
-    private void OnMouseEnter()
-    {
-        if (Input.GetMouseButton(0))
-        {
-            PlayerBulletShot.Instance.TargetQueue(gameObject);
-        }
-    }
-
-    private void OnMouseDown()
-    {
-        PlayerBulletShot.Instance.TargetQueue(gameObject);
+        _lockOnAnchor = transform.GetChild(0);
+        _meshRenderer = GetComponent<MeshRenderer>();
     }
 
     private void Update()
     {
-        if(lockOnAnchor.gameObject.activeSelf)
-            lockOnAnchor.LookAt(Camera.main.transform);
+        if(_lockOnAnchor.gameObject.activeSelf)
+            _lockOnAnchor.LookAt(Camera.main.transform);
     }
 
-
-    private void OnDisable()
+    private void OnEnable()
     {
-        lockOnAnchor.gameObject.SetActive(false);
-        GetComponent<MeshRenderer>().material.color = Color.white;
+        _lockOnAnchor.gameObject.SetActive(false);
+        _meshRenderer.material.color = Color.white;
         Targeting(false);
     }
 
     public void Targeting(bool targeting)
     {
-        GetComponent<MeshRenderer>().material.color = targeting ? Color.blue : Color.white;
-        lockOnAnchor.gameObject.SetActive(targeting);
+        _meshRenderer.material.color = targeting ? Color.blue : Color.white;
+        _lockOnAnchor.gameObject.SetActive(targeting);
     }
-
 }
