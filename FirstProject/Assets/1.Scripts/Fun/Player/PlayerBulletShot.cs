@@ -55,6 +55,8 @@ public class PlayerBulletShot : MonoBehaviour
     [SerializeField]
     private Transform boxParent;
 
+    private Camera _camera;
+
     public float stack
     {
         get
@@ -80,6 +82,7 @@ public class PlayerBulletShot : MonoBehaviour
     {
         Instance = this;
         stack_Max = _stack_Max;
+        _camera = Camera.main;
     }
 
     private void Start()
@@ -91,16 +94,33 @@ public class PlayerBulletShot : MonoBehaviour
     private void Update()
     {
         StackUpdata();
+        TargetMouse();
+    }
+
+    private void TargetMouse()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            RaycastHit[] hits = Physics.SphereCastAll(_camera.ScreenPointToRay(Input.mousePosition), 1);
+            foreach (var hit in hits)
+            {
+                TargetQueue(hit.collider.gameObject);
+            }
+        }
     }
 
     public void TargetQueue(GameObject target, bool _final = false)
     {
+        Box_Script _boxTarget = null;
         if (!blocksQueue.Contains(target))
         {
-            target.GetComponent<Box_Script>().Targeting(true);
-            blocksQueue.Enqueue(target);
-            if ((blocksQueue.Count > maxTargetBlock) && !_final)
-                blocksQueue.Dequeue().GetComponent<Box_Script>().Targeting(false);
+            if (target.transform.TryGetComponent<Box_Script>(out _boxTarget))
+            {
+                _boxTarget.Targeting(true);
+                blocksQueue.Enqueue(target);
+                if ((blocksQueue.Count > maxTargetBlock) && !_final)
+                    blocksQueue.Dequeue().GetComponent<Box_Script>().Targeting(false);
+            }
         }
     }
     public IEnumerator BulletShot()
@@ -109,14 +129,6 @@ public class PlayerBulletShot : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0))
             {
-                //for (int i = 0; i < blocks.Count; i++)
-                //{
-                //    GameObject shotbullet = Instantiate(bullet, transform.position, Quaternion.identity);
-                //    shotbullet.GetComponent<Bullet>().target = blocks[i].transform;
-                //    yield return new WaitForSeconds(0.05f);
-                //}
-                //blocks.Clear();
-
                 while (blocksQueue.Count != 0)
                 {
                     GameObject shotbullet = Instantiate(bullet, bulletSpwanPoint.position, bulletSpwanPoint.rotation);

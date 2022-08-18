@@ -23,7 +23,7 @@ public class Spawn_Box : MonoBehaviour
     {
         for (int i = 0; i < spwanCount; i++)
         {
-            GameObject addblock = Instantiate(spwanBox, new Vector3(Random.Range(-spwanRange, spwanRange), Random.Range(3, spwangheiht), Random.Range(-spwanRange, spwanRange)), Quaternion.identity);
+            GameObject addblock = Instantiate(spwanBox, SpwanRandomRange(), Quaternion.identity);
             addblock.transform.parent = transform;
         }
     }
@@ -34,10 +34,14 @@ public class Spawn_Box : MonoBehaviour
         {
             if (!transform.GetChild(i).gameObject.activeSelf)
             {
-                transform.GetChild(i).gameObject.transform.position = new Vector3(Random.Range(-spwanRange, spwanRange), Random.Range(3, spwangheiht), Random.Range(-spwanRange, spwanRange));
+                transform.GetChild(i).gameObject.transform.position = SpwanRandomRange();
                 transform.GetChild(i).gameObject.SetActive(true);
             }
         }
     }
 
+    private Vector3 SpwanRandomRange()
+    {
+        return new Vector3(Random.Range(-spwanRange, spwanRange), Random.Range(3, spwangheiht), Random.Range(-spwanRange, spwanRange));
+    }
 }
