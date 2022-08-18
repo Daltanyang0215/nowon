@@ -16,7 +16,9 @@ public class PlayerBulletShot : MonoBehaviour
     //public List<GameObject> blocks = new List<GameObject>();
     public Queue<GameObject> blocksQueue;
     public int maxTargetBlock;
-    private WaitForSeconds shotDelay = new WaitForSeconds(0.05f);
+    [SerializeField]
+    private float _allShotTime;
+    private WaitForSeconds shotDelay = new WaitForSeconds(0.025f);
 
     [Header("Stack")]
     [SerializeField]
@@ -129,10 +131,13 @@ public class PlayerBulletShot : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0))
             {
+                float sinmax = blocksQueue.Count;
+                shotDelay = new WaitForSeconds(_allShotTime / blocksQueue.Count);
                 while (blocksQueue.Count != 0)
                 {
                     GameObject shotbullet = Instantiate(bullet, bulletSpwanPoint.position, bulletSpwanPoint.rotation);
-                    shotbullet.transform.Rotate(Vector3.up * Random.Range(-80, 80));
+                    shotbullet.transform.Rotate(180 * Mathf.Sin(blocksQueue.Count / sinmax) * Vector3.up);
+                    shotbullet.transform.Rotate(-90 * Vector3.up);
                     shotbullet.GetComponent<Bullet>().target = blocksQueue.Dequeue().transform;
                     yield return shotDelay;
                 }
@@ -156,7 +161,7 @@ public class PlayerBulletShot : MonoBehaviour
         //Debug.Log(blocksQueue);
         while (blocksQueue.Count > 0)
         {
-            GameObject shotbullet = Instantiate(bullet_F, bulletSpwanPoint_f.position +new Vector3(Random.Range(-10f,10f), Random.Range(0f, 5f), Random.Range(-1f, 3f)), bulletSpwanPoint_f.rotation);
+            GameObject shotbullet = Instantiate(bullet_F, bulletSpwanPoint_f.position + new Vector3(Random.Range(-10f, 10f), Random.Range(0f, 5f), Random.Range(-1f, 3f)), bulletSpwanPoint_f.rotation);
             shotbullet.GetComponent<Bullet>().curve = false;
             shotbullet.GetComponent<Bullet>().transform.LookAt(blocksQueue.Peek().transform);
             shotbullet.GetComponent<Bullet>().target = blocksQueue.Dequeue().transform;
@@ -170,7 +175,7 @@ public class PlayerBulletShot : MonoBehaviour
     {
         if (final) return;
 
-        stack -= Time.deltaTime * (_stackNesting + 1) ;
+        stack -= Time.deltaTime * (_stackNesting + 1);
 
         if (stack >= stack_Max)
         {

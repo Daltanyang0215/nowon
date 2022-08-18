@@ -14,7 +14,9 @@ public class PlayerController : MonoBehaviour
         Dash,
         Slide,
         Crouch,
-        DownJump
+        DownJump,
+        Hurt,
+        Die
     }
     private enum IdleState
     {
@@ -80,8 +82,23 @@ public class PlayerController : MonoBehaviour
         onAction,
         Finish
     }
-
-    private enum DownJumpState
+        private enum DownJumpState
+    {
+        Idle,
+        Prepare,
+        Casting,
+        onAction,
+        Finish
+    }
+    private enum HurtState
+    {
+        Idle,
+        Prepare,
+        Casting,
+        onAction,
+        Finish
+    }
+    private enum DieState
     {
         Idle,
         Prepare,
@@ -100,6 +117,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private DashState _dashState;
     [SerializeField] private CrouchState _crouchState;
     [SerializeField] private DownJumpState _downJumpState;
+    [SerializeField] private HurtState _hurtState;
+    [SerializeField] private DieState _dieState;
 
     private Vector2 _move;
     [SerializeField] private float _moveSpeed = 1f;
@@ -139,6 +158,7 @@ public class PlayerController : MonoBehaviour
     }
     [SerializeField] private int _directionInit;
 
+    private Player _player;
     private Animator _animator;
     private Rigidbody2D _rb;
     private CapsuleCollider2D _col;
@@ -147,6 +167,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 _colSizeOrigin;
     [SerializeField] private Vector2 _colOffsetCrouch = new Vector2(0, 0.055f);
     [SerializeField] private Vector2 _colSizeCrouch = new Vector2(0.11f, 0.11f);
+    [SerializeField] private Vector2 _knockBackForce;
 
     private bool isMovable = true;
     private bool isDirectionChangable = true;
@@ -154,14 +175,37 @@ public class PlayerController : MonoBehaviour
     private float _attackAnimationTime;
     private float _dashAnimationTime;
     private float _animationTimer;
+    private float _hurtTime;
 
     private float h { get => Input.GetAxisRaw("Horizontal"); }
     private float v { get => Input.GetAxisRaw("Vertical"); }
 
+    public void TryHurt()
+    {
+        if (state == State.Hurt)
+        {
+            _animationTimer = _hurtTime;
+        }
+        else
+        {
+            ChangeState(State.Hurt);
+        }
+    }
+
+    public void TryDie()
+    {
+        ChangeState(State.Die);
+    }
+
+    public void KnockBack()
+    {
+        _rb.AddForce(new Vector2(-direction * _knockBackForce.x, _knockBackForce.y), ForceMode2D.Impulse);
+    }
 
     private void Awake()
     {
         direction = _directionInit;
+        _player = GetComponent<Player>();
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>();
         _col = GetComponent<CapsuleCollider2D>();
@@ -169,6 +213,7 @@ public class PlayerController : MonoBehaviour
         _slideAnimationTime = GetAnimationTime("Slide");
         _attackAnimationTime = GetAnimationTime("Attack");
         _dashAnimationTime = GetAnimationTime("Dash");
+        _hurtTime = GetAnimationTime("Hurt");
         _colOffsetOrigin = _col.offset;
         _colSizeOrigin = _col.size;
     }
@@ -552,6 +597,8 @@ public class PlayerController : MonoBehaviour
             case AttackState.Prepare:
                 isMovable = false;
                 isDirectionChangable = false;
+                _move.x = 0;
+                _rb.velocity = new Vector2(_rb.velocity.x, 0);
                 _animator.Play("Attack");
                 _attackState = AttackState.onAction;
                 _animationTimer = _attackAnimationTime;
@@ -648,12 +695,26 @@ public class PlayerController : MonoBehaviour
     private void AttackHit()
     {
         Vector2 attackCenter = new Vector2(_attackHitCastCenter.x * _direction, _attackHitCastCenter.y) + _rb.position;
-        RaycastHit2D hit = Physics2D.BoxCast(_attackHitCastCenter, _attackHitCastSize, 0, Vector2.zero, 0, _attackTargetLayer);
+        RaycastHit2D hit = Physics2D.BoxCast(attackCenter, _attackHitCastSize, 0, Vector2.zero, 0, _attackTargetLayer);
 
         if (hit.collider != null)
         {
-            Debug.Log($"Attack hit : {hit.collider.gameObject.name}");
+            if(hit.collider.TryGetComponent(out Enemy enemy))
+            {
+                enemy.Hurt(_player.damage);
+            }
+            if (hit.collider.TryGetComponent(out EnemyController enemyController))
+            {
+                enemyController.KnockBack(direction);
+            }
+
         }
     }
-
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        _rb = GetComponent<Rigidbody2D>();
+        Vector2 attackCenter = new Vector2(_attackHitCastCenter.x * _direction, _attackHitCastCenter.y) + _rb.position;
+        Gizmos.DrawWireCube(attackCenter, _attackHitCastSize);
+    }
 }

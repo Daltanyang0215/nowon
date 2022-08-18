@@ -117,6 +117,33 @@ public class EnemyController : MonoBehaviour
     private bool _isMovable = true;
     private bool _isDirectionChangable = true;
 
+    [SerializeField] private Vector2 _knockBackForce;
+
+    public void TryHurt()
+    {
+        if (state == State.Hurt)
+        {
+            _animationTimer = _hurtTime;
+        }
+        else
+        {
+            ChangeState(State.Hurt);
+        }
+    }
+
+    public void TryDie()
+    { 
+        ChangeState(State.Die);
+    }
+
+    public void KnockBack(int knockbackDirection)
+    {
+        _move.x = 0;
+        _rb.velocity = Vector2.zero;
+
+        _rb.AddForce( new Vector2(knockbackDirection * _knockBackForce.x,_knockBackForce.y), ForceMode2D.Impulse);
+    }
+
     private void Awake()
     {
         direction = _directionInit;
@@ -125,7 +152,7 @@ public class EnemyController : MonoBehaviour
         _col = GetComponent<CapsuleCollider2D>();
         _AttackTime = GetAnimationTime("Attack");
         _hurtTime = GetAnimationTime("Hurt");
-        //_dieTime = GetAnimationTime("Die");
+        _dieTime = GetAnimationTime("Die");
     }
 
     private void Update()
@@ -140,14 +167,16 @@ public class EnemyController : MonoBehaviour
                 direction = 1;
         }
 
-        if (_isMovable)
+        if (state != State.Hurt && state != State.Die)
         {
-            if (Mathf.Abs(_move.x) > 0f)
-                ChangeState(State.Move);
-            else
-                ChangeState(State.Idle);
+            if (_isMovable)
+            {
+                if (Mathf.Abs(_move.x) > 0f)
+                    ChangeState(State.Move);
+                else
+                    ChangeState(State.Idle);
+            }
         }
-
         UpdataState();
     }
 
@@ -179,7 +208,6 @@ public class EnemyController : MonoBehaviour
                 break;
         }
     }
-
     private void ChangeState(State newState)
     {
         if (state == newState)
@@ -229,9 +257,9 @@ public class EnemyController : MonoBehaviour
         }
         state = newState;
     }
-
     private void UpdateAIState()
     {
+        if (state == State.Hurt || state == State.Die) return;
         if (_aiAutoFollow)
         {
             if (Physics2D.OverlapCircle(_rb.position, _aiTargetDetectRange, _targetLayer))
@@ -307,7 +335,6 @@ public class EnemyController : MonoBehaviour
                 break;
         }
     }
-
     private void UpdateIdleState()
     {
         switch (_idleState)
@@ -315,8 +342,8 @@ public class EnemyController : MonoBehaviour
             case IdleState.Idle:
                 break;
             case IdleState.Prepare:
-                //isMovable = true;
-                //isDirectionChangable = true;
+                _isMovable = true;
+                _isDirectionChangable = true;
                 _animator.Play("Idle");
                 _idleState = IdleState.onAction;
                 break;
@@ -337,8 +364,8 @@ public class EnemyController : MonoBehaviour
             case MoveState.Idle:
                 break;
             case MoveState.Prepare:
-                //isMovable = true;
-                //isDirectionChangable = true;
+                _isMovable = true;
+                _isDirectionChangable = true;
                 _animator.Play("Move");
                 _moveState = MoveState.onAction;
                 break;
@@ -352,7 +379,6 @@ public class EnemyController : MonoBehaviour
                 break;
         }
     }
-
     private void UpdateAttackState()
     {
         switch (_attackState)
@@ -360,8 +386,10 @@ public class EnemyController : MonoBehaviour
             case AttackState.Idle:
                 break;
             case AttackState.Prepare:
-                //isMovable = false;
-                //isDirectionChangable = false;
+                _isMovable = false;
+                _isDirectionChangable = false;
+                _move.x = 0;
+                _rb.velocity = Vector2.zero;
                 _animator.Play("Attack");
                 _attackState = AttackState.onAction;
                 _animationTimer = _AttackTime;
@@ -381,7 +409,6 @@ public class EnemyController : MonoBehaviour
                 break;
         }
     }
-
     private void UpdateHurtState()
     {
         switch (_hurtState)
@@ -389,10 +416,23 @@ public class EnemyController : MonoBehaviour
             case HurtState.Idle:
                 break;
             case HurtState.Prepare:
+                _isMovable = false;
+                _isDirectionChangable = false;
+                _animator.Play("Hurt");
+                _animationTimer = _hurtTime;
+                _hurtState = HurtState.onAction;
                 break;
             case HurtState.Casting:
                 break;
             case HurtState.onAction:
+                if (_animationTimer < 0)
+                {
+                    ChangeState(State.Idle);
+                }
+                else
+                {
+                    _animationTimer -= Time.deltaTime;
+                }
                 break;
             case HurtState.Finish:
                 break;
@@ -407,10 +447,25 @@ public class EnemyController : MonoBehaviour
             case DieState.Idle:
                 break;
             case DieState.Prepare:
+                _isMovable = false;
+                _isDirectionChangable = false;
+                _move.x = 0;
+                _rb.velocity = Vector2.zero;
+                _animator.Play("Die");
+                _animationTimer = _dieTime;
+                _dieState = DieState.onAction;
                 break;
             case DieState.Casting:
                 break;
             case DieState.onAction:
+                if (_animationTimer < 0)
+                {
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    _animationTimer -= Time.deltaTime;
+                }
                 break;
             case DieState.Finish:
                 break;

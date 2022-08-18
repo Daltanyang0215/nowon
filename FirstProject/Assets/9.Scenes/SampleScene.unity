@@ -914,6 +914,7 @@ MonoBehaviour:
   bullet_F: {fileID: 9122865398567764807, guid: 6d3ec0259b0af5b4c98e68bf681ad6bd, type: 3}
   bulletSpwanPoint: {fileID: 1939901369}
   maxTargetBlock: 4
+  _allShotTime: 1
   _stack: 0
   _stack_Max: 10
   _stackNesting: 0

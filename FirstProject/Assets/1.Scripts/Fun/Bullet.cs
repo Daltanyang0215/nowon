@@ -5,9 +5,10 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public Transform target;
-
+    [SerializeField] private Transform _model;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float moveSpeed_correction;
+    [SerializeField] private float modelRotateSpeed;
     [SerializeField] private float rotateSpeed;
     [SerializeField] private float rotateSpeed_correction;
     public bool curve = true;
@@ -16,7 +17,7 @@ public class Bullet : MonoBehaviour
     private void Start()
     {
         //transform.LookAt(target);
-
+        _model = transform.GetChild(0).transform;
     }
 
     public void FixedUpdate()
@@ -41,6 +42,7 @@ public class Bullet : MonoBehaviour
                 transform.position = Vector3.Lerp(transform.position, target.position, 0.2f);
             }
         }
+        _model.Rotate(modelRotateSpeed * Time.fixedDeltaTime * Vector3.forward);
     }
 
     public void Update()
