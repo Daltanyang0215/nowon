@@ -52,12 +52,12 @@ public class Enemy : MonoBehaviour
         {
             if (1<<go.layer == _targetlayer)
             {
-                if(TryGetComponent(out Player player))
+                if(go.TryGetComponent(out Player player))
                 {
                     if (player.invincible == false)
                     {
                         player.Hurt(_damage);
-                        go.GetComponent<PlayerController>().TryHurt();
+                        go.GetComponent<PlayerController>().KnockBack();
                     }
                 }
             }

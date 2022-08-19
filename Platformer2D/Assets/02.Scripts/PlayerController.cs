@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
         onAction,
         Finish
     }
-        private enum DownJumpState
+    private enum DownJumpState
     {
         Idle,
         Prepare,
@@ -699,7 +699,7 @@ public class PlayerController : MonoBehaviour
 
         if (hit.collider != null)
         {
-            if(hit.collider.TryGetComponent(out Enemy enemy))
+            if (hit.collider.TryGetComponent(out Enemy enemy))
             {
                 enemy.Hurt(_player.damage);
             }

@@ -32,9 +32,15 @@ public class Player : MonoBehaviour
     {
         hp -= damage;
         if (hp > 0)
+        {
             _controller.TryHurt();
+            InvincibleForSeconds(1.0f);
+        }
         else
+        {
             _controller.TryDie();
+            invincible = true;
+        }
     }
 
     public void InvincibleForSeconds(float seconds)
