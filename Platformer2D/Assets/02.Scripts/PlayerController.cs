@@ -176,20 +176,13 @@ public class PlayerController : MonoBehaviour
     private float _dashAnimationTime;
     private float _animationTimer;
     private float _hurtTime;
-
+    
     private float h { get => Input.GetAxisRaw("Horizontal"); }
     private float v { get => Input.GetAxisRaw("Vertical"); }
 
     public void TryHurt()
     {
-        if (state == State.Hurt)
-        {
-            _animationTimer = _hurtTime;
-        }
-        else
-        {
             ChangeState(State.Hurt);
-        }
     }
 
     public void TryDie()
@@ -220,6 +213,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (state != State.Hurt && state != State.Die)
+        {
         if (isDirectionChangable)
         {
             if (h < 0f)
@@ -227,16 +222,15 @@ public class PlayerController : MonoBehaviour
             if (h > 0f)
                 direction = 1;
         }
+            if (isMovable)
+            {
+                _move.x = h;
 
-        if (isMovable)
-        {
-            _move.x = h;
-
-            if (Mathf.Abs(_move.x) > 0f)
-                ChangeState(State.Move);
-            else
-                ChangeState(State.Idle);
-        }
+                if (Mathf.Abs(_move.x) > 0f)
+                    ChangeState(State.Move);
+                else
+                    ChangeState(State.Idle);
+            }
 
         if (Input.GetKeyDown(_jumpKey) && (state != State.Jump && state != State.Fall && state != State.DownJump))
         {
@@ -267,6 +261,7 @@ public class PlayerController : MonoBehaviour
             ChangeState(State.Crouch);
         }
 
+        }
         UpdataState();
     }
 
@@ -306,6 +301,13 @@ public class PlayerController : MonoBehaviour
             case State.DownJump:
                 UpDataDownJumpState();
                 break;
+            case State.Hurt:
+                UpDataHurtState();
+                break;
+            case State.Die:
+                UpDataDieState();
+                break;
+
             default:
                 break;
         }
@@ -350,6 +352,12 @@ public class PlayerController : MonoBehaviour
             case State.DownJump:
                 _downJumpState = DownJumpState.Idle;
                 break;
+            case State.Hurt:
+                _hurtState = HurtState.Idle;
+                break;
+            case State.Die:
+                _dieState = DieState.Idle;
+                break;
             default:
                 break;
         }
@@ -386,6 +394,12 @@ public class PlayerController : MonoBehaviour
                 break;
             case State.DownJump:
                 _downJumpState = DownJumpState.Prepare;
+                break;
+            case State.Hurt:
+                _hurtState = HurtState.Prepare;
+                break;
+            case State.Die:
+                _dieState = DieState.Prepare;
                 break;
             default:
                 break;
@@ -673,6 +687,59 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
             case DownJumpState.Finish:
+                break;
+            default:
+                break;
+        }
+    }
+    private void UpDataHurtState()
+    {
+        switch (_hurtState)
+        {
+            case HurtState.Idle:
+                break;
+            case HurtState.Prepare:
+                isMovable = false;
+                isDirectionChangable = false;
+                _animator.Play("Hurt");
+                _animationTimer = _hurtTime;
+                _hurtState = HurtState.onAction;
+                break;
+            case HurtState.Casting:
+                break;
+            case HurtState.onAction:
+                if (_animationTimer < 0)
+                {
+                    ChangeState(State.Idle);
+                }
+                else
+                {
+                _animationTimer -= Time.deltaTime;
+                }
+                break;
+            case HurtState.Finish:
+                break;
+            default:
+                break;
+        }
+    }
+    private void UpDataDieState()
+    {
+        switch (_dieState)
+        {
+            case DieState.Idle:
+                break;
+            case DieState.Prepare:
+                isMovable = false;
+                isDirectionChangable = false;
+                _animator.Play("Die");
+                _dieState=DieState.onAction;
+                break;
+            case DieState.Casting:
+                break;
+            case DieState.onAction:
+                break;
+            case DieState.Finish:
                 break;
             default:
                 break;

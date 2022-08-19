@@ -5,20 +5,22 @@ using TMPro;
 
 public class DamagePopUp : MonoBehaviour
 {
-    private TextMeshPro _textMeshPro;
+    private TMP_Text _textMeshPro;
     private float _disappearTimer=0.5f;
     private float _disappearSpeed=2.0f;
     private float _moveSpeedY = 0.5f;
     private Color _color;
 
-    public static DamagePopUp Create(Vector3 pos, int damage)
+    public static DamagePopUp Create(Vector3 pos, int damage,int layer)
     {
-
+       DamagePopUp tmpDamagePopUp = Instantiate(DamagePopUpAssets.Instance.GetDagamePopUp(layer), pos, Quaternion.identity);
+        tmpDamagePopUp.SetUp(damage);
+        return tmpDamagePopUp;
     }
 
     private void Awake()
     {
-        _textMeshPro = GetComponent<TextMeshPro>();
+        _textMeshPro = GetComponentInChildren<TMP_Text>();
     }
     private void Update()
     {

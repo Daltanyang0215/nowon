@@ -15,5 +15,16 @@ public class DamagePopUpAssets : MonoBehaviour
         }
     }
 
-    [SerializeField]
+    [SerializeField] private DamagePopUp _damagePopUp1;
+    [SerializeField] private DamagePopUp _damagePopUp2;
+
+    public DamagePopUp GetDagamePopUp( int layer)
+    {
+        DamagePopUp TmpDamagePopUp = _damagePopUp1;
+        if(layer == LayerMask.NameToLayer("Enemy"))
+        {
+            TmpDamagePopUp = _damagePopUp2;
+        }
+        return TmpDamagePopUp;
+    }
 }

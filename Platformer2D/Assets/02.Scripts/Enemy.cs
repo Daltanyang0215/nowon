@@ -32,6 +32,7 @@ public class Enemy : MonoBehaviour
     public void Hurt(int damage)
     {
         hp -= damage;
+        DamagePopUp.Create(transform.position + Vector3.up * 0.5f, damage, gameObject.layer);
         if (hp > 0)
             _controller.TryHurt();
         else
