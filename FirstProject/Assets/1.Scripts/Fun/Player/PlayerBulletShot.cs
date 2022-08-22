@@ -59,6 +59,8 @@ public class PlayerBulletShot : MonoBehaviour
 
     private Camera _camera;
 
+    private bool okFire=true;
+
     public float stack
     {
         get
@@ -101,7 +103,7 @@ public class PlayerBulletShot : MonoBehaviour
 
     private void TargetMouse()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && okFire)
         {
             RaycastHit[] hits = Physics.SphereCastAll(_camera.ScreenPointToRay(Input.mousePosition), 1);
             foreach (var hit in hits)
@@ -113,10 +115,9 @@ public class PlayerBulletShot : MonoBehaviour
 
     public void TargetQueue(GameObject target, bool _final = false)
     {
-        Box_Script _boxTarget = null;
         if (!blocksQueue.Contains(target))
         {
-            if (target.transform.TryGetComponent<Box_Script>(out _boxTarget))
+            if (target.transform.TryGetComponent<Box_Script>(out Box_Script _boxTarget))
             {
                 _boxTarget.Targeting(true);
                 blocksQueue.Enqueue(target);
@@ -129,18 +130,20 @@ public class PlayerBulletShot : MonoBehaviour
     {
         while (true)
         {
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0) && okFire )
             {
+                okFire = false;
                 float sinmax = blocksQueue.Count;
                 shotDelay = new WaitForSeconds(_allShotTime / blocksQueue.Count);
                 while (blocksQueue.Count != 0)
                 {
                     GameObject shotbullet = Instantiate(bullet, bulletSpwanPoint.position, bulletSpwanPoint.rotation);
-                    shotbullet.transform.Rotate(180 * Mathf.Sin(blocksQueue.Count / sinmax) * Vector3.up);
+                    shotbullet.transform.Rotate(180 / sinmax * blocksQueue.Count * Vector3.up); // 원호 호출
                     shotbullet.transform.Rotate(-90 * Vector3.up);
                     shotbullet.GetComponent<Bullet>().target = blocksQueue.Dequeue().transform;
                     yield return shotDelay;
                 }
+                okFire = true;
             }
             yield return null;
         }
