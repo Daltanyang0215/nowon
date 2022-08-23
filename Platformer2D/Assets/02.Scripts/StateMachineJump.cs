@@ -7,10 +7,11 @@ public class StateMachineJump : StateMachineBase
     private GroundDetector _groundDetector;
     private Rigidbody2D _rb;
     private float _jumpForce = 3.5f;
-    public StateMachineJump(StateMachineManager.State machineState, StateMachineManager managerm, AnimationManager animationManager) : base(machineState, managerm, animationManager)
+    public StateMachineJump(StateMachineManager.State machineState, StateMachineManager manager, AnimationManager animationManager) : base(machineState, manager, animationManager)
     {
         _groundDetector = manager.GetComponent<GroundDetector>();
-        _rb = managerm.GetComponent<Rigidbody2D>();
+        _rb = manager.GetComponent<Rigidbody2D>();
+        shortKey = KeyCode.X;
     }
 
     public override void Execute()
@@ -43,7 +44,7 @@ public class StateMachineJump : StateMachineBase
 
     public override StateMachineManager.State UpdateState()
     {
-        StateMachineManager.State nextState = machineState;
+        StateMachineManager.State nextState = managerState;
         switch (state)
         {
             case State.Idle:
@@ -61,7 +62,7 @@ public class StateMachineJump : StateMachineBase
             case State.onAction:
                 if (_rb.velocity.y < 0)
                 {
-                    nextState = StateMachineManager.State.Idle;
+                    nextState = StateMachineManager.State.Fall;
                 }
                 else if (_rb.velocity.y < 1f)
                 {

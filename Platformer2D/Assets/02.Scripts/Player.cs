@@ -26,20 +26,22 @@ public class Player : MonoBehaviour
     }
     [SerializeField] private Slider _hpBar;
     [SerializeField] private int _hpMax;
-    private PlayerController _controller;
-
+    //private PlayerController _controller;
+    private StateMachineManager _machineManager;
     public void Hurt(int damage)
     {
         hp -= damage;
         DamagePopUp.Create(transform.position + Vector3.up*0.5f, damage, gameObject.layer);
         if (hp > 0)
         {
-            _controller.TryHurt();
+            //_controller.TryHurt();
+            _machineManager.ChangeState(StateMachineManager.State.Hurt);
             InvincibleForSeconds(1.0f);
         }
         else
         {
-            _controller.TryDie();
+            //_controller.TryDie();
+            _machineManager.ChangeState(StateMachineManager.State.Die);
             invincible = true;
         }
     }
@@ -63,6 +65,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         hp = _hpMax;
-        _controller=GetComponent<PlayerController>();
+        //_controller=GetComponent<PlayerController>();
+        _machineManager=GetComponent<StateMachineManager>();
     }
 }
