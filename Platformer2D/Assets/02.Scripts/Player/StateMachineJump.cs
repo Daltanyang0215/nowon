@@ -7,6 +7,8 @@ public class StateMachineJump : StateMachineBase
     private GroundDetector _groundDetector;
     private Rigidbody2D _rb;
     private float _jumpForce = 3.5f;
+    private float _downJumpForce = 1.5f;
+    private bool _isDownJump;
     public StateMachineJump(StateMachineManager.State machineState, StateMachineManager manager, AnimationManager animationManager) : base(machineState, manager, animationManager)
     {
         _groundDetector = manager.GetComponent<GroundDetector>();
@@ -27,22 +29,38 @@ public class StateMachineJump : StateMachineBase
 
     public override void ForceStop()
     {
+        _isDownJump = false;
         state = State.Idle;
     }
 
     public override bool IsExecuteOk()
     {
         bool isOk = false;
-        if (_groundDetector.isDetected &&
-            manager.state != StateMachineManager.State.Jump &&
-            manager.state != StateMachineManager.State.Fall &&
-            manager.state != StateMachineManager.State.DownJump &&
-            manager.state != StateMachineManager.State.Crouch)
-            isOk = true;
+        if (_groundDetector.isDetected)
+        {
+            if (manager.state == StateMachineManager.State.Crouch)
+            {
+                _isDownJump = true;
+                isOk = true;
+            }
+            else if (manager.state != StateMachineManager.State.Jump && manager.state != StateMachineManager.State.Fall)
+            {
+                _isDownJump = false;
+                isOk = true;
+            }
+        }
         return isOk;
     }
 
     public override StateMachineManager.State UpdateState()
+    {
+        if (_isDownJump)
+            return DownJumpWorkFlow();
+        else
+            return NormalJumpWorkFlow();
+    }
+
+    private StateMachineManager.State NormalJumpWorkFlow()
     {
         StateMachineManager.State nextState = managerState;
         switch (state)
@@ -67,6 +85,45 @@ public class StateMachineJump : StateMachineBase
                 else if (_rb.velocity.y < 1f)
                 {
                     animationManager.Play("JumpToFall");
+                }
+                break;
+            case State.Finish:
+                break;
+            case State.Error:
+                break;
+            case State.WaitForErrorClear:
+                break;
+            default:
+                break;
+        }
+        return nextState;
+    }
+
+    private StateMachineManager.State DownJumpWorkFlow()
+    {
+        StateMachineManager.State nextState = managerState;
+        switch (state)
+        {
+            case State.Idle:
+                break;
+            case State.Prepare:
+                animationManager.Play("JumpToFall");
+                _groundDetector.IgnoreLastGround();
+                state++;
+                break;
+            case State.Casting:
+                _rb.velocity = new Vector2(_rb.velocity.x, 0);
+                _rb.AddForce(Vector2.up * _downJumpForce, ForceMode2D.Impulse);
+                state++;
+                break;
+            case State.onAction:
+                if (_rb.velocity.y < 0)
+                {
+                    nextState = StateMachineManager.State.Fall;
+                }
+                if (!_groundDetector.isIgnoringGround)
+                {
+                    nextState = StateMachineManager.State.Idle;
                 }
                 break;
             case State.Finish:

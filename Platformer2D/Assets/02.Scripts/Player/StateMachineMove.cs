@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachineIdle : StateMachineBase
+public class StateMachineMove : StateMachineBase
 {
-    public StateMachineIdle(StateMachineManager.State machineState, StateMachineManager manager, AnimationManager animationManager) : base(machineState, manager, animationManager)
+    public StateMachineMove(StateMachineManager.State machineState, StateMachineManager manager, AnimationManager animationManager) : base(machineState, manager, animationManager)
     {
     }
 
@@ -17,6 +17,7 @@ public class StateMachineIdle : StateMachineBase
 
     public override void FixedUpdateState()
     {
+        
     }
 
     public override void ForceStop()
@@ -26,12 +27,7 @@ public class StateMachineIdle : StateMachineBase
 
     public override bool IsExecuteOk()
     {
-        bool isOk = false;
-        if (manager.isMovable)
-        {
-            isOk = true;
-        }
-        return isOk;
+        return true;
     }
 
     public override StateMachineManager.State UpdateState()
@@ -42,7 +38,7 @@ public class StateMachineIdle : StateMachineBase
             case State.Idle:
                 break;
             case State.Prepare:
-                animationManager.Play("Idle");
+                animationManager.Play("Move");
                 state = State.onAction;
                 break;
             case State.Casting:

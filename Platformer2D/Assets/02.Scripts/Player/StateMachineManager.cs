@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class StateMachineManager : MonoBehaviour
 {
-    //public bool isReady{ get => State.Idle; }
+    public bool isReady;
     public enum State
     {
         Idle,
@@ -17,7 +17,6 @@ public class StateMachineManager : MonoBehaviour
         Dash,
         Slide,
         Crouch,
-        DownJump,
         Hurt,
         Die
     }
@@ -70,8 +69,8 @@ public class StateMachineManager : MonoBehaviour
     }
     public void ChangeState(State newState)
     {
-        if (state == newState && !_machines[newState].IsExecuteOk()) return;
-
+        if (state == newState || _machines[newState].IsExecuteOk()==false) return;
+        //Debug.Log($"{state} -> {newState}");
         _machines[state].ForceStop();
         _machines[newState].Execute();
         _current = _machines[newState];
@@ -82,29 +81,24 @@ public class StateMachineManager : MonoBehaviour
 
     private void Awake()
     {
+        StartCoroutine(E_init());
+    }
+
+    IEnumerator E_init()
+    {
+        direction = _directionInit;
         _animationManager = GetComponent<AnimationManager>();
         _rb = GetComponent<Rigidbody2D>();
         _player = GetComponent<Player>();
-        //_machines.Add(State.Idle, new StateMachineIdle(State.Idle, this, _animationManager));
-        //_machines.Add(State.Move, new StateMachineMove(State.Move, this, _animationManager));
-        //_machines.Add(State.Jump, new StateMachineJump(State.Jump, this, _animationManager));
-        //_States.Add(KeyCode.X, State.Jump);
-        //_machines.Add(State.Fall, new StateMachineFall(State.Fall, this, _animationManager));
-        //_machines.Add(State.Attack, new StateMachineAttack(State.Attack, this, _animationManager));
-        //_States.Add(KeyCode.Z, State.Attack);
 
+        yield return new WaitUntil(() => _animationManager.isReady);
 
         InitStateMachines();
 
         _current = _machines[State.Idle];
         _current.Execute();
-        //foreach (var machine in _machines.Values)
-        //{
-        //    if(machine.shortKey != KeyCode.None)
-        //    {
-        //        _States.Add(machine.shortKey,machine.)
-        //    }
-        //}
+
+        isReady = true;
     }
 
     private void InitStateMachines()
@@ -144,6 +138,8 @@ public class StateMachineManager : MonoBehaviour
 
     private void Update()
     {
+        if(isReady==false) return;
+
         if (isDirectionChangable)
         {
             if (h < 0f)
@@ -174,6 +170,8 @@ public class StateMachineManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isReady == false) return;
+
         _current.FixedUpdateState();
         transform.position += new Vector3(_move.x * _moveSpeed, _move.y, 0) * Time.fixedDeltaTime;
     }

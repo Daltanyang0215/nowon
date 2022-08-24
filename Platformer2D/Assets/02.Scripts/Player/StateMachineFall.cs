@@ -31,7 +31,7 @@ public class StateMachineFall : StateMachineBase
     {
         bool isOK = false;
         if (_groundDetector.isDetected ==false && 
-            (manager.state == StateMachineManager.State.Idle || manager.state == StateMachineManager.State.Move || manager.state == StateMachineManager.State.Jump || manager.state == StateMachineManager.State.DownJump))
+            (manager.state == StateMachineManager.State.Idle || manager.state == StateMachineManager.State.Move || manager.state == StateMachineManager.State.Jump))
             isOK = true;
         return isOK;
     }
