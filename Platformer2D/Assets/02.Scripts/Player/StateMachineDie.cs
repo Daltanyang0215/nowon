@@ -2,19 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachineFall : StateMachineBase
+public class StateMachineDie : StateMachineBase
 {
-    private GroundDetector _groundDetector;
+    private float _animationTime;
+    private float _animationTimer;
 
-    public StateMachineFall(StateMachineManager.State machineState, StateMachineManager manager, AnimationManager animationManager) : base(machineState, manager, animationManager)
+
+    public StateMachineDie(StateMachineManager.State machineState, StateMachineManager manager, AnimationManager animationManager) : base(machineState, manager, animationManager)
     {
-        _groundDetector = manager.GetComponent<GroundDetector>();
+        _animationTime = animationManager.GetAnimationTime("Die");
     }
 
     public override void Execute()
     {
         manager.isMovable = false;
-        manager.isDirectionChangable = true;
+        manager.isDirectionChangable = false;
         state = State.Prepare;
     }
 
@@ -29,11 +31,7 @@ public class StateMachineFall : StateMachineBase
 
     public override bool IsExecuteOk()
     {
-        bool isOK = false;
-        if (_groundDetector.isDetected ==false && 
-            (manager.state == StateMachineManager.State.Idle || manager.state == StateMachineManager.State.Move || manager.state == StateMachineManager.State.Jump))
-            isOK = true;
-        return isOK;
+        return true;
     }
 
     public override StateMachineManager.State UpdateState()
@@ -44,14 +42,13 @@ public class StateMachineFall : StateMachineBase
             case State.Idle:
                 break;
             case State.Prepare:
-                animationManager.Play("Fall");
+                _animationTimer = _animationTime;
+                animationManager.Play("Die");
                 state = State.onAction;
                 break;
             case State.Casting:
                 break;
             case State.onAction:
-                if (_groundDetector.isDetected && !_groundDetector.isIgnoringGround)
-                    nextState = StateMachineManager.State.Idle;
                 break;
             case State.Finish:
                 break;

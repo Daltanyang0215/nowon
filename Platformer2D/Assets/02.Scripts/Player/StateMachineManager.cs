@@ -57,6 +57,7 @@ public class StateMachineManager : MonoBehaviour
     [SerializeField] private Vector2 _attackHitCastCenter = new Vector2(0.25f, 0.25f);
     [SerializeField] private Vector2 _attackHitCastSize = new Vector2(0.50f, 0.50f);
     [SerializeField] private LayerMask _attackTargetLayer;
+    [SerializeField] private Vector2 _knockBackForce;
 
     private float h { get => Input.GetAxisRaw("Horizontal"); }
     private float v { get => Input.GetAxisRaw("Vertical"); }
@@ -75,6 +76,21 @@ public class StateMachineManager : MonoBehaviour
         _machines[newState].Execute();
         _current = _machines[newState];
         state = newState;
+    }
+
+    public void TryHurt()
+    {
+        ChangeState(State.Hurt);
+    }
+
+    public void TryDie()
+    {
+        ChangeState(State.Die);
+    }
+
+    public void KnockBack()
+    {
+        _rb.AddForce(new Vector2(-direction * _knockBackForce.x, _knockBackForce.y), ForceMode2D.Impulse);
     }
 
     //==========================================================================================
@@ -139,32 +155,34 @@ public class StateMachineManager : MonoBehaviour
     private void Update()
     {
         if(isReady==false) return;
+        if (state != State.Die && state != State.Hurt)
+        {
 
-        if (isDirectionChangable)
-        {
-            if (h < 0f)
-                direction = -1;
-            if (h > 0f)
-                direction = 1;
-        }
-        if (isMovable)
-        {
-            _move.x = h;
-
-            if (Mathf.Abs(_move.x) > 0f)
-                ChangeState(State.Move);
-            else
-                ChangeState(State.Idle);
-        }
-        foreach (var shortKey in _States.Keys)
-        {
-            if (Input.GetKeyDown(shortKey))
+            if (isDirectionChangable)
             {
-                ChangeState(_States[shortKey]);
-                return;
+                if (h < 0f)
+                    direction = -1;
+                if (h > 0f)
+                    direction = 1;
+            }
+            if (isMovable)
+            {
+                _move.x = h;
+
+                if (Mathf.Abs(_move.x) > 0f)
+                    ChangeState(State.Move);
+                else
+                    ChangeState(State.Idle);
+            }
+            foreach (var shortKey in _States.Keys)
+            {
+                if (Input.GetKeyDown(shortKey))
+                {
+                    ChangeState(_States[shortKey]);
+                    return;
+                }
             }
         }
-
         ChangeState(_current.UpdateState());
     }
 

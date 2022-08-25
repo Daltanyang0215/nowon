@@ -5,14 +5,14 @@ using UnityEngine;
 public class TimeLock : MonoBehaviour
 {
     [SerializeField]
-    private MeshRenderer _mesh;
+    private Renderer _mesh;
 
     private bool _islock;
     public bool islock { get { return _islock; } }
     private void Awake()
     {
         if (_mesh == null)
-            _mesh = GetComponent<MeshRenderer>();
+            _mesh = GetComponent<Renderer>();
     }
 
     public void Lock(bool _lock)
@@ -20,12 +20,12 @@ public class TimeLock : MonoBehaviour
         if (_lock)
         {
             _islock = true;
-            _mesh.materials[0].color = Color.black;
+            _mesh.materials[0].SetFloat("_isLock",1);
         }
         else
         {
             _islock = false;
-            _mesh.materials[0].color = Color.white;
+            _mesh.materials[0].SetFloat("_isLock", 0);
         }
     }
 
