@@ -105,6 +105,11 @@ public class PlayerAttack : MonoBehaviour
                 _islock = true;
                 _lockTarget.Lock(true);
             }
+            else if (rayHit.collider.gameObject.transform.parent.TryGetComponent<TimeLock>(out _lockTarget)) // rayhit check . component<timelock>
+            {
+                _islock = true;
+                _lockTarget.Lock(true);
+            }
         }
     }
 

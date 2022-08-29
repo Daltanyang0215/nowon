@@ -23,7 +23,7 @@ public class Boomber : MonoBehaviour
     private Vector3 _prevVelocity;
     private Vector3 _prevRotate;
 
-    public bool islock
+    public bool isLock
     {
         get { return _timelock != null ? _timelock.islock:false; }
     }
@@ -39,7 +39,7 @@ public class Boomber : MonoBehaviour
         switch (_lockState)
         {
             case LockState.Idle:
-                if (islock)
+                if (isLock)
                     _lockState++;
                 break;
             case LockState.Freezing:
@@ -51,7 +51,7 @@ public class Boomber : MonoBehaviour
                 _lockState++;
                 break;
             case LockState.Freeze:
-                if (!islock)
+                if (!isLock)
                     _lockState++;
 
                 break;
@@ -70,7 +70,7 @@ public class Boomber : MonoBehaviour
 
     private void Update()
     {
-        if (!islock)
+        if (!isLock)
         {
             if (_time < 0)
             {

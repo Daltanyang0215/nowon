@@ -14,6 +14,7 @@ public class StateMachineManager : MonoBehaviour
         Jump,
         Fall,
         Attack,
+        EdgeGrab,
         Dash,
         Slide,
         Crouch,
@@ -181,6 +182,10 @@ public class StateMachineManager : MonoBehaviour
                     ChangeState(_States[shortKey]);
                     return;
                 }
+            }
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                ChangeState(State.EdgeGrab);
             }
         }
         ChangeState(_current.UpdateState());
