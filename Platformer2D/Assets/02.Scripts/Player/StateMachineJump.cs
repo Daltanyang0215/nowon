@@ -78,7 +78,7 @@ public class StateMachineJump : StateMachineBase
                     state++;
                 break;
             case State.onAction:
-                if (_rb.velocity.y < 0)
+                if (_rb.velocity.y < 0.5f)
                 {
                     nextState = StateMachineManager.State.Fall;
                 }

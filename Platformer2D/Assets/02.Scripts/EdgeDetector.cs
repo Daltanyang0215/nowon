@@ -8,11 +8,11 @@ public class EdgeDetector : MonoBehaviour
     //public float topX, topY, bottomX, bottomY;
     public Vector2 climbPos
     {
-        get => new Vector2(topX*2, topY);
+        get => new Vector2(topX*1.1f, topY*1.05f);
     }
     public Vector2 grabPos
     {
-        get => new Vector2(topX, topY);
+        get => new Vector2(topX, topY * 1.05f);
     }
     public float topX => _rb.position.x + (_col.size.x / 2f + 0.04f) * _machineManager.direction;
     public float topY => _rb.position.y + _col.size.y * 1.1f + 0.03f;

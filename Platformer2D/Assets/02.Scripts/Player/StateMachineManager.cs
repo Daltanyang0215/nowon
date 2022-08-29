@@ -69,14 +69,15 @@ public class StateMachineManager : MonoBehaviour
         _move.x = 0;
         _rb.velocity = Vector2.zero;
     }
-    public void ChangeState(State newState)
+    public bool ChangeState(State newState)
     {
-        if (state == newState || _machines[newState].IsExecuteOk()==false) return;
+        if (state == newState || _machines[newState].IsExecuteOk()==false) return false;
         //Debug.Log($"{state} -> {newState}");
         _machines[state].ForceStop();
         _machines[newState].Execute();
         _current = _machines[newState];
         state = newState;
+        return true;
     }
 
     public void TryHurt()
@@ -175,17 +176,16 @@ public class StateMachineManager : MonoBehaviour
                 else
                     ChangeState(State.Idle);
             }
-            foreach (var shortKey in _States.Keys)
-            {
-                if (Input.GetKeyDown(shortKey))
-                {
-                    ChangeState(_States[shortKey]);
-                    return;
-                }
-            }
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 ChangeState(State.EdgeGrab);
+            }
+            foreach (var shortKey in _States.Keys)
+            {
+                if (Input.GetKeyDown(shortKey)&&ChangeState(_States[shortKey]))
+                {
+                        return;
+                }
             }
         }
         ChangeState(_current.UpdateState());

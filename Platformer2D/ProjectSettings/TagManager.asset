@@ -17,7 +17,7 @@ TagManager:
   - 
   - Ground
   - 
-  - 
+  - Ladder
   - 
   - 
   - Player
@@ -43,6 +43,9 @@ TagManager:
     locked: 0
   - name: Back
     uniqueID: 3252622543
+    locked: 0
+  - name: Ladder
+    uniqueID: 2821450569
     locked: 0
   - name: Player
     uniqueID: 1977092319

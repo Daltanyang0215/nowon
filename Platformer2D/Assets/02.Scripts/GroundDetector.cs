@@ -61,7 +61,7 @@ public class GroundDetector : MonoBehaviour
     private void Awake()
     {
         _col = transform.Find("Collision").GetComponent<CapsuleCollider2D>();
-        _size.x = _col.size.x / 2;
+        _size.x = _col.size.x / 3;
         _size.y = 0.005f;
     }
 
