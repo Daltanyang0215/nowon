@@ -85,6 +85,9 @@ public class StateMachineJump : StateMachineBase
                 else if (_rb.velocity.y < 1f)
                 {
                     animationManager.Play("JumpToFall");
+                }else if (_groundDetector.isDetected)
+                {
+                    nextState = StateMachineManager.State.Idle;
                 }
                 break;
             case State.Finish:

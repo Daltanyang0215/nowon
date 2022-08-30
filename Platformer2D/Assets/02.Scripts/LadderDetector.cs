@@ -15,8 +15,8 @@ public class LadderDetector : MonoBehaviour
     private Rigidbody2D _rb;
     [SerializeField] private LayerMask _ladderLayer;
 
-    private Vector2 _ladderTopPoint;
-    private Vector2 _ladderBottomPoint;
+    public Vector2 ladderTopPoint;
+    public Vector2 ladderBottomPoint;
 
     private void Awake()
     {
@@ -31,8 +31,8 @@ public class LadderDetector : MonoBehaviour
         if (ladderCol != null)
         {
             BoxCollider2D ladderBoxCol = (BoxCollider2D)ladderCol;
-            _ladderTopPoint = (Vector2)ladderBoxCol.transform.position + ladderBoxCol.offset + Vector2.up * ladderBoxCol.size.y / 2.0f;
-            _ladderBottomPoint = (Vector2)ladderBoxCol.transform.position + ladderBoxCol.offset + Vector2.down * ladderBoxCol.size.y / 2.0f;
+            ladderTopPoint = (Vector2)ladderBoxCol.transform.position + ladderBoxCol.offset + Vector2.up * ladderBoxCol.size.y / 2.0f;
+            ladderBottomPoint = (Vector2)ladderBoxCol.transform.position + ladderBoxCol.offset + Vector2.down * ladderBoxCol.size.y / 2.0f;
             isGoUpPassible = true;
         }
         else
@@ -45,8 +45,8 @@ public class LadderDetector : MonoBehaviour
         if (ladderCol != null)
         {
             BoxCollider2D ladderBoxCol = (BoxCollider2D)ladderCol;
-            _ladderTopPoint = (Vector2)ladderBoxCol.transform.position + ladderBoxCol.offset + Vector2.up * ladderBoxCol.size.y / 2.0f;
-            _ladderBottomPoint = (Vector2)ladderBoxCol.transform.position + ladderBoxCol.offset + Vector2.down * ladderBoxCol.size.y / 2.0f;
+            ladderTopPoint = (Vector2)ladderBoxCol.transform.position + ladderBoxCol.offset + Vector2.up * ladderBoxCol.size.y / 2.0f;
+            ladderBottomPoint = (Vector2)ladderBoxCol.transform.position + ladderBoxCol.offset + Vector2.down * ladderBoxCol.size.y / 2.0f;
             isGoDownPassible = true;
         }
         else
@@ -59,7 +59,7 @@ public class LadderDetector : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.magenta;
-        Gizmos.DrawLine(_ladderTopPoint, _ladderBottomPoint);
+        Gizmos.DrawLine(ladderTopPoint, ladderBottomPoint);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(new Vector2(_rb.position.x, _rb.position.y + _col.offset.y), 0.05f);
         Gizmos.color = Color.cyan;

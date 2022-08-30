@@ -14,6 +14,7 @@ public class StateMachineManager : MonoBehaviour
         Jump,
         Fall,
         Attack,
+        Ladder,
         EdgeGrab,
         Dash,
         Slide,
@@ -47,12 +48,13 @@ public class StateMachineManager : MonoBehaviour
 
     public bool isDirectionChangable { get; set; }
     public bool isMovable { get; set; }
-    private Vector2 _move;
+    public Vector2 _move;
     private float _moveSpeed = 2.0f;
 
     private AnimationManager _animationManager;
     private StateMachineBase _current;
     private Rigidbody2D _rb;
+    private LadderDetector _ladderDetector;
     private Player _player;
 
     [SerializeField] private Vector2 _attackHitCastCenter = new Vector2(0.25f, 0.25f);
@@ -60,7 +62,7 @@ public class StateMachineManager : MonoBehaviour
     [SerializeField] private LayerMask _attackTargetLayer;
     [SerializeField] private Vector2 _knockBackForce;
 
-    private float h { get => Input.GetAxisRaw("Horizontal"); }
+    public float h { get => Input.GetAxisRaw("Horizontal"); }
     private float v { get => Input.GetAxisRaw("Vertical"); }
 
     //==========================================================================================
@@ -71,13 +73,22 @@ public class StateMachineManager : MonoBehaviour
     }
     public bool ChangeState(State newState)
     {
-        if (state == newState || _machines[newState].IsExecuteOk()==false) return false;
+        if (state == newState || _machines[newState].IsExecuteOk() == false) return false;
         //Debug.Log($"{state} -> {newState}");
         _machines[state].ForceStop();
         _machines[newState].Execute();
         _current = _machines[newState];
         state = newState;
         return true;
+    }
+
+    public void ForceChangeState(State newState)
+    {
+        
+        _machines[state].ForceStop();
+        _machines[newState].Execute();
+        _current = _machines[newState];
+        state = newState;
     }
 
     public void TryHurt()
@@ -107,6 +118,7 @@ public class StateMachineManager : MonoBehaviour
         direction = _directionInit;
         _animationManager = GetComponent<AnimationManager>();
         _rb = GetComponent<Rigidbody2D>();
+        _ladderDetector = GetComponent<LadderDetector>();
         _player = GetComponent<Player>();
 
         yield return new WaitUntil(() => _animationManager.isReady);
@@ -121,7 +133,7 @@ public class StateMachineManager : MonoBehaviour
 
     private void InitStateMachines()
     {
-        Array values= Enum.GetValues(typeof(State));
+        Array values = Enum.GetValues(typeof(State));
         foreach (var value in values)
         {
             AddStateMachine((State)value);
@@ -156,7 +168,7 @@ public class StateMachineManager : MonoBehaviour
 
     private void Update()
     {
-        if(isReady==false) return;
+        if (isReady == false) return;
         if (state != State.Die && state != State.Hurt)
         {
 
@@ -176,15 +188,27 @@ public class StateMachineManager : MonoBehaviour
                 else
                     ChangeState(State.Idle);
             }
-            if (Input.GetKey(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                ChangeState(State.EdgeGrab);
+                if (_ladderDetector.isGoUpPassible)
+                {
+                    ChangeState(State.Ladder);
+                }
+            }
+            else if (Input.GetKey(KeyCode.UpArrow))
+            {
+                    ChangeState(State.EdgeGrab);
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                if (_ladderDetector.isGoDownPassible)
+                    ChangeState(State.Ladder);
             }
             foreach (var shortKey in _States.Keys)
             {
-                if (Input.GetKeyDown(shortKey)&&ChangeState(_States[shortKey]))
+                if (Input.GetKeyDown(shortKey) && ChangeState(_States[shortKey]))
                 {
-                        return;
+                    return;
                 }
             }
         }
