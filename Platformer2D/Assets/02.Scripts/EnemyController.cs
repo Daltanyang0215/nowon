@@ -76,11 +76,13 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private bool _aiAutoFollow;
     [SerializeField] private bool _aiAttackable;
     [SerializeField] private float _aiTargetDetectRange;
+    [SerializeField] private float _aiAttackRange;
     [SerializeField] private float _aiBehaviorTimeMin;
     [SerializeField] private float _aiBehaviorTimeMax;
     private float _aiBehaviorTime;
 
     [Header("Movement")]
+    [SerializeField] private bool _moveEnable;
     [SerializeField] private float _moveSpeed;
     private Vector2 _move;
     private int _direction;
@@ -328,8 +330,13 @@ public class EnemyController : MonoBehaviour
                         _move.x = -1f;
                     }
                 }
+                if (_aiAttackable && Vector2.Distance(target.transform.position, _rb.position) < _aiAttackRange)
+                {
+                    _aiState = AIState.AttactTarget;
+                }
                 break;
             case AIState.AttactTarget:
+                ChangeState(State.Attack);
                 break;
             default:
                 break;

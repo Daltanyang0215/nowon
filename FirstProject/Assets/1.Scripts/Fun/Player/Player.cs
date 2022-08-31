@@ -11,12 +11,12 @@ public class Player : MonoBehaviour
     }
 
     [Header("Move")]
-    private float forwad, right;
+    private float _forwad, _right;
     public float moveSpeed;
-    private Vector3 moveVec;
+    private Vector3 _moveVec;
 
-    private bool isDash;
-    private Vector3 dashVec;
+    private bool _isDash;
+    private Vector3 _dashVec;
 
     void Update()
     {
@@ -33,27 +33,27 @@ public class Player : MonoBehaviour
 
     private void GetInput()
     {
-        forwad = Input.GetAxisRaw("Vertical");
-        right = Input.GetAxisRaw("Horizontal");
+        _forwad = Input.GetAxisRaw("Vertical");
+        _right = Input.GetAxisRaw("Horizontal");
     }
 
     private void Move()
     {
-        if (!isDash)
-            moveVec = new Vector3(right, 0, forwad).normalized;
+        if (!_isDash)
+            _moveVec = new Vector3(_right, 0, _forwad).normalized;
         else
-            moveVec = dashVec;
+            _moveVec = _dashVec;
 
-        transform.Translate(moveVec * moveSpeed * Time.fixedDeltaTime);
+        transform.Translate(_moveVec * moveSpeed * Time.fixedDeltaTime);
     }
 
     private void Dash()
     {
-        if(moveVec != Vector3.zero && !isDash && Input.GetKeyDown(KeyCode.Space))
+        if(_moveVec != Vector3.zero && !_isDash && Input.GetKeyDown(KeyCode.Space))
         {
-            isDash = true;
+            _isDash = true;
             moveSpeed *= 4;
-            dashVec = moveVec;
+            _dashVec = _moveVec;
 
             Invoke("Undash", 0.2f);
         }
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
 
     private void Undash()
     {
-        isDash = false;
+        _isDash = false;
         moveSpeed /= 4;
     }
 }

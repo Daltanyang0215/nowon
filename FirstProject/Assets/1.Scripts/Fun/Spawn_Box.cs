@@ -9,6 +9,9 @@ public class Spawn_Box : MonoBehaviour
     [SerializeField] private float _spwanRange;
     [SerializeField] private float _spwangheiht;
 
+    [SerializeField] Vector3 _spwanRangeMin;
+    [SerializeField] Vector3 _spwanRangeMax;
+
     [SerializeField] private int _spwanCount;
 
     // Start is called before the first frame update
@@ -40,6 +43,7 @@ public class Spawn_Box : MonoBehaviour
 
     private Vector3 SpwanRandomRange()
     {
-        return new Vector3(Random.Range(-_spwanRange, _spwanRange), Random.Range(3, _spwangheiht), Random.Range(-_spwanRange, _spwanRange));
+        //return new Vector3(Random.Range(-_spwanRange, _spwanRange), Random.Range(3, _spwangheiht), Random.Range(-_spwanRange, _spwanRange));
+        return new Vector3(Random.Range(_spwanRangeMin.x, _spwanRangeMax.x), Random.Range(_spwanRangeMin.y, _spwanRangeMax.y), Random.Range(_spwanRangeMin.z, _spwanRangeMax.z));
     }
 }

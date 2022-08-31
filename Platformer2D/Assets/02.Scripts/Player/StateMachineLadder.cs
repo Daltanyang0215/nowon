@@ -61,7 +61,7 @@ public class StateMachineLadder : StateMachineBase
                 animationManager.Play("Ladder");
                 if (_ladderDetector.isGoUpPassible)
                 {
-                    _rb.position = new Vector2(_ladderDetector.ladderBottomPoint.x , _rb.position.y + _col.size.y * 0.5f);
+                    _rb.position = new Vector2(_ladderDetector.ladderBottomPoint.x , _rb.position.y + _col.size.y * 0.1f);
 
                 }else if (_ladderDetector.isGoDownPassible)
                 {
@@ -87,7 +87,7 @@ public class StateMachineLadder : StateMachineBase
                     state++;
                 }
 
-                if (Input.GetKeyDown(KeyCode.X))
+                if (Input.GetKeyDown(KeyCode.X) && manager.h != 0)
                 {
                     if(manager.h < 0)
                     {
@@ -97,9 +97,9 @@ public class StateMachineLadder : StateMachineBase
                         manager.direction = 1;
                     }
 
-                    nextState = StateMachineManager.State.Jump;
-                    manager.ForceChangeState(StateMachineManager.State.Jump);
-                    manager._move.x = manager.h;
+                        nextState = StateMachineManager.State.Jump;
+                        manager.ForceChangeState(StateMachineManager.State.Jump);
+                        manager._move.x = manager.h;
                 }
 
                 break;
