@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
         else
             _moveVec = _dashVec;
 
+        
         transform.Translate(_moveVec * moveSpeed * Time.fixedDeltaTime);
     }
 

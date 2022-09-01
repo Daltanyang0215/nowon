@@ -5,22 +5,19 @@ using UnityEngine;
 public class CameraMove : MonoBehaviour
 {
     [Space]
-    [Header("Camera")]
+    [Header("Camera")] 
     private float rotateX, rotateY;
-    [SerializeField]
-    private float rotateX_Min, rotateX_Max;
-    [SerializeField]
-    private float rotateYSpeed;
-    [SerializeField]
-    private float rotateXSpeed;
-    [SerializeField]
-    private float cameraPosZ_Min;
-    [SerializeField]
-    private float cameraPosZ_Max;
+    [SerializeField] private float rotateX_Min, rotateX_Max;
+    [SerializeField] private float rotateYSpeed;
+    [SerializeField] private float rotateXSpeed;
+    [SerializeField] private float cameraPosZ_Min;
+    [SerializeField] private float cameraPosZ_Max;
 
     [SerializeField]
     private Transform cameraAnchor;
     private bool clampCTR = false;
+
+    [SerializeField] private bool _rotateToPlayer;
 
     private void Update()
     {
@@ -35,6 +32,8 @@ public class CameraMove : MonoBehaviour
         rotateX = Input.GetAxis("Mouse Y");
         clampCTR = Input.GetKey(KeyCode.LeftControl);
     }
+
+
 
     void CameraRotate()
     {
@@ -55,12 +54,19 @@ public class CameraMove : MonoBehaviour
                 tmp_x = rotateX_Min;
             }
 
-            cameraAnchor.rotation = Quaternion.Euler(tmp_x, transform.eulerAngles.y, 0);
-            transform.rotation = Quaternion.Euler(0, tmp_y, 0);
+            if (_rotateToPlayer)
+            {
+                transform.rotation = Quaternion.Euler(tmp_x, tmp_y, 0);
+            }
+            else
+            {
+                cameraAnchor.rotation = Quaternion.Euler(tmp_x, transform.eulerAngles.y, 0);
+                transform.rotation = Quaternion.Euler(0, tmp_y, 0);
+            }
 
             //cameraAnchor.Rotate(Vector3.right, tmp_x);
             //cameraAnchor.Rotate(Vector3.left * rotateX * rotateXSpeed);
-            
+
         }
     }
 

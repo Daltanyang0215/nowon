@@ -20,6 +20,11 @@ public class Box_Script : MonoBehaviour
             _lockOnAnchor.LookAt(Camera.main.transform);
     }
 
+    private void OnDisable()
+    {
+        ScoreManager.instance.score++;
+    }
+
     private void OnEnable()
     {
         _lockOnAnchor.gameObject.SetActive(false);

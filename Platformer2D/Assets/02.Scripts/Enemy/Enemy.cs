@@ -23,6 +23,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Slider _hpBar;
     [SerializeField] private int _hpMax;
     [SerializeField] private int _damage;
+    public int damage
+    {
+        get { return _damage; }
+    }
 
 
     private EnemyController _controller;

@@ -105,11 +105,12 @@ public class EnemyController : MonoBehaviour
     }
     [SerializeField] private int _directionInit = 1;
 
-    [SerializeField] private LayerMask _targetLayer;
+    [SerializeField] protected LayerMask _targetLayer;
 
     private Animator _animator;
-    private Rigidbody2D _rb;
+    protected Rigidbody2D _rb;
     private CapsuleCollider2D _col;
+    protected Enemy _enemySelf;
 
     private float _animationTimer;
     private float _AttackTime;
@@ -134,16 +135,22 @@ public class EnemyController : MonoBehaviour
     }
 
     public void TryDie()
-    { 
+    {
         ChangeState(State.Die);
     }
 
     public void KnockBack(int knockbackDirection)
     {
+        if (!_moveEnable) return;
         _move.x = 0;
         _rb.velocity = Vector2.zero;
 
-        _rb.AddForce( new Vector2(knockbackDirection * _knockBackForce.x,_knockBackForce.y), ForceMode2D.Impulse);
+        _rb.AddForce(new Vector2(knockbackDirection * _knockBackForce.x, _knockBackForce.y), ForceMode2D.Impulse);
+    }
+
+    protected virtual void AttackBehavior()
+    {
+
     }
 
     private void Awake()
@@ -152,6 +159,7 @@ public class EnemyController : MonoBehaviour
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>();
         _col = GetComponent<CapsuleCollider2D>();
+        _enemySelf = GetComponent<Enemy>();
         _AttackTime = GetAnimationTime("Attack");
         _hurtTime = GetAnimationTime("Hurt");
         _dieTime = GetAnimationTime("Die");
@@ -169,14 +177,17 @@ public class EnemyController : MonoBehaviour
                 direction = 1;
         }
 
-        if (state != State.Hurt && state != State.Die)
+        if (_moveEnable)
         {
-            if (_isMovable)
+            if (state != State.Hurt && state != State.Die)
             {
-                if (Mathf.Abs(_move.x) > 0f)
-                    ChangeState(State.Move);
-                else
-                    ChangeState(State.Idle);
+                if (_isMovable)
+                {
+                    if (Mathf.Abs(_move.x) > 0f)
+                        ChangeState(State.Move);
+                    else
+                        ChangeState(State.Idle);
+                }
             }
         }
         UpdataState();
@@ -184,6 +195,7 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!_moveEnable) return;
         transform.position += new Vector3(_move.x * _moveSpeed, _move.y, 0) * Time.fixedDeltaTime;
     }
 
@@ -262,11 +274,14 @@ public class EnemyController : MonoBehaviour
     private void UpdateAIState()
     {
         if (state == State.Hurt || state == State.Die) return;
-        if (_aiAutoFollow)
+        if (_aiState < AIState.FollowTarget)
         {
-            if (Physics2D.OverlapCircle(_rb.position, _aiTargetDetectRange, _targetLayer))
+            if (_aiAutoFollow)
             {
-                _aiState = AIState.FollowTarget;
+                if (Physics2D.OverlapCircle(_rb.position, _aiTargetDetectRange, _targetLayer))
+                {
+                    _aiState = AIState.FollowTarget;
+                }
             }
         }
         else
@@ -329,14 +344,19 @@ public class EnemyController : MonoBehaviour
                     {
                         _move.x = -1f;
                     }
-                }
-                if (_aiAttackable && Vector2.Distance(target.transform.position, _rb.position) < _aiAttackRange)
-                {
-                    _aiState = AIState.AttactTarget;
+
+                    if (_aiAttackable && Vector2.Distance(target.transform.position, _rb.position) < _aiAttackRange)
+                    {
+                        ChangeState(State.Attack);
+                        _aiState = AIState.AttactTarget;
+                    }
                 }
                 break;
             case AIState.AttactTarget:
-                ChangeState(State.Attack);
+                if (state != State.Attack)
+                {
+                    _aiState = AIState.FollowTarget;
+                }
                 break;
             default:
                 break;
@@ -398,10 +418,11 @@ public class EnemyController : MonoBehaviour
                 _move.x = 0;
                 _rb.velocity = Vector2.zero;
                 _animator.Play("Attack");
-                _attackState = AttackState.onAction;
+                _attackState++;
                 _animationTimer = _AttackTime;
                 break;
             case AttackState.Casting:
+                _attackState++;
                 break;
             case AttackState.onAction:
                 if (_animationTimer < 0)
@@ -494,9 +515,11 @@ public class EnemyController : MonoBehaviour
         return -1.0f;
     }
 
-    private void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, _aiTargetDetectRange);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _aiAttackRange);
     }
 }
