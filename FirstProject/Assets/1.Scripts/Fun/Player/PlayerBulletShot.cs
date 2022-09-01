@@ -7,25 +7,30 @@ public class PlayerBulletShot : MonoBehaviour
 {
     public static PlayerBulletShot Instance;
 
-    [SerializeField]
-    private GameObject bullet;
-    [SerializeField]
-    private GameObject bullet_F;
-    [SerializeField]
-    private Transform bulletSpwanPoint;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject bullet_F;
+    [SerializeField] private Transform bulletSpwanPoint;
     //public List<GameObject> blocks = new List<GameObject>();
     public Queue<GameObject> blocksQueue;
     public int maxTargetBlock;
-    [SerializeField]
-    private float _allShotTime;
+    [SerializeField] private float _allShotTime;
     private WaitForSeconds shotDelay = new WaitForSeconds(0.025f);
 
     [Header("Stack")]
-    [SerializeField]
-    private float _stack;
-
-    [SerializeField]
-    private float _stack_Max;
+    [SerializeField] private float _stack;
+    public float stack
+    {
+        get
+        {
+            return _stack;
+        }
+        set
+        {
+            _stack = value < 0 ? 0 : value;
+            _stackSlider.value = _stack;
+        }
+    }
+    [SerializeField] private float _stack_Max;
     public float stack_Max
     {
         get
@@ -39,42 +44,25 @@ public class PlayerBulletShot : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    private int _stackNesting;
-    [SerializeField]
-    private int _stackNesting_Max;
+    [SerializeField] private int _stackNesting;
+    [SerializeField] private int _stackNesting_Max;
     [SerializeField]
     [ColorUsage(true)]
     private Color[] stackColors;
-    [SerializeField]
-    private Slider _stackSlider;
+    [SerializeField] private Slider _stackSlider;
 
-    [SerializeField]
-    private Transform bulletSpwanPoint_f;
-    [SerializeField]
-    private float finalTime;
+    [SerializeField] private Transform bulletSpwanPoint_f;
+    [SerializeField] private float finalTime;
     private bool final;
-    [SerializeField]
-    private Transform boxParent;
+    [SerializeField] private Transform boxParent;
 
     private Camera _camera;
 
-    private bool okFire=true;
+    private bool _isReadyFire = true;
 
-    public float stack
-    {
-        get
-        {
-            return _stack;
-        }
-        set
-        {
-            _stack = value < 0 ? 0 : value;
-            _stackSlider.value = _stack;
-        }
-    }
 
-    void Init()
+
+    private void Init()
     {
         stack = 0;
         stack_Max = 10;
@@ -103,9 +91,9 @@ public class PlayerBulletShot : MonoBehaviour
 
     private void TargetMouse()
     {
-        if (Input.GetMouseButton(0) && okFire)
+        if (Input.GetMouseButton(0) && Input.GetKey(KeyCode.LeftControl) && _isReadyFire)
         {
-            RaycastHit[] hits = Physics.SphereCastAll(_camera.ScreenPointToRay(Input.mousePosition), 1);
+            RaycastHit[] hits = Physics.SphereCastAll(_camera.ScreenPointToRay(Input.mousePosition), 2);
             foreach (var hit in hits)
             {
                 TargetQueue(hit.collider.gameObject);
@@ -130,9 +118,9 @@ public class PlayerBulletShot : MonoBehaviour
     {
         while (true)
         {
-            if (Input.GetMouseButtonUp(0) && okFire )
+            if (Input.GetMouseButtonUp(0) && _isReadyFire)
             {
-                okFire = false;
+                _isReadyFire = false;
                 float sinmax = blocksQueue.Count;
                 shotDelay = new WaitForSeconds(_allShotTime / blocksQueue.Count);
                 while (blocksQueue.Count != 0)
@@ -143,35 +131,13 @@ public class PlayerBulletShot : MonoBehaviour
                     shotbullet.GetComponent<Bullet>().target = blocksQueue.Dequeue().transform;
                     yield return shotDelay;
                 }
-                okFire = true;
+                _isReadyFire = true;
             }
             yield return null;
         }
     }
 
-    public IEnumerator BulletShot_Final()
-    {
-        Camera cam = Camera.main;
-        Vector3 pos = Vector3.zero;
-        for (int i = 0; i < boxParent.childCount; i++)
-        {
-            pos = cam.WorldToViewportPoint(boxParent.GetChild(i).transform.position);
-            if (pos.x <= 1 && pos.x >= 0 && pos.y <= 1 && pos.y >= 0 && pos.z > 0)
-            {
-                TargetQueue(boxParent.GetChild(i).gameObject, true);
-            }
-        }
-        //Debug.Log(blocksQueue);
-        while (blocksQueue.Count > 0)
-        {
-            GameObject shotbullet = Instantiate(bullet_F, bulletSpwanPoint_f.position + new Vector3(Random.Range(-10f, 10f), Random.Range(0f, 5f), Random.Range(-1f, 3f)), bulletSpwanPoint_f.rotation);
-            shotbullet.GetComponent<Bullet>().curve = false;
-            shotbullet.GetComponent<Bullet>().transform.LookAt(blocksQueue.Peek().transform);
-            shotbullet.GetComponent<Bullet>().target = blocksQueue.Dequeue().transform;
-            shotbullet.GetComponent<Bullet>().DelayShot();
-            yield return null;
-        }
-    }
+    
 
 
     void StackUpdata()
@@ -237,6 +203,29 @@ public class PlayerBulletShot : MonoBehaviour
         Init();
         blocksQueue.Clear();
         SliderColorSet(_stackNesting, _stackNesting + 1);
+    }
+
+    public IEnumerator BulletShot_Final()
+    {
+        Vector3 pos = Vector3.zero;
+        for (int i = 0; i < boxParent.childCount; i++)
+        {
+            pos = _camera.WorldToViewportPoint(boxParent.GetChild(i).transform.position);
+            if (pos.x <= 1 && pos.x >= 0 && pos.y <= 1 && pos.y >= 0 && pos.z > 0)
+            {
+                TargetQueue(boxParent.GetChild(i).gameObject, true);
+            } // 화면 내 타겟 지정
+        }
+        //Debug.Log(blocksQueue);
+        while (blocksQueue.Count > 0)
+        {
+            GameObject shotbullet = Instantiate(bullet_F, bulletSpwanPoint_f.position + new Vector3(Random.Range(-10f, 10f), Random.Range(0f, 5f), Random.Range(-1f, 3f)), bulletSpwanPoint_f.rotation);
+            shotbullet.GetComponent<Bullet>().curve = false;
+            shotbullet.GetComponent<Bullet>().transform.LookAt(blocksQueue.Peek().transform);
+            shotbullet.GetComponent<Bullet>().target = blocksQueue.Dequeue().transform;
+            shotbullet.GetComponent<Bullet>().DelayShot();
+            yield return null;
+        }
     }
 
     private void SliderColorSet(int _back, int _fward)

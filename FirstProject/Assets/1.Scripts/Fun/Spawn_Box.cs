@@ -6,8 +6,6 @@ public class Spawn_Box : MonoBehaviour
 {
     [SerializeField] private GameObject _spwanBox; // box asset
     [SerializeField] private Transform _parentTransform;
-    [SerializeField] private float _spwanRange;
-    [SerializeField] private float _spwangheiht;
 
     [SerializeField] Vector3 _spwanRangeMin;
     [SerializeField] Vector3 _spwanRangeMax;
