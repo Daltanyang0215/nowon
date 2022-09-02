@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance;
     public bool invincible { get; set; }
     private Coroutine _invincibleCoroutine;
     public int damage;
@@ -31,7 +32,7 @@ public class Player : MonoBehaviour
     public void Hurt(int damage)
     {
         hp -= damage;
-        DamagePopUp.Create(transform.position + Vector3.up*0.5f, damage, gameObject.layer);
+        DamagePopUp.Create(transform.position + Vector3.up * 0.5f, damage, gameObject.layer);
         if (hp > 0)
         {
             //_controller.TryHurt();
@@ -48,7 +49,7 @@ public class Player : MonoBehaviour
 
     public void InvincibleForSeconds(float seconds)
     {
-        if(_invincibleCoroutine != null)
+        if (_invincibleCoroutine != null)
         {
             StopCoroutine(_invincibleCoroutine);
         }
@@ -64,8 +65,12 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null)
+            Destroy(Instance);
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
         hp = _hpMax;
         //_controller=GetComponent<PlayerController>();
-        _machineManager=GetComponent<StateMachineManager>();
+        _machineManager = GetComponent<StateMachineManager>();
     }
 }

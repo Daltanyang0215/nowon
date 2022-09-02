@@ -832,7 +832,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 50, y: -50}
-  m_SizeDelta: {x: 300, y: 200}
+  m_SizeDelta: {x: 800, y: 200}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &575267562
 MonoBehaviour:
@@ -4187,7 +4187,7 @@ MonoBehaviour:
   _parentTransform: {fileID: 1152272539}
   _spwanRangeMin: {x: -50, y: -30, z: -50}
   _spwanRangeMax: {x: 50, y: 15, z: 50}
-  _spwanCount: 400
+  _spwanCount: 500
 --- !u!1 &1583456798
 GameObject:
   m_ObjectHideFlags: 0

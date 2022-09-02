@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc8ace11f1e24b943adfd003fcac8c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _destroyEffect: {fileID: 0}
+  _destroyEffect: {fileID: 8477294667106173676, guid: a5e2989e3cac3e04f8cf79f2c65bb408, type: 3}
 --- !u!70 &3088918056183155780
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -134,7 +134,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: da9f666cc08d2574087de987fd6feb78, type: 3}
-  m_Color: {r: 0.5144421, g: 0.495283, b: 1, a: 1}
+  m_Color: {r: 0.5, g: 0.5, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
