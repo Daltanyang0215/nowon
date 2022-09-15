@@ -25,10 +25,6 @@ public class Player : MonoBehaviour
         transform.Translate(_moveVec * moveSpeed * Time.fixedDeltaTime);
     }
 
-    void Update()
-    {
-        Dash();
-    }
 
 
     private void OnMove(InputValue value)
@@ -43,21 +39,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Dash()
-    {
-        if(_moveVec != Vector3.zero && !_isDash && Input.GetKeyDown(KeyCode.Space))
-        {
-            _isDash = true;
-            moveSpeed *= 4;
-            _dashVec = _moveVec;
 
-            Invoke("Undash", 0.2f);
-        }
-    }
-
-    private void Undash()
-    {
-        _isDash = false;
-        moveSpeed /= 4;
-    }
+    
 }

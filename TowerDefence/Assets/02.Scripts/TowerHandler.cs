@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
-public class TowerHandler : MonoBehaviour
+public class TowerHandler : MonoBehaviour, IPointerClickHandler
 {
     public static TowerHandler instance;
     public bool isSelected => _selectedTowerInfo;
 
-    private GameObject _ghostTwoer;
+    private GameObject _ghostTower;
     private TowerInfo _selectedTowerInfo;
     private Camera _camera;
     private Ray _ray;
@@ -19,13 +20,13 @@ public class TowerHandler : MonoBehaviour
     {
         _selectedTowerInfo = towerInfo;
         gameObject.SetActive(true);
-        if (_ghostTwoer != null)
+        if (_ghostTower != null)
         {
-            Destroy(_ghostTwoer);
+            Destroy(_ghostTower);
         }
-        if(TowerAssets.instance.TryGetTower(_selectedTowerInfo.name,out GameObject ghostTowerPrefab))
+        if(TowerAssets.instance.TryGetGhostTower(_selectedTowerInfo.name,out GameObject ghostTowerPrefab))
         {
-            _ghostTwoer = Instantiate(ghostTowerPrefab);
+            _ghostTower = Instantiate(ghostTowerPrefab);
         }
         else
         {
@@ -33,16 +34,20 @@ public class TowerHandler : MonoBehaviour
         }
     }
 
+
+
     public void Clear()
     {
-        _ghostTwoer = null;
+        if (_ghostTower != null)
+            Destroy(_ghostTower);
+        _ghostTower = null;
         _selectedTowerInfo = null;
         gameObject.SetActive(false);
     }
 
     public void SetGhostTowerPosition(Vector3 targetPos)
     {
-        _ghostTwoer.transform.position = targetPos;
+        _ghostTower.transform.position = targetPos;
     }
 
     private void Awake()
@@ -57,18 +62,54 @@ public class TowerHandler : MonoBehaviour
 
     private void Update()
     {
-        if (_ghostTwoer == null) return;
+        if (_ghostTower == null) return;
         _ray =  _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
-        Debug.Log(Mouse.current.position.ReadValue());
         if (Physics.Raycast(_ray, out _hit, float.PositiveInfinity, _nodeLayer))
         {
-            SetGhostTowerPosition(_hit.collider.transform.position);
-            _ghostTwoer.SetActive(true);
+            SetGhostTowerPosition(_hit.collider.transform.position + Vector3.up * 0.5f);
+            _ghostTower.SetActive(true);
         }
         else
         {
-            _ghostTwoer.SetActive(false);
+            _ghostTower.SetActive(false);
         }
 
+
+
+        transform.position = Mouse.current.position.ReadValue();
+
+    }
+
+    private void OnEsc()
+    {
+        Clear();
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (_hit.collider == null) return;
+
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            BiuildTower();
+        }else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            Clear();
+        }
+    }
+
+    private void BiuildTower()
+    {
+        if (_selectedTowerInfo.buildPrice > TowerPlayer.Instance.money)
+        {
+            Debug.Log($"잔액이 부족합니다");
+            return;
+        }
+
+        if (_hit.collider.GetComponent<Node>().TryBuildTowerHere(_selectedTowerInfo.name))
+        {
+            Debug.Log($"건설완료 {_selectedTowerInfo.name}");
+            TowerPlayer.Instance.money -= _selectedTowerInfo.buildPrice;
+        }
     }
 }
