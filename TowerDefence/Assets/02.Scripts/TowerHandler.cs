@@ -103,9 +103,9 @@ public class TowerHandler : MonoBehaviour, IPointerClickHandler
             return;
         }
 
-        if (_hit.collider.GetComponent<Node>().TryBuildTowerHere(_selectedTowerInfo.name))
+        if (_hit.collider.GetComponent<Node>().TryBuildTowerHere(_selectedTowerInfo.name,out Tower towerBuilt))
         {
-            Debug.Log($"타워 건설 완료 {_selectedTowerInfo.name}");
+            Debug.Log($"타워 건설 완료 {_selectedTowerInfo.name}, 위치 : {towerBuilt.node.transform.position}");
             Player.instance.money -= _selectedTowerInfo.buildPrice; // 돈 차감
         }
     }

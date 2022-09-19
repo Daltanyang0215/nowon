@@ -18,10 +18,10 @@ public class Node : MonoBehaviour
         _towerBuilt = null;
     }
 
-    public bool TryBuildTowerHere(string towerName)
+    public bool TryBuildTowerHere(string towerName , out Tower towerBuilt)
     {
         bool isOK = false;
-
+        towerBuilt = null;
         if (IsTowerExist)
         {
             Debug.Log("해당위치에 타워를 건설할 수 없습니다.");
@@ -36,6 +36,7 @@ public class Node : MonoBehaviour
                                            transform);
             _towerBuilt = built.GetComponent<Tower>();
             _towerBuilt.node = this;
+            towerBuilt = _towerBuilt;
             isOK = true;
         }
         return isOK;

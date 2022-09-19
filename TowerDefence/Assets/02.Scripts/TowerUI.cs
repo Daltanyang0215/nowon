@@ -23,16 +23,17 @@ public class TowerUI : MonoBehaviour
             _upgradeButton.gameObject.SetActive(true);
             _upgradeCost = nextLevelTower.info.buildPrice;
             _upgradeCostText.text = nextLevelTower.info.buildPrice.ToString();
-            RefreshUpgradeCostTextColor();
+            RefreshUpgradeCostTextColor(0);
 
 
             _upgradeButton.onClick.RemoveAllListeners();
-            _upgradeButton.onClick.AddListener(() => {
+            _upgradeButton.onClick.AddListener(() =>
+            {
 
                 if (_upgradeAffordable)
                 {
-                    Upgrade(tower, nextLevelTower);
-                    SetUp(nextLevelTower);
+                    Player.instance.money -= _upgradeCost;
+                    SetUp(Upgrade(tower, nextLevelTower));
                 }
             });
         }
@@ -42,6 +43,7 @@ public class TowerUI : MonoBehaviour
         }
 
         // Sell 버튼 세팅
+        _sellButton.onClick.RemoveAllListeners();
         _sellButton.onClick.AddListener(() =>
         {
             Player.instance.money += tower.info.sellPrice;
@@ -58,14 +60,17 @@ public class TowerUI : MonoBehaviour
         _upgradeCost = -1;
     }
 
-    public void Upgrade(Tower before, Tower after)
+    public Tower Upgrade(Tower before, Tower after)
     {
+        Tower towerBuilt = null;
         if (before == null)
-            return;
+            return towerBuilt;
 
         Node node = before.node;
         node.Clear();
-        node.TryBuildTowerHere($"{after.info.type}{after.info.upgradeLevel}");
+        node.TryBuildTowerHere($"{after.info.type}{after.info.upgradeLevel}", out towerBuilt);
+
+        return towerBuilt;
     }
 
 
@@ -85,11 +90,11 @@ public class TowerUI : MonoBehaviour
         Clear();
     }
 
-    private void RefreshUpgradeCostTextColor()
+    private void RefreshUpgradeCostTextColor(int money)
     {
         if (_upgradeAffordable)
-            _upgradeCostText.color = Color.red;
-        else
             _upgradeCostText.color = Color.black;
+        else
+            _upgradeCostText.color = Color.red;
     }
 }
