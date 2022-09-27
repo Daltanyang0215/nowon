@@ -38,8 +38,10 @@ public class Pathfinder : MonoBehaviour
     public enum FindingOptions
     {
         BFS,
-        DFS
+        DFS,
+        FixedWayPoints
     }
+    [SerializeField] private FindingOptions _option;
 
     struct NodePair
     {
@@ -59,8 +61,8 @@ public class Pathfinder : MonoBehaviour
         {-1,0,1,0 },
         {0,-1,0,1 }
     };
-    private List<List<Coord>> _pathList = new List<List<Coord>>();
-    private List<Coord> _tmpPathForDFS = new List<Coord>();
+    private List<List<Transform>> _pathList = new List<List<Transform>>();
+    private List<Transform> _tmpPathForDFS = new List<Transform>();
 
     public void SetNodeMap(List<Transform> pathNodes, List<Transform> obstacleNodes)
     {
@@ -112,52 +114,30 @@ public class Pathfinder : MonoBehaviour
         }
     }
 
-    public void FindOptimizedPath(Transform startNode, Transform endNode, FindingOptions options)
+    public List<Transform> FindOptimizedPath(Transform startNode, Transform endNode)
     {
         bool found = false;
-        switch (options)
+        switch (_option)
         {
             case FindingOptions.BFS:
-                found = BFS(TransformToCoord(startNode), TransformToCoord(endNode));
-                if (found)
-                {
-                    List<List<Transform>> nodePathList = new List<List<Transform>>();
-
-                    for (int i = 0; i < _pathList.Count; i++)
-                    {
-                        string pathString = "";
-                        nodePathList.Add(new List<Transform>());
-                        for (int j = 0; j < _pathList[i].Count; j++)
-                        {
-                            nodePathList[i].Add(GetNode(_pathList[i][j]));
-                            pathString += $"-> {nodePathList[i][j].name}";
-                        }
-                        Debug.Log($"[pathfinder] : BFS Å½»ö °á°ú \n {pathString})");
-                    }
-
-                }
+                found = BFS(FindNode(startNode).coord, FindNode(endNode).coord);
+                
                 break;
             case FindingOptions.DFS:
-                found = DFS(TransformToCoord(startNode), TransformToCoord(endNode));
-                if (found)
-                {
-                    List<Transform> nodePathList = new List<Transform>();
-                        string pathString = "";
-                        
-                    for (int i = 0; i < _tmpPathForDFS.Count; i++)
-                    {
-                            nodePathList.Add(GetNode(_tmpPathForDFS[i]));
-                            pathString += $"-> {nodePathList[i].name}";
-                    }
-                        Debug.Log($"[pathfinder] : BFS Å½»ö °á°ú \n {pathString})");
-                }
+                found = DFS(FindNode(startNode).coord, FindNode(endNode).coord);
+                return _tmpPathForDFS;
+            case FindingOptions.FixedWayPoints:
+                found = FindFixedWayPoints();
                 break;
             default:
                 break;
         }
 
-
-
+        if (found)
+        {
+            return _pathList.OrderBy(path => path.Count).First();
+        }
+        return null;
     }
 
     private bool BFS(Coord start, Coord end)
@@ -215,7 +195,7 @@ public class Pathfinder : MonoBehaviour
     {
         _visited[start.y, start.x] = true;
         Debug.Log($"->{GetNode(start).name}");
-        _tmpPathForDFS.Add(start);
+        _tmpPathForDFS.Add(GetNode(start));
 
         if (start == end) return true;
 
@@ -240,7 +220,7 @@ public class Pathfinder : MonoBehaviour
 
             // Å½»ö
 
-                if (DFS(next, end)) return true;
+            if (DFS(next, end)) return true;
 
         }
         _tmpPathForDFS.RemoveAt(_tmpPathForDFS.Count - 1);
@@ -250,22 +230,31 @@ public class Pathfinder : MonoBehaviour
     }
 
 
-    private List<Coord> CalcPath(List<KeyValuePair<Coord, Coord>> parentPairs, Coord start, Coord end)
+    private List<Transform> CalcPath(List<KeyValuePair<Coord, Coord>> parentPairs, Coord start, Coord end)
     {
-        List<Coord> path = new List<Coord>();
+        List<Transform> path = new List<Transform>();
         Coord tmpCoord = parentPairs.Last().Value;
-        path.Add(tmpCoord);
+        path.Add(GetNode( tmpCoord));
 
         int index = parentPairs.Count - 1;
         while (index > 0 && parentPairs[index].Key != start)
         {
-            path.Add(parentPairs[index].Key);
+            path.Add(GetNode( parentPairs[index].Key));
             index = parentPairs.FindLastIndex(pair => pair.Value == parentPairs[index].Key);
         }
-        path.Add(start);
+        path.Add(GetNode(start));
 
         path.Reverse();
         return path;
+    }
+
+    private bool FindFixedWayPoints()
+    {
+        if (WayPoints.instance == null)
+            return false;
+
+        _pathList.Add( WayPoints.instance.points.ToList());
+        return true;
     }
 
     private Coord TransformToCoord(Transform node)
@@ -309,7 +298,7 @@ public class Pathfinder : MonoBehaviour
 
         SetNodeMap(enemyPaths.ToList(), nodes.ToList());
 
-        FindOptimizedPath(enemyPaths[0], enemyPaths[enemyPaths.Length - 1],FindingOptions.DFS);
+        //FindOptimizedPath(enemyPaths[0], enemyPaths[enemyPaths.Length - 1], FindingOptions.DFS);
 
     }
 }
