@@ -82,26 +82,6 @@ public class Pathfinder : MonoBehaviour
     {
         bool found = false;
         optimizedPath = null;
-        switch (_option)
-        {
-            case FindingOptions.BFS:
-                found = BFS(FindNode(startNode).coord, FindNode(endNode).coord);
-
-                break;
-            case FindingOptions.DFS:
-                _tmpPathForDFS.Clear();
-                found = DFS(FindNode(startNode).coord, FindNode(endNode).coord);
-                optimizedPath = _tmpPathForDFS;
-                return true;
-            case FindingOptions.FixedWayPoints:
-                found = FindFixedWayPoints();
-                break;
-            default:
-                break;
-        }
-
-
-        optimizedPath = new List<Transform>(_pathList.OrderBy(path => path.Count).First());
 
         foreach (var path in _pathList)
         {
@@ -117,6 +97,23 @@ public class Pathfinder : MonoBehaviour
             }
         }
 
+        switch (_option)
+        {
+            case FindingOptions.BFS:
+                found = BFS(FindNode(startNode).coord, FindNode(endNode).coord);
+                optimizedPath = new List<Transform>(_pathList.OrderBy(path => path.Count).First());
+                break;
+            case FindingOptions.DFS:
+                _tmpPathForDFS.Clear();
+                found = DFS(FindNode(startNode).coord, FindNode(endNode).coord);
+                optimizedPath = _tmpPathForDFS;
+                return true;
+            case FindingOptions.FixedWayPoints:
+                found = FindFixedWayPoints();
+                break;
+            default:
+                break;
+        }
         return found;
     }
 

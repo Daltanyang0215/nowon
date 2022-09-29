@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyMove : MonoBehaviour
 {
     private Transform _tr;
-
+    private Enemy _enemy;
     private Pathfinder _pathFinder;
     [SerializeField] private Transform _start;
     [SerializeField] private Transform _end;
@@ -26,6 +26,7 @@ public class EnemyMove : MonoBehaviour
     private void Awake()
     {
         _tr = GetComponent<Transform>();
+        _enemy = GetComponent<Enemy>();
         _pathFinder = GetComponent<Pathfinder>();
         _originY = _tr.position.y;
     }
@@ -64,7 +65,7 @@ public class EnemyMove : MonoBehaviour
     private void OnReachedToEnd()
     {
         Player.instance.life -= 1;
-        Destroy(gameObject);
+        _enemy.Die();
     }
 
     public bool TryGetNextPoint(int curretPosintIndex, out Transform nextPoint)

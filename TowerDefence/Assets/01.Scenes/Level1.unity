@@ -37891,6 +37891,7 @@ MonoBehaviour:
   state: 0
   levelInfo: {fileID: 11400000, guid: 64febefcc34b29a4cb95c677451a909f, type: 2}
   currentStage: 0
+  currentStageId: 0
   _spawner: {fileID: 246138173}
 --- !u!4 &1775369320
 Transform:
