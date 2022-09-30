@@ -24,14 +24,23 @@ public class GamePlay : MonoBehaviour
     public int currentStage;
     public int currentStageId;
     private Dictionary<int, bool> _stateFinishedPairs;
-    [SerializeField] private EnemySpawner _spawner;
+    private float _nextStageDelay = 0.5f;
 
+
+    [SerializeField] private EnemySpawner _spawner;
     public void StartLevel()
     {
         if (state == States.Idle)
             state = States.SetUpLevel;
     }
 
+    public void NextStage()
+    {
+        if (currentStage < levelInfo.stagesInfo.Count - 1 && state == States.WaitForStageFinished)
+        {
+            state = States.NextStage;
+        }
+    }
     private void Awake()
     {
         instance = this;
@@ -119,7 +128,7 @@ public class GamePlay : MonoBehaviour
 
     private void OnStageFinished(int stageId)
     {
-        if(_stateFinishedPairs.TryGetValue(stageId,out bool isFinished) && isFinished == false)
+        if (_stateFinishedPairs.TryGetValue(stageId, out bool isFinished) && isFinished == false)
         {
             _stateFinishedPairs[stageId] = true;
 
@@ -127,9 +136,10 @@ public class GamePlay : MonoBehaviour
             {
                 OnLevelFinished();
             }
-            else if(stageId == currentStageId)
+            else if (stageId == currentStageId)
             {
-                state = States.NextStage;
+                _spawner.DestroyAllSkipButtons();
+                Invoke("NextStage", _nextStageDelay);
             }
         }
     }
@@ -139,7 +149,7 @@ public class GamePlay : MonoBehaviour
         bool isFinished = true;
         foreach (var pair in _stateFinishedPairs)
         {
-            if(pair.Value == false)
+            if (pair.Value == false)
                 isFinished = false;
         }
         return isFinished;
@@ -149,4 +159,6 @@ public class GamePlay : MonoBehaviour
     {
         state = States.LevelCompleted;
     }
+
+
 }
