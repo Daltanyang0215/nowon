@@ -40,10 +40,7 @@ public class Projectile : MonoBehaviour
         {
             tr.LookAt(target);
         }
-        else
-        {
             tr.Translate(Time.fixedDeltaTime * _speed * Vector3.forward,Space.Self);
-        }
     }
 
     protected virtual void OnTriggerEnter(Collider other)

@@ -28,11 +28,15 @@ public class GamePlay : MonoBehaviour
 
 
     [SerializeField] private EnemySpawner _spawner;
+    [SerializeField] private LevelCompletePanel _levelCompletePanelPrefab;
+    [SerializeField] private LevelFailedPanel _levelFailedPanel;
     public void StartLevel()
     {
         if (state == States.Idle)
             state = States.SetUpLevel;
     }
+
+    
 
     public void NextStage()
     {
@@ -41,6 +45,15 @@ public class GamePlay : MonoBehaviour
             state = States.NextStage;
         }
     }
+
+    private void Pause(bool pause)
+    {
+        if (pause)
+            Time.timeScale = 0;
+        else
+            Time.timeScale = 1;
+    }
+
     private void Awake()
     {
         instance = this;
@@ -71,6 +84,7 @@ public class GamePlay : MonoBehaviour
             case States.SetUpLevel:
                 {
                     Pathfinder.SetNodeMap();
+                    Player.instance.OnLifeChanged += CheckLevelFailed;
                     state = States.PlayStartEvents;
                 }
                 break;
@@ -102,18 +116,20 @@ public class GamePlay : MonoBehaviour
                 break;
             case States.LevelCompleted:
                 {
+                    Pause(true);
+                    Instantiate(_levelCompletePanelPrefab).Setup(levelInfo.level, (float)Player.instance.life / levelInfo.lifeInit,() => Pause(false));
                     state = States.WaitForUser;
                 }
                 break;
             case States.LevelFailed:
                 {
-
+                    Pause(true);
+                    Instantiate(_levelFailedPanel).Setup(levelInfo.level, () => Pause(false));
+                    state = States.WaitForUser;
                 }
                 break;
             case States.WaitForUser:
-                {
-
-                }
+                // nothinng to do
                 break;
             default:
                 break;
@@ -160,5 +176,9 @@ public class GamePlay : MonoBehaviour
         state = States.LevelCompleted;
     }
 
-
+    private void CheckLevelFailed(int life)
+    {
+        if(life <= 0)
+        state = States.LevelFailed;
+    }
 }

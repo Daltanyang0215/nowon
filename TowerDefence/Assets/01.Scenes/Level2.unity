@@ -5183,6 +5183,7 @@ MonoBehaviour:
   _goalPoints:
   - {fileID: 1739818212}
   - {fileID: 232130471}
+  _skipButtonUIPrefab: {fileID: 0}
 --- !u!4 &246138174
 Transform:
   m_ObjectHideFlags: 0
@@ -37999,6 +38000,8 @@ MonoBehaviour:
   currentStage: 0
   currentStageId: 0
   _spawner: {fileID: 246138173}
+  _levelCompletePanelPrefab: {fileID: 3862050301158898591, guid: b220180188c8a8e4e9bfe6d5078a35b9, type: 3}
+  _levelFailedPanel: {fileID: 365570925223034642, guid: 80e80d2af2e4c4346b273dc58beeed44, type: 3}
 --- !u!4 &1775369320
 Transform:
   m_ObjectHideFlags: 0

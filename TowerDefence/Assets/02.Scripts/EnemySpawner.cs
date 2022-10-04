@@ -39,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < _skipButtonsBuffer.Length; i++)
         {
-            if (_skipButtonsBuffer != null)
+            if (_skipButtonsBuffer[i] != null)
             {
                 Destroy(_skipButtonsBuffer[i].gameObject);
             }
@@ -88,15 +88,17 @@ public class EnemySpawner : MonoBehaviour
                             go.GetComponent<Enemy>().OnDie += () =>
                             {
                                 int tmpIdx = _stageList.FindIndex(stageInfo => stageInfo.id == tmpId);
-
-                                _enemiesSpawndList[tmpIdx].Remove(go);
-                                if (_enemiesSpawndList[tmpIdx].Count == 0)
+                                if (tmpIdx >= 0)
                                 {
-                                    OnStageFinished(tmpId);
-                                    _stageList.RemoveAt(tmpIdx);
-                                    _timersList.RemoveAt(tmpIdx);
-                                    _delayTimersList.RemoveAt(tmpIdx);
-                                    _spawnCountersList.RemoveAt(tmpIdx);
+                                    _enemiesSpawndList[tmpIdx].Remove(go);
+                                    if (_enemiesSpawndList[tmpIdx].Count == 0)
+                                    {
+                                        OnStageFinished(tmpId);
+                                        _stageList.RemoveAt(tmpIdx);
+                                        _timersList.RemoveAt(tmpIdx);
+                                        _delayTimersList.RemoveAt(tmpIdx);
+                                        _spawnCountersList.RemoveAt(tmpIdx);
+                                    }
                                 }
                             };
                             go.GetComponent<EnemyMove>().SetStartEnd(
