@@ -66,6 +66,19 @@ public class EnemySpawner : MonoBehaviour
         _spawnCountersList.Add(tmpSpawnCountersList);
         _enemiesSpawndList.Add(new List<GameObject>());
     }
+    private void Start()
+    {
+        LevelInfo levelinfo = GamePlay.instance.levelInfo;
+        foreach (StageInfo stageInfo in levelinfo.stagesInfo)
+        {
+            foreach (EnemySpawnData enemySpawnData in stageInfo.enemySpawnDataList)
+            {
+                ObjectPool.Instance.AddPoolElement(enemySpawnData.poolElement);
+            }
+        }
+
+        ObjectPool.Instance.InstantiateAllPoolElement();
+    }
 
     private void Update()
     {
@@ -81,7 +94,8 @@ public class EnemySpawner : MonoBehaviour
                     {
                         if (_timersList[i][j] < 0)
                         {
-                            GameObject go = Instantiate(_stageList[i].enemySpawnDataList[j].poolElement.prefab, _spawnPoints[_stageList[i].enemySpawnDataList[j].spawnPointIndex].position, Quaternion.identity);
+                            //GameObject go = Instantiate(_stageList[i].enemySpawnDataList[j].poolElement.prefab, _spawnPoints[_stageList[i].enemySpawnDataList[j].spawnPointIndex].position, Quaternion.identity);
+                            GameObject go = ObjectPool.Instance.Spawn(_stageList[i].enemySpawnDataList[j].poolElement.name, _spawnPoints[_stageList[i].enemySpawnDataList[j].spawnPointIndex].position);
                             _enemiesSpawndList[i].Add(go);
 
                             int tmpId = _stageList[i].id;

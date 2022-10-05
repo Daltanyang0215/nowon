@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7935efd600f043441844fcc016d553d5, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
+  level: 0
   lifeInit: 10
   moneyInit: 5000
   stagesInfo:
   - id: 0
     enemySpawnDataList:
     - poolElement:
+        name: TesteEnemy01
         prefab: {fileID: 756016554354930995, guid: 0095e9644d8424746bc474d4d92e9708, type: 3}
         num: 2
       spawnPointIndex: 0
@@ -25,6 +27,7 @@ MonoBehaviour:
       term: 1
       delay: 2
     - poolElement:
+        name: TesteEnemy02
         prefab: {fileID: 8706135144543744721, guid: ecda8ec66fcf73f48838f3f14dfdbdbd, type: 3}
         num: 5
       spawnPointIndex: 0
@@ -34,6 +37,7 @@ MonoBehaviour:
   - id: 1
     enemySpawnDataList:
     - poolElement:
+        name: TesteEnemy01
         prefab: {fileID: 756016554354930995, guid: 0095e9644d8424746bc474d4d92e9708, type: 3}
         num: 5
       spawnPointIndex: 0
@@ -41,6 +45,7 @@ MonoBehaviour:
       term: 0.5
       delay: 1
     - poolElement:
+        name: TesteEnemy02
         prefab: {fileID: 8706135144543744721, guid: ecda8ec66fcf73f48838f3f14dfdbdbd, type: 3}
         num: 5
       spawnPointIndex: 0
@@ -50,6 +55,7 @@ MonoBehaviour:
   - id: 2
     enemySpawnDataList:
     - poolElement:
+        name: TesteEnemy01
         prefab: {fileID: 756016554354930995, guid: 0095e9644d8424746bc474d4d92e9708, type: 3}
         num: 2
       spawnPointIndex: 0
@@ -57,6 +63,7 @@ MonoBehaviour:
       term: 0.2
       delay: 2
     - poolElement:
+        name: TesteEnemy02
         prefab: {fileID: 8706135144543744721, guid: ecda8ec66fcf73f48838f3f14dfdbdbd, type: 3}
         num: 5
       spawnPointIndex: 0
@@ -66,6 +73,7 @@ MonoBehaviour:
   - id: 3
     enemySpawnDataList:
     - poolElement:
+        name: TesteEnemy01
         prefab: {fileID: 756016554354930995, guid: 0095e9644d8424746bc474d4d92e9708, type: 3}
         num: 2
       spawnPointIndex: 0
@@ -73,6 +81,7 @@ MonoBehaviour:
       term: 0.2
       delay: 2
     - poolElement:
+        name: TesteEnemy02
         prefab: {fileID: 8706135144543744721, guid: ecda8ec66fcf73f48838f3f14dfdbdbd, type: 3}
         num: 5
       spawnPointIndex: 0

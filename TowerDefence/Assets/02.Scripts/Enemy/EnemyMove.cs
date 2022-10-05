@@ -28,11 +28,11 @@ public class EnemyMove : MonoBehaviour
         _tr = GetComponent<Transform>();
         _enemy = GetComponent<Enemy>();
         _pathFinder = GetComponent<Pathfinder>();
-        _originY = _tr.position.y;
     }
 
     private void Start()
     {
+        _originY = _tr.position.y;
         if (!_pathFinder.FindOptimizedPath(_start, _end, out _wayPoints))
         {
             throw new System.Exception("길찾기 실패");
