@@ -11,6 +11,7 @@ public class Tower : MonoBehaviour
     [SerializeField] private Transform rotatePoint;
     [SerializeField] protected float detectRange;
     [SerializeField] protected LayerMask _targetLayer;
+    [SerializeField] protected LayerMask _touchLayer;
     protected Transform target;
 
 

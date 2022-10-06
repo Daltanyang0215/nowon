@@ -42,4 +42,9 @@ public class Enemy : MonoBehaviour
     {
         hp= hpMax;
     }
+
+    public void DieEventClear()
+    {
+        OnDie = null;
+    }
 }

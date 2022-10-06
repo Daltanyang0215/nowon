@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28a1f0cb744b4ff4fbaf5fd23d4951f4, type: 3}
-  m_Name: MachineGun3
+  m_Name: RocketLauncher1
   m_EditorClassIdentifier: 
-  type: 0
-  upgradeLevel: 3
-  buildPrice: 350
-  sellPrice: 250
-  icon: {fileID: 0}
+  type: 1
+  upgradeLevel: 1
+  buildPrice: 100
+  sellPrice: 80
+  icon: {fileID: 21300000, guid: 499768e214ac7e0458286cf1ca6e4f80, type: 3}

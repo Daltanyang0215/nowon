@@ -61,7 +61,31 @@ public class ObjectPool : MonoBehaviour
         go.transform.SetParent(null);
         return go;
     }
+    public GameObject Spawn(string name, Vector3 spawnPoint, Quaternion rotation)
+    {
+        if (spawnedQueuePaires.ContainsKey(name) == false)
+            return null;
 
+        if (spawnedQueuePaires[name].Count == 0)
+        {
+            PoolElement poolElement = _poolElements.Find(element => element.name == name);
+            if (poolElement != null)
+            {
+                for (int i = 0; i < Math.Ceiling(Mathf.Log10(poolElement.num)); i++)
+                {
+                    InstantiatePoolElement(poolElement);
+
+                }
+            }
+        }
+
+        GameObject go = spawnedQueuePaires[name].Dequeue();
+        go.transform.position = spawnPoint;
+        go.transform.rotation = rotation;
+        go.SetActive(true);
+        go.transform.SetParent(null);
+        return go;
+    }
     public void Return(GameObject obj)
     {
         if (spawnedQueuePaires.ContainsKey(obj.name) == false)
@@ -76,9 +100,30 @@ public class ObjectPool : MonoBehaviour
         obj.SetActive(false);
     }
 
+    public void Return(GameObject obj, float sec)
+    {
+        if (spawnedQueuePaires.ContainsKey(obj.name) == false)
+        {
+            return;
+        }
+
+        StartCoroutine(E_Return(obj, sec));
+    }
+
     private void Awake()
     {
         transform.position = new Vector3(5000, 5000, 5000);
+    }
+
+    IEnumerator E_Return(GameObject obj, float sec)
+    {
+        yield return new WaitForSeconds(sec);
+
+        obj.transform.SetParent(transform);
+        obj.transform.localPosition = Vector3.zero;
+        spawnedQueuePaires[obj.name].Enqueue(obj);
+        RearrangeSiblings(obj);
+        obj.SetActive(false);
     }
 
     private GameObject InstantiatePoolElement(PoolElement poolElement)

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerMachineGun : Tower
+public class TowerRocketLauncher : Tower
 {
     [SerializeField] private Transform[] _firePoints;
     [SerializeField] private int _damage;
@@ -37,12 +37,14 @@ public class TowerMachineGun : Tower
     {
         for (int i = 0; i < _firePoints.Length; i++)
         {
-            GameObject bullet = ObjectPool.Instance.Spawn("Bullet", _firePoints[i].position);
-            bullet.GetComponent<ProjectileBullet>().SetUp(target,
+
+            //GameObject bullet = Instantiate(_bulletPrefab, _firePoints[i].position, Quaternion.identity);
+            GameObject bullet = ObjectPool.Instance.Spawn("Rocket", _firePoints[i].position);
+            bullet.GetComponent<ProjectileRocket>().SetUp(target,
                                                           15.0f,
                                                           _damage,
                                                           true,
-                                                          _touchLayer,
+                                                         _touchLayer,
                                                           _targetLayer);
         }
     }

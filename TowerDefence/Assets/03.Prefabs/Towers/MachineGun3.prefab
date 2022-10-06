@@ -315,7 +315,9 @@ MonoBehaviour:
   _targetLayer:
     serializedVersion: 2
     m_Bits: 32768
-  _bulletPrefab: {fileID: 307557276262683139, guid: 2ba60c039243df0489cb9f8a7d58f5a7, type: 3}
+  _touchLayer:
+    serializedVersion: 2
+    m_Bits: 1536
   _firePoints:
   - {fileID: 7066875937239717929}
   - {fileID: 1892870137138146477}

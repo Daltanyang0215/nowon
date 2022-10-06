@@ -14,6 +14,7 @@ public class EnemyMove : MonoBehaviour
     private int _wayPointIndex = 0;
     private Transform _nextWayPoint;
     private float _originY;
+    private float _offsetY;
     private Vector3 _targetPos;
     private Vector3 _dir;
     private float _posTolerance = 0.05f;
@@ -32,7 +33,7 @@ public class EnemyMove : MonoBehaviour
 
     private void Start()
     {
-        _originY = _tr.position.y;
+        _originY = _tr.position.y+ _offsetY;
         if (!_pathFinder.FindOptimizedPath(_start, _end, out _wayPoints))
         {
             throw new System.Exception("길찾기 실패");

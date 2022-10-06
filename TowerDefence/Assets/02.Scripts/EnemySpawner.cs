@@ -99,6 +99,7 @@ public class EnemySpawner : MonoBehaviour
                             _enemiesSpawndList[i].Add(go);
 
                             int tmpId = _stageList[i].id;
+                            go.GetComponent<Enemy>().DieEventClear();
                             go.GetComponent<Enemy>().OnDie += () =>
                             {
                                 int tmpIdx = _stageList.FindIndex(stageInfo => stageInfo.id == tmpId);

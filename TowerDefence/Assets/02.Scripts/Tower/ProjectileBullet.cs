@@ -12,16 +12,24 @@ public class ProjectileBullet : Projectile
         {
             if(other.gameObject.TryGetComponent(out Enemy enemy))
             {
-                enemy.hp -= damage;  
-                GameObject effect = Instantiate(_explosionEffect.gameObject, tr.position, Quaternion.LookRotation(tr.position - target.position));
-                Destroy(effect,_explosionEffect.main.duration + _explosionEffect.main.startLifetime.constantMax);
-                Destroy(gameObject);
+                enemy.hp -= damage;
+                //GameObject effect = Instantiate(_explosionEffect.gameObject, tr.position, Quaternion.LookRotation(tr.position - target.position));
+                //Destroy(effect,_explosionEffect.main.duration + _explosionEffect.main.startLifetime.constantMax);
+
+                GameObject effect = ObjectPool.Instance.Spawn("Effect", tr.position, Quaternion.LookRotation(tr.position - target.position));
+
+                ObjectPool.Instance.Return(effect, _explosionEffect.main.duration + _explosionEffect.main.startLifetime.constantMax);
+                ObjectPool.Instance.Return(gameObject);
             }
 
         }
         else if (1 << other.gameObject.layer == touchLayer)
         {
-            //  delete
+
+            GameObject effect = ObjectPool.Instance.Spawn("Effect", tr.position, Quaternion.LookRotation(tr.position - target.position));
+
+            ObjectPool.Instance.Return(effect, _explosionEffect.main.duration + _explosionEffect.main.startLifetime.constantMax);
+            ObjectPool.Instance.Return(gameObject);
         }
     }
 }
