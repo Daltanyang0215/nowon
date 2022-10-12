@@ -8,28 +8,21 @@ public class ProjectileBullet : Projectile
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (1 << other.gameObject.layer == targetLayer)
+        if (1 << other.gameObject.layer == targetLayer
+             || 1 << other.gameObject.layer == touchLayer)
         {
-            if(other.gameObject.TryGetComponent(out Enemy enemy))
+            if (other.gameObject.TryGetComponent(out Enemy enemy))
             {
-                enemy.hp -= damage;
+                enemy.HP -= damage;
                 //GameObject effect = Instantiate(_explosionEffect.gameObject, tr.position, Quaternion.LookRotation(tr.position - target.position));
                 //Destroy(effect,_explosionEffect.main.duration + _explosionEffect.main.startLifetime.constantMax);
+            }
 
-                GameObject effect = ObjectPool.Instance.Spawn("Effect", tr.position, Quaternion.LookRotation(tr.position - target.position));
+                GameObject effect = ObjectPool.Instance.Spawn("Effect", tr.position, Quaternion.LookRotation(tr.position - other.transform.position));
 
                 ObjectPool.Instance.Return(effect, _explosionEffect.main.duration + _explosionEffect.main.startLifetime.constantMax);
                 ObjectPool.Instance.Return(gameObject);
-            }
 
-        }
-        else if (1 << other.gameObject.layer == touchLayer)
-        {
-
-            GameObject effect = ObjectPool.Instance.Spawn("Effect", tr.position, Quaternion.LookRotation(tr.position - target.position));
-
-            ObjectPool.Instance.Return(effect, _explosionEffect.main.duration + _explosionEffect.main.startLifetime.constantMax);
-            ObjectPool.Instance.Return(gameObject);
         }
     }
 }

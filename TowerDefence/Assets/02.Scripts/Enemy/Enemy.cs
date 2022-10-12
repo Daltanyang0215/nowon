@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IHp
 {
     private int _hp;
-    public int hp
+    public int HP
     {
         get
         {
@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
 
             _hp = value;
             _hpBar.value = (float)_hp / hpMax;
-
+            OnHPChanged?.Invoke(_hp);
             if (_hp <= 0)
                 Die();
         }
@@ -30,17 +30,18 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Slider _hpBar;
 
     public event Action OnDie;
+    public event Action<int> OnHPChanged;
 
     public void Die()
     {
         OnDie();
-         
-        Destroy(gameObject);
+        BuffManager.instance.DeactiveAllBuffs(this);
+        ObjectPool.Instance.Return(gameObject);
     }
 
     private void Awake()
     {
-        hp= hpMax;
+        HP = hpMax;
     }
 
     public void DieEventClear()
