@@ -21,7 +21,7 @@ public class ProjectileRocket : Projectile
                 {
                     //enemy.hp -=  (int)((_explosionRange - Vector3.Distance(transform.position,enemy.transform.position))* damage) ;
                     enemy.HP -= damage;
-                    BuffManager.instance.ActiveBuff<Enemy>(enemy, new BuffBurning<Enemy>(damage/5, 0.5f),5f);
+                    enemy.BuffManager.ActiveBuff(new BuffBurning<Enemy>(damage/5, 0.5f),5f);
                     //GameObject effect = Instantiate(_explosionEffect.gameObject, tr.position, Quaternion.LookRotation(tr.position - target.position));
                     //Destroy(effect,_explosionEffect.main.duration + _explosionEffect.main.startLifetime.constantMax);
 

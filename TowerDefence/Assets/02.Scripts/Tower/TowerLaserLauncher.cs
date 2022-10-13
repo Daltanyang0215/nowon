@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class TowerLaserLauncher : Tower
@@ -33,6 +34,8 @@ public class TowerLaserLauncher : Tower
     [SerializeField] private int _damageGain;
     [SerializeField] private float _damageChargeTime;
     private float _damageChargeTimer;
+    private BuffSlowingDown<Enemy> _slowingDownBuff = new BuffSlowingDown<Enemy>(0.5f);
+    private Enemy _enemy;
 
     protected override void Update()
     {
@@ -46,6 +49,10 @@ public class TowerLaserLauncher : Tower
         {
             _laserBeam.enabled = false;
             _laserHitEffect.Stop();
+            if (_enemy != null && _enemy.BuffManager.IsBuffExist(_slowingDownBuff))
+            {
+                _enemy.BuffManager.DeactiveBuff(_slowingDownBuff);
+            }
         }
         else
         {
@@ -68,7 +75,11 @@ public class TowerLaserLauncher : Tower
                 }
             }
 
-            target.GetComponent<Enemy>().HP -= _damage;
+            _enemy = target.GetComponent<Enemy>();
+
+            _enemy.HP -= _damage;
+            if (_enemy.BuffManager.IsBuffExist(_slowingDownBuff))
+                _enemy.BuffManager.ActiveBuff(_slowingDownBuff, 99999f);
         }
     }
 }

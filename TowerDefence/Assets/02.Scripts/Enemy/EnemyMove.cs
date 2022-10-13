@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class EnemyMove : MonoBehaviour
     private Pathfinder _pathFinder;
     [SerializeField] private Transform _start;
     [SerializeField] private Transform _end;
-    public float speed = 1.0f;
+
     private List<Transform> _wayPoints;
     private int _wayPointIndex = 0;
     private Transform _nextWayPoint;
@@ -18,6 +19,7 @@ public class EnemyMove : MonoBehaviour
     private Vector3 _targetPos;
     private Vector3 _dir;
     private float _posTolerance = 0.05f;
+
 
     public void SetStartEnd(Transform start, Transform end)
     {
@@ -60,7 +62,7 @@ public class EnemyMove : MonoBehaviour
         }
 
         _tr.LookAt(_targetPos);
-        _tr.Translate(speed * Time.fixedDeltaTime * _dir, Space.World);
+        _tr.Translate(_enemy.Speed * Time.fixedDeltaTime * _dir, Space.World);
     }
 
     private void OnReachedToEnd()
