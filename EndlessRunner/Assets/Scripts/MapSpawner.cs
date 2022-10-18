@@ -19,6 +19,8 @@ public class MapSpawner : MonoBehaviour
     private LinkedList<MapUnits> _mapUnitsCenter = new LinkedList<MapUnits>();
     private LinkedList<MapUnits> _mapUnitsRight = new LinkedList<MapUnits>();
 
+    private MapUnits _tmpMapUnit;
+
     private void Awake()
     {
         foreach (MapUnits mapUnits in _mapUnitsLeftParent.GetComponentsInChildren<MapUnits>())
@@ -57,6 +59,60 @@ public class MapSpawner : MonoBehaviour
 
     private void Spawn(Pos pos)
     {
+        _tmpMapUnit = MapUnitAssats.Instance.GetRandomMapUnit();
 
+        _tmpMapUnit.OnReachedToEnd += () =>
+        {
+            _mapUnitsLeft.Remove(_tmpMapUnit);
+            Spawn(pos);
+        };
+
+        MapUnits mapUnit;
+        MapUnits tmpmapUnit;
+
+        switch (pos)
+        {
+            case Pos.Left:
+                mapUnit = _mapUnitsLeft.Last.Value;
+                tmpmapUnit = Instantiate(_tmpMapUnit,
+                                                  mapUnit.transform.position + Vector3.forward * (mapUnit.length * 0.5f + _tmpMapUnit.length * 0.5f),
+                                                  Quaternion.identity,
+                                                  _mapUnitsLeftParent);
+                _mapUnitsLeft.AddLast(tmpmapUnit);
+                tmpmapUnit.OnReachedToEnd += () =>
+                {
+                    _mapUnitsLeft.Remove(_tmpMapUnit);
+                    Spawn(pos);
+                };
+                break;
+            case Pos.Center:
+                mapUnit = _mapUnitsCenter.Last.Value;
+                tmpmapUnit = Instantiate(_tmpMapUnit,
+                                                 mapUnit.transform.position + Vector3.forward * (mapUnit.length * 0.5f + _tmpMapUnit.length * 0.5f),
+                                                 Quaternion.identity,
+                                                 _mapUnitsCenterParent);
+                _mapUnitsCenter.AddLast(tmpmapUnit);
+                tmpmapUnit.OnReachedToEnd += () =>
+                {
+                    _mapUnitsLeft.Remove(_tmpMapUnit);
+                    Spawn(pos);
+                };
+                break;
+            case Pos.Right:
+                mapUnit = _mapUnitsRight.Last.Value;
+                tmpmapUnit = Instantiate(_tmpMapUnit,
+                                                 mapUnit.transform.position + Vector3.forward * (mapUnit.length * 0.5f + _tmpMapUnit.length * 0.5f),
+                                                 Quaternion.identity,
+                                                 _mapUnitsRightParent);
+                _mapUnitsRight.AddLast(tmpmapUnit);
+                tmpmapUnit.OnReachedToEnd += () =>
+                {
+                    _mapUnitsLeft.Remove(_tmpMapUnit);
+                    Spawn(pos);
+                };
+                break;
+            default:
+                break;
+        }
     }
 }
