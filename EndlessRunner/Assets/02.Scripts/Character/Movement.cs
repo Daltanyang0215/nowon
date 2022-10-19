@@ -21,15 +21,15 @@ public class Movement : MonoBehaviour
     {
         set
         {
-
-            if (value &&
+            if (value && 
                 _current != Pos.Left)
             {
                 _moveTimer = _moveTime;
-            _doMoveLeft = value;
+                _doMoveLeft = value;
             }
             else
             {
+                _moveTimer = -1.0f;
             }
         }
     }
@@ -43,10 +43,11 @@ public class Movement : MonoBehaviour
                 _current != Pos.Right)
             {
                 _moveTimer = _moveTime;
-            _doMoveRight = value;
+                _doMoveRight = value;
             }
             else
             {
+                _moveTimer = -1.0f;
             }
         }
     }
@@ -57,6 +58,7 @@ public class Movement : MonoBehaviour
 
     private void Awake()
     {
+        _rb = GetComponent<Rigidbody>();
         _centerPos = transform.position;
         _leftPos = transform.position + Vector3.left * 1.5f;
         _rightPos = transform.position + Vector3.right * 1.5f;
@@ -64,7 +66,6 @@ public class Movement : MonoBehaviour
         _current = Pos.Center;
         isMovable = true;
 
-        _rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -72,13 +73,11 @@ public class Movement : MonoBehaviour
         if (isMovable &&
             isMoving == false)
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                doMoveLeft = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                doMoveRight = true;
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                    doMoveLeft = true;
+                else if (Input.GetKeyDown(KeyCode.RightArrow))
+                    doMoveRight = true;
             }
         }
     }
@@ -94,23 +93,26 @@ public class Movement : MonoBehaviour
 
         if (_doMoveLeft)
         {
-            _rb.MovePosition(Vector3.Lerp(GetVector(_current), GetVector(_current - 1), 1f - (_moveTimer / _moveTime)));
+            _rb.MovePosition(Vector3.Lerp(GetVector(_current), GetVector(_current - 1), (1.0f - _moveTimer / _moveTime)));
 
-            _moveTimer -= Time.fixedTime;
+            _moveTimer -= Time.fixedDeltaTime;
+
             if (_moveTimer < 0)
             {
                 _current--;
-               doMoveLeft=false;
+               _doMoveLeft=false;
             }
         }
         else if (_doMoveRight)
         {
-            _rb.MovePosition(Vector3.Lerp(GetVector(_current), GetVector(_current + 1), 1f - (_moveTimer / _moveTime)));
-            _moveTimer -= Time.fixedTime;
+            _rb.MovePosition(Vector3.Lerp(GetVector(_current), GetVector(_current + 1), (1.0f - _moveTimer / _moveTime)));
+
+            _moveTimer -= Time.fixedDeltaTime;
+
             if (_moveTimer < 0)
             {
                 _current++;
-                doMoveRight = false;
+                _doMoveRight = false;
             }
         }
     }
