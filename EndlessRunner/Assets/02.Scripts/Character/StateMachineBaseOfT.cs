@@ -2,23 +2,30 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Unity.VisualScripting;
+using UnityEngine;
 
 public class StateMachineBase<T> where T : Enum
 {
+
+    public GameObject owner;
     public bool isReady;
     public T currentType;
-    public StateBase<T> current;
-    protected Dictionary<T, StateBase<T>> states;
+    public IState<T> current;
+    protected Dictionary<T, IState<T>> states;
 
     public StateMachineBase()
     {
         InitStates();
     }
+    public StateMachineBase(GameObject owner)
+    {
+        InitStates();
+        this.owner = owner;
+    }
 
     public void ChangeStaet(T newType)
     {
-        if (Enum.Equals(newType, currentType))
-            return;
+        if(EqualityComparer<T>.Default.Equals(currentType, newType)) return;
 
         if (states[newType].canExecute)
         {
@@ -42,13 +49,14 @@ public class StateMachineBase<T> where T : Enum
         foreach (T value in values)
         {
             string typeName = "State" + value.ToString();
-            Type ganeric = Type.GetType(typeName + "<>");
-            Assembly assembly = Assembly.GetAssembly(ganeric);
-            Type statetype = assembly.GetType($"{typeName}`1[{value}]");
+            //Type ganeric = Type.GetType(typeName + "<>");
+            //Assembly assembly = Assembly.GetAssembly(ganeric);
+            Assembly stateTypeAssemble = typeof(T).Assembly;
+            Type statetype = Type.GetType($"{typeName}`1[{typeof(T)}{stateTypeAssemble}]");
             ConstructorInfo constructorInfo = statetype.GetConstructor(new Type[] { this.GetType(), typeof(T) });
-            if(constructorInfo != null)
+            if (constructorInfo != null)
             {
-                constructorInfo.Invoke(new object[] { this,value} );
+                constructorInfo.Invoke(new object[] { this, value });
             }
         }
         isReady = true;
