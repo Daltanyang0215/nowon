@@ -2,9 +2,8 @@
 
 public class StateIdle<T> : StateBase<T> where T : Enum
 {
-    public StateIdle(StateMachineBase<T> stateMachine, T machineState) : base(stateMachine, machineState)
+    public StateIdle(StateMachineBase<T> stateMachine, T machineState, T canExecuteCounditionMask, T nextTarget) : base(stateMachine, machineState, canExecuteCounditionMask, nextTarget)
     {
-
     }
 
     public override T Update()
