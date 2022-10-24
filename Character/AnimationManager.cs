@@ -5,11 +5,14 @@ using UnityEngine;
 public class AnimationManager : MonoBehaviour
 {
     private Animator _animator;
+
     private int _monitorOnStateHash;
     private int _monitorOnStateHashMem;
     private int _monitorOffStateHash;
-    public bool isPreviousStateHasFinished => _monitorOnStateHashMem == _monitorOffStateHash;
+
+    public bool isPreviousStateHasFinished => _monitorOnStateHash == _monitorOffStateHash;
     public void Play(string clipName) => _animator.Play(clipName);
+
     public void SetBool(string name, bool value) => _animator.SetBool(name, value);
     public void SetFloat(string name, float value) => _animator.SetFloat(name, value);
     public void GetBool(string name) => _animator.GetBool(name);
@@ -25,16 +28,15 @@ public class AnimationManager : MonoBehaviour
         _animator = GetComponent<Animator>();
         foreach (AnimatorStateMonitor monitor in _animator.GetBehaviours<AnimatorStateMonitor>())
         {
-            monitor.OnEnter += (hash) =>
-            {
+            monitor.OnEnter += (hash) => {
                 _monitorOnStateHashMem = _monitorOnStateHash;
                 _monitorOnStateHash = hash;
             };
 
-            monitor.OnExit += (hash) =>
-            {
+            monitor.OnExit += (hash) => {
                 _monitorOffStateHash = hash;
             };
-        }
+        } 
+        
     }
 }

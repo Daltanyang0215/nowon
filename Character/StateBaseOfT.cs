@@ -11,12 +11,12 @@ public abstract class StateBase<T> : IState<T> where T : Enum
     // 현재 상태
     public IState<T>.Commands current { get; protected set; }
 
-    public virtual bool canExecute => canExecuteConditionMask.HasFlag(stateMachine.currentType) &&
-                                      animationManager.isPreviousStateHasFinished;
+    public virtual bool canExecute => canExecuteConditionMask.HasFlag(stateMachine.currentType)
+                                      && animationManager.isPreviousStateHasFinished;
 
     public T machineState { get; private set; }
 
-    public StateBase(StateMachineBase<T> stateMachine,
+    public StateBase(StateMachineBase<T> stateMachine, 
         T machineState,
         T canExecuteCounditionMask,
         T nextTarget)
@@ -70,7 +70,7 @@ public abstract class StateBase<T> : IState<T> where T : Enum
     public void MoveNext()
     {
         if (current >= IState<T>.Commands.WaitForFinished)
-            Debug.LogWarning($"{this.GetType()} : not move next");
+            throw new System.Exception($"{this.GetType()} : not move next");
         else
         {
             current++;

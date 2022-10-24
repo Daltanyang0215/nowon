@@ -30,14 +30,13 @@ public class StateMachineBase<T> where T : Enum
     public void ChangeStaet(T newType)
     {
         if (EqualityComparer<T>.Default.Equals(currentType, newType)) return;
-        Debug.Log($"change {newType}");
+
         if (states[newType].canExecute)
         {
             current.Reset();
             states[newType].Execute();
             current = states[newType];
             currentType = newType;
-        Debug.Log($"change {newType}");
         }
     }
 

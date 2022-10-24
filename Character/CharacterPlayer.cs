@@ -15,31 +15,17 @@ public enum PlayerStateTypes
 }
 public class CharacterPlayer : CharacterBase
 {
-
+    
     private StateMachineBase<PlayerStateTypes> _machine;
 
-    [SerializeField] private PlayerStateTypes _currentType => _machine.currentType;
+    [SerializeField] private PlayerStateTypes _currentType =>_machine.currentType;
     [SerializeField] private IState<PlayerStateTypes>.Commands _commands => _machine.current.current;
-
-    public void StartMove()
-    {
-        _machine.ChangeStaet(PlayerStateTypes.Move);
-    }
-
     private void Awake()
     {
         _machine = new StateMachineBase<PlayerStateTypes>(gameObject,
                                                     GetStateExecuteConditionMask(),
                                                     GetStateTransitionPairs());
-
-        RegisterAllKeyActions();
     }
-    private void RegisterAllKeyActions()
-    {
-        InputHandler.RegisterKeyDownAction(InputHandler.SHORTCUT_PLAYER_JUMP,
-                                           () => _machine.ChangeStaet(PlayerStateTypes.Jump));
-    }
-
     private void Update()
     {
         Debug.Log($"{_currentType}, {_commands}");
