@@ -1,13 +1,18 @@
 ﻿using System;
+using UnityEngine;
 
 public class StateJump<T> : StateBase<T> where T : Enum
 {
     private GroundDetector _groundDetector;
+    private Rigidbody _rb;
+    private CharacterBase _character;
 
     public StateJump(StateMachineBase<T> stateMachine, T machineState, T canExecuteCounditionMask, T nextTarget) :
         base(stateMachine, machineState, canExecuteCounditionMask, nextTarget)
     {
         _groundDetector = stateMachine.owner.GetComponentInChildren<GroundDetector>();
+        _rb = stateMachine.owner.GetComponent<Rigidbody>();
+        _character = stateMachine.owner.GetComponent<CharacterBase>();
     }
 
     public override bool canExecute => base.canExecute && _groundDetector.isDetected;
@@ -22,6 +27,8 @@ public class StateJump<T> : StateBase<T> where T : Enum
             case IState<T>.Commands.Prepare:
                 // todo -> play animation
                 animationManager.SetBool("DoJump", true);
+                _rb.velocity = Vector3.zero;
+                _rb.AddForce(Vector3.up * _character.jumpForce, ForceMode.Impulse);
                 MoveNext();
                 break;
             case IState<T>.Commands.Casting:
@@ -34,7 +41,8 @@ public class StateJump<T> : StateBase<T> where T : Enum
                         animationManager.SetBool("DoJump", false);
                         MoveNext();
                     }
-                    else if (animationManager.GetNormalizedTime() > 0.5f)
+                    else if (animationManager.isCastingFinished &&
+                        animationManager.GetNormalizedTime() > 0.8f)
                     {
                         current = IState<T>.Commands.Finish;
                     }
@@ -47,7 +55,7 @@ public class StateJump<T> : StateBase<T> where T : Enum
                 break;
             case IState<T>.Commands.WaitForActionFinished:
                 {
-                    if (_groundDetector.isDetected == false)
+                    if (_groundDetector.isDetected)
                     {
                         MoveNext();
                     }
@@ -63,5 +71,10 @@ public class StateJump<T> : StateBase<T> where T : Enum
                 break;
         }
         return next;
+    }
+    public override void Reset()
+    {
+        base.Reset();
+        animationManager.SetBool("DoJump", false);
     }
 }

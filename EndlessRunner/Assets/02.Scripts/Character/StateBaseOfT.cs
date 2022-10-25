@@ -77,7 +77,7 @@ public abstract class StateBase<T> : IState<T> where T : Enum
         }
     }
 
-    public void Reset()
+    public virtual void Reset()
     {
         current = IState<T>.Commands.Idle;
     }

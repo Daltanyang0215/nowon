@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
-    public const KeyCode SHORTCUT_PLAYER_JUMP = KeyCode.Space;
+    public const KeyCode SHORTCUT_PLAYER_JUMP = KeyCode.UpArrow;
     public const KeyCode SHORTCUT_PLAYER_MOVE_LEFT = KeyCode.LeftArrow;
     public const KeyCode SHORTCUT_PLAYER_MOVE_RIGHT = KeyCode.RightArrow;
+    public const KeyCode SHORTCUT_PLAYER_SLIDE = KeyCode.DownArrow;
 
     private static Dictionary<KeyCode, Action> keyDownActions = new Dictionary<KeyCode, Action>();
 

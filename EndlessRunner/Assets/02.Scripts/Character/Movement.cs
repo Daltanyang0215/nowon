@@ -21,7 +21,11 @@ public class Movement : MonoBehaviour
     {
         set
         {
-            if (value && 
+            if (isMovable == false &&
+            isMoving == true)
+                return;
+
+            if (value &&
                 _current != Pos.Left)
             {
                 _moveTimer = _moveTime;
@@ -39,8 +43,12 @@ public class Movement : MonoBehaviour
     {
         set
         {
+            if (isMovable == false &&
+            isMoving == true)
+                return;
+
             if (value &&
-                _current != Pos.Right)
+            _current != Pos.Right)
             {
                 _moveTimer = _moveTime;
                 _doMoveRight = value;
@@ -68,19 +76,7 @@ public class Movement : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        if (isMovable &&
-            isMoving == false)
-        {
-            {
-                if (Input.GetKeyDown(KeyCode.LeftArrow))
-                    doMoveLeft = true;
-                else if (Input.GetKeyDown(KeyCode.RightArrow))
-                    doMoveRight = true;
-            }
-        }
-    }
+
     private void FixedUpdate()
     {
         Move();
@@ -100,7 +96,7 @@ public class Movement : MonoBehaviour
             if (_moveTimer < 0)
             {
                 _current--;
-               _doMoveLeft=false;
+                _doMoveLeft = false;
             }
         }
         else if (_doMoveRight)

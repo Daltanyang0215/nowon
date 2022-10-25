@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unity.Animations.SpringBones.GameObjectExtensions;
 using UnityEngine;
 [Flags]
 public enum PlayerStateTypes
@@ -21,6 +22,12 @@ public class CharacterPlayer : CharacterBase
     [SerializeField] private PlayerStateTypes _currentType => _machine.currentType;
     [SerializeField] private IState<PlayerStateTypes>.Commands _commands => _machine.current.current;
 
+    [Header("Detechors")]
+    [SerializeField] private GroundDetector _groundDetector;
+    [SerializeField] private WallDetector _wallDetector_L;
+    [SerializeField] private WallDetector _wallDetector_R;
+    [Header("Movement")]
+    [SerializeField] private Movement _movement;
     public void StartMove()
     {
         _machine.ChangeStaet(PlayerStateTypes.Move);
@@ -38,6 +45,33 @@ public class CharacterPlayer : CharacterBase
     {
         InputHandler.RegisterKeyDownAction(InputHandler.SHORTCUT_PLAYER_JUMP,
                                            () => _machine.ChangeStaet(PlayerStateTypes.Jump));
+        InputHandler.RegisterKeyDownAction(InputHandler.SHORTCUT_PLAYER_SLIDE,
+                                           () => _machine.ChangeStaet(PlayerStateTypes.Slide));
+        InputHandler.RegisterKeyDownAction(InputHandler.SHORTCUT_PLAYER_MOVE_LEFT,
+                                   () =>
+                                   {
+                                       if (_groundDetector.isDetected == false && _wallDetector_L.isDetected)
+                                       {
+                                           _machine.ChangeStaet(PlayerStateTypes.WallRun);
+                                       }
+                                       else
+                                       {
+                                           _movement.doMoveLeft = true;
+                                       }
+                                   });
+        InputHandler.RegisterKeyDownAction(InputHandler.SHORTCUT_PLAYER_MOVE_RIGHT,
+                                   () =>
+                                   {
+                                       if (_groundDetector.isDetected == false && _wallDetector_R.isDetected)
+                                       {
+                                           _machine.ChangeStaet(PlayerStateTypes.WallRun);
+                                       }
+                                       else
+                                       {
+                                           _movement.doMoveRight = true;
+                                       }
+                                   });
+
     }
 
     private void Update()
