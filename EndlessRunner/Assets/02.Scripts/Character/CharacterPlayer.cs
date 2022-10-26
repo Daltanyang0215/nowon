@@ -24,8 +24,8 @@ public class CharacterPlayer : CharacterBase
 
     [Header("Detechors")]
     [SerializeField] private GroundDetector _groundDetector;
-    [SerializeField] private WallDetector _wallDetector_L;
-    [SerializeField] private WallDetector _wallDetector_R;
+    [SerializeField] public WallDetector _wallDetector_L;
+    [SerializeField] public WallDetector _wallDetector_R;
     [Header("Movement")]
     [SerializeField] private Movement _movement;
     public void StartMove()

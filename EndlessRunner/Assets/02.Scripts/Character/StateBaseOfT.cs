@@ -28,7 +28,7 @@ public abstract class StateBase<T> : IState<T> where T : Enum
         animationManager = stateMachine.owner.GetComponent<AnimationManager>();
     }
 
-    public void Execute()
+    public virtual void Execute()
     {
         current = IState<T>.Commands.Prepare;
     }
