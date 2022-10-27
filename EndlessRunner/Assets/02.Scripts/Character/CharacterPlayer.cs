@@ -33,6 +33,11 @@ public class CharacterPlayer : CharacterBase
         _machine.ChangeStaet(PlayerStateTypes.Move);
     }
 
+    public void ChangeMachineState(PlayerStateTypes newstate)
+    {
+        _machine.ChangeStaet(newstate);
+    }
+
     private void Awake()
     {
         _machine = new StateMachineBase<PlayerStateTypes>(gameObject,
