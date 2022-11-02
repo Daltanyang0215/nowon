@@ -8,6 +8,8 @@ public abstract class StateBase<T> : IState<T> where T : Enum
     protected T canExecuteConditionMask;
     protected T nextTargets;
 
+    public bool isBusy => current > IState<T>.Commands.Idle && current < IState<T>.Commands.Finish;
+
     // 현재 상태
     public IState<T>.Commands current { get; protected set; }
 

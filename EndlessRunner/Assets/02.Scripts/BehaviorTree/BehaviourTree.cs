@@ -12,6 +12,9 @@ namespace BT
     public abstract class BehaviorTree
     {
         public virtual RootNode root { get; set; }
+
+       
+
         public abstract void Init();
         public abstract ReturnType Tick();
 
@@ -24,16 +27,26 @@ namespace BT
 
         public abstract class Node
         {
-            public abstract ReturnType Invoke();
+            public abstract ReturnType Invoke(out Node leaf);
         }
 
         public class RootNode : Node
         {
             public Node child;
+            public Node RunningNode { get; set; }
 
-            public override ReturnType Invoke()
+            public override ReturnType Invoke(out Node leaf)
             {
-                return child.Invoke();
+                ReturnType result = child.Invoke(out leaf);
+                if(result == ReturnType.OnRunning)
+                {
+                    RunningNode = leaf;
+                }
+                else
+                {
+                    RunningNode = null;
+                }
+                return  result;
             }
 
             public void SetChild(Node child) => this.child = child;
@@ -44,8 +57,9 @@ namespace BT
             public Func<ReturnType> function;
             public Execution(Func<ReturnType> function) => this.function = function;
 
-            public override ReturnType Invoke()
+            public override ReturnType Invoke(out Node leaf)
             {
+                leaf = this;
                 return function.Invoke();
             }
         }
@@ -53,9 +67,10 @@ namespace BT
         public abstract class CompositeNode : Node
         {
             public List<Node> children;
-            public void Addchild(Node child)
+            public CompositeNode Addchild(Node child)
             {
                 children.Add(child);
+                return this;
             }
 
             public IEnumerable<Node> GetChildren() => children;
@@ -64,32 +79,34 @@ namespace BT
         public class Selector : CompositeNode
         {
             private ReturnType _tmpResult;
-            public override ReturnType Invoke()
+            public override ReturnType Invoke(out Node leaf)
             {
                 foreach (var child in GetChildren())
                 {
-                    _tmpResult = child.Invoke();
+                    _tmpResult = child.Invoke(out leaf);
                     if (_tmpResult != ReturnType.Failure)
                     {
                         return _tmpResult;
                     }
                 }
+                leaf = null;
                 return ReturnType.Failure;
             }
         }
         public class RandomSelector : CompositeNode
         {
             private ReturnType _tmpResult;
-            public override ReturnType Invoke()
+            public override ReturnType Invoke(out Node leaf)
             {
                 foreach (var child in GetChildren().OrderBy(node => Guid.NewGuid()))
                 {
-                    _tmpResult = child.Invoke();
+                    _tmpResult = child.Invoke(out leaf);
                     if (_tmpResult != ReturnType.Failure)
                     {
                         return _tmpResult;
                     }
                 }
+                leaf=null;
                 return ReturnType.Failure;
             }
         }
@@ -97,16 +114,17 @@ namespace BT
         public class Sequence : CompositeNode
         {
             private ReturnType _tmpResult;
-            public override ReturnType Invoke()
+            public override ReturnType Invoke(out Node leaf)
             {
                 foreach (var child in GetChildren())
                 {
-                    _tmpResult = child.Invoke();
+                    _tmpResult = child.Invoke(out leaf);
                     if (_tmpResult != ReturnType.Success)
                     {
                         return _tmpResult;
                     }
                 }
+                leaf = null;
                 return ReturnType.Success;
             }
         }
@@ -119,12 +137,13 @@ namespace BT
             public ConditionNode(Func<bool> condition) => this.condition = condition;
             public void SetChild(Node child) => this.child = child;
 
-            public override ReturnType Invoke()
+            public override ReturnType Invoke(out Node leaf)
             {
                 if (condition.Invoke())
                 {
-                    return child.Invoke();
+                    return child.Invoke(out leaf);
                 }
+                leaf = null;
                 return ReturnType.Failure;
             }
         }
@@ -133,9 +152,9 @@ namespace BT
         {
             public Node child;
             public void SetChild(Node child) => this.child = child;
-            public override ReturnType Invoke()
+            public override ReturnType Invoke(out Node leaf)
             {
-                return Decorate(child.Invoke());
+                return Decorate(child.Invoke(out leaf));
             }
             protected abstract ReturnType Decorate(ReturnType childreturn);
         }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BT;
+using Unity.VisualScripting;
 
 public class CharacterEnemy : CharacterBase
 {
@@ -24,10 +25,23 @@ public class CharacterEnemy : CharacterBase
     [SerializeField] private IState<EnemyStateTypes>.Commands _commands => _machine.current.current;
 
     [Header("Detechors")]
-    [SerializeField] private GroundDetector _groundDetector;
-    [SerializeField] private LayerMask _targetLayer;
-    [SerializeField] private float _detectRange;
-    [SerializeField] private float _detectAttackRange;
+    public GroundDetector groundDetector;
+    public LayerMask targetLayer;
+    public GameObject target;
+    public float detectRange;
+    public float detectAttackRange;
+    public bool movable;
+    public Vector3 direction
+    {
+        get
+        {
+            return transform.eulerAngles;
+        }
+        set
+        {
+            transform.eulerAngles = value;
+        }
+    }
 
     public class BehaviorTreeForEnemy : BehaviorTree
     {
@@ -72,10 +86,14 @@ public class CharacterEnemy : CharacterBase
         public ConditionNode conditionPlayerDetected;
         public ConditionNode conditionMovable;
         public RandomSelector randomSelectorForMoveMent;
-        public Detect executionDetectPlayer;
-        public Look executionLookPlayer;
-        public Detect executionDetectPlayerInAttackRange;
+        public Execution executionDetectPlayer;
+        public Execution executionLookPlayer;
+        public Execution executionDetectPlayerInAttackRange;
         public Execution executionAttack;
+        public Execution executionJumpForward;
+        public Execution executionJumpBackward;
+
+        public bool attackable;
 
         public BehaviorTreeForEnemy(CharacterEnemy owner)
         {
@@ -86,26 +104,124 @@ public class CharacterEnemy : CharacterBase
         {
             root = new RootNode();
 
-            executionDetectPlayer = new Detect(null, _owner.transform.position, _owner._detectRange, _owner._targetLayer);
-            executionDetectPlayerInAttackRange = new Detect(null, _owner.transform.position, _owner._detectAttackRange, _owner._targetLayer);
-            //executionLookPlayer = new Look(null, _owner.transform);
+            executionDetectPlayer = new Execution(() =>
+            {
+                Collider[] cols = Physics.OverlapSphere(_owner.transform.position, _owner.detectRange, _owner.targetLayer);
+                if (cols.Length > 0)
+                {
+                    _owner.target = cols[0].gameObject;
+                    return ReturnType.Success;
+                }
+                return ReturnType.Failure;
+            });
+            executionLookPlayer = new Execution(() =>
+            {
+                if (_owner.target)
+                {
+                    _owner.transform.LookAt(_owner.target.transform);
+                    return ReturnType.Success;
+                }
+                return ReturnType.Failure;
+
+            });
+            executionDetectPlayerInAttackRange = new Execution(() =>
+            {
+                Collider[] cols = Physics.OverlapSphere(_owner.transform.position, _owner.detectAttackRange, _owner.targetLayer);
+                if (cols.Length > 0)
+                {
+                    _owner.target = cols[0].gameObject;
+                    attackable = true;
+                    return ReturnType.Success;
+                }
+                attackable = false;
+                return ReturnType.Failure;
+            });
+            executionAttack = new Execution(() =>
+            {
+                if (attackable)
+                {
+                    if (_owner._machine.currentType == EnemyStateTypes.Attack)
+                    {
+                        if (_owner._machine.current.isBusy)
+                            return ReturnType.OnRunning;
+                        else
+                            return ReturnType.Success;
+                    }
+                    _owner.ChangeMachineState(EnemyStateTypes.Attack);
+                    if (_owner._machine.currentType == EnemyStateTypes.Attack)
+                        return ReturnType.OnRunning;
+                }
+                return ReturnType.Failure;
+            });
+
+            sequenceWhenTargetDetected = new Sequence();
+            sequenceWhenTargetDetected.Addchild(executionDetectPlayer)
+                                      .Addchild(executionLookPlayer)
+                                      .Addchild(executionDetectPlayerInAttackRange)
+                                      .Addchild(executionAttack);
+            executionJumpBackward = new Execution(() =>
+            {
+                if (_owner.groundDetector.isDetected)
+                {
+                    _owner.direction = Vector3.up * 180;
+                    _owner.rb.velocity = Vector3.zero;
+                    _owner.rb.AddRelativeForce(Vector3.one - Vector3.right, ForceMode.Impulse);
+                    return ReturnType.Success;
+                }
+                return ReturnType.Failure;
+            });
+            executionJumpForward = new Execution(() =>
+            {
+                if (_owner.groundDetector.isDetected)
+                {
+                    _owner.direction = Vector3.up * 0;
+                    _owner.rb.velocity = Vector3.zero;
+                    _owner.rb.AddRelativeForce(Vector3.one - Vector3.right, ForceMode.Impulse);
+                    return ReturnType.Success;
+                }
+                return ReturnType.Failure;
+            });
+            randomSelectorForMoveMent = new RandomSelector();
+            randomSelectorForMoveMent.Addchild(executionJumpForward).Addchild(executionJumpBackward);
+            conditionMovable = new ConditionNode(() => _owner.movable);
+            conditionMovable.SetChild(randomSelectorForMoveMent);
+            conditionPlayerDetected = new ConditionNode(() => _owner.target);
+            conditionPlayerDetected.SetChild(conditionMovable);
+            selectorForTarget = new Selector();
+            selectorForTarget.Addchild(sequenceWhenTargetDetected).Addchild(conditionPlayerDetected);
+            root.SetChild(selectorForTarget);
         }
 
         public override ReturnType Tick()
         {
-            return root.Invoke();
+            Node dummy = null;
+            ReturnType result;
+            if (root.RunningNode != null)
+            {
+                result = root.RunningNode.Invoke(out dummy);
+            }
+            else
+            {
+                result = root.Invoke(out dummy);
+            }
+            return result;
         }
     }
     private BehaviorTreeForEnemy _aiTree;
 
     public void ChangeMachineState(EnemyStateTypes newStateType) => _machine.ChangeStaet(newStateType);
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _machine = new StateMachineBase<EnemyStateTypes>(gameObject,
                                                          GetStateExecuteConditionMask(),
                                                          GetStateTransitionParis());
         _aiTree = new BehaviorTreeForEnemy(this);
+    }
+    private void Start()
+    {
+        _aiTree.Init();
     }
 
     private void Update()

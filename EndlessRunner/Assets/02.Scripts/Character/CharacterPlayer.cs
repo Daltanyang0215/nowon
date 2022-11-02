@@ -38,7 +38,7 @@ public class CharacterPlayer : CharacterBase
         _machine.ChangeStaet(newstate);
     }
 
-    private void Awake()
+    protected override void Awake()
     {
         _machine = new StateMachineBase<PlayerStateTypes>(gameObject,
                                                     GetStateExecuteConditionMask(),
