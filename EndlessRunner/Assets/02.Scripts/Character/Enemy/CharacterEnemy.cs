@@ -83,7 +83,7 @@ public class CharacterEnemy : CharacterBase
         public override RootNode root { get; set; }
         public Selector selectorForTarget;
         public Sequence sequenceWhenTargetDetected;
-        public ConditionNode conditionPlayerDetected;
+        public ConditionNode conditionPlayerNotDetected;
         public ConditionNode conditionMovable;
         public RandomSelector randomSelectorForMoveMent;
         public Execution executionDetectPlayer;
@@ -112,6 +112,7 @@ public class CharacterEnemy : CharacterBase
                     _owner.target = cols[0].gameObject;
                     return ReturnType.Success;
                 }
+                    _owner.target = null;
                 return ReturnType.Failure;
             });
             executionLookPlayer = new Execution(() =>
@@ -165,7 +166,7 @@ public class CharacterEnemy : CharacterBase
                 {
                     _owner.direction = Vector3.up * 180;
                     _owner.rb.velocity = Vector3.zero;
-                    _owner.rb.AddRelativeForce(Vector3.one - Vector3.right, ForceMode.Impulse);
+                    _owner.rb.AddRelativeForce(new Vector3(0.0f, 1.0f, 1.0f)*_owner.jumpForce, ForceMode.Impulse);
                     return ReturnType.Success;
                 }
                 return ReturnType.Failure;
@@ -176,7 +177,7 @@ public class CharacterEnemy : CharacterBase
                 {
                     _owner.direction = Vector3.up * 0;
                     _owner.rb.velocity = Vector3.zero;
-                    _owner.rb.AddRelativeForce(Vector3.one - Vector3.right, ForceMode.Impulse);
+                    _owner.rb.AddRelativeForce(new Vector3(0.0f, 1.0f, 1.0f)*_owner.jumpForce, ForceMode.Impulse);
                     return ReturnType.Success;
                 }
                 return ReturnType.Failure;
@@ -185,10 +186,10 @@ public class CharacterEnemy : CharacterBase
             randomSelectorForMoveMent.Addchild(executionJumpForward).Addchild(executionJumpBackward);
             conditionMovable = new ConditionNode(() => _owner.movable);
             conditionMovable.SetChild(randomSelectorForMoveMent);
-            conditionPlayerDetected = new ConditionNode(() => _owner.target);
-            conditionPlayerDetected.SetChild(conditionMovable);
+            conditionPlayerNotDetected = new ConditionNode(() => !_owner.target);
+            conditionPlayerNotDetected.SetChild(conditionMovable);
             selectorForTarget = new Selector();
-            selectorForTarget.Addchild(sequenceWhenTargetDetected).Addchild(conditionPlayerDetected);
+            selectorForTarget.Addchild(sequenceWhenTargetDetected).Addchild(conditionPlayerNotDetected);
             root.SetChild(selectorForTarget);
         }
 
@@ -223,7 +224,6 @@ public class CharacterEnemy : CharacterBase
     {
         _aiTree.Init();
     }
-
     private void Update()
     {
         _aiTree.Tick();
@@ -256,5 +256,12 @@ public class CharacterEnemy : CharacterBase
         result.Add(EnemyStateTypes.Die, EnemyStateTypes.Move);
 
         return result;
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectRange);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectAttackRange);
     }
 }

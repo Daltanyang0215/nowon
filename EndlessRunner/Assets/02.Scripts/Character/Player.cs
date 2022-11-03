@@ -36,6 +36,11 @@ public class Player : MonoBehaviour
 
     [SerializeField] private LayerMask _itemLayer;
 
+    public void StartMove()
+    {
+        _character.StartMove();
+    }
+
     private void Awake()
     {
         instance= this;

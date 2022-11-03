@@ -21,4 +21,19 @@ public class MapUnits : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void Awake()
+    {
+        GameStateManager.Instance.OnStateChanged += OnGameStateChanged;
+    }
+
+    private void OnGameStateChanged(GameStates newState)
+    {
+        enabled = newState == GameStates.Play;
+    }
+
+    private void OnDestroy()
+    {
+        GameStateManager.Instance.OnStateChanged -= OnGameStateChanged;
+    }
 }

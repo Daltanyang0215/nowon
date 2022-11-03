@@ -40,6 +40,7 @@ public class CharacterPlayer : CharacterBase
 
     protected override void Awake()
     {
+        base.Awake();
         _machine = new StateMachineBase<PlayerStateTypes>(gameObject,
                                                     GetStateExecuteConditionMask(),
                                                     GetStateTransitionPairs());

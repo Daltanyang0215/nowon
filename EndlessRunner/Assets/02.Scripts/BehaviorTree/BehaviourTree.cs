@@ -66,7 +66,7 @@ namespace BT
 
         public abstract class CompositeNode : Node
         {
-            public List<Node> children;
+            public List<Node> children = new List<Node>();
             public CompositeNode Addchild(Node child)
             {
                 children.Add(child);
