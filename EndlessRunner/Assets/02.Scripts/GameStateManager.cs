@@ -6,6 +6,7 @@ using UnityEngine;
 
 public enum GameStates
 {
+    None,
     Idle,
     Play,
     Paused
@@ -34,6 +35,4 @@ public class GameStateManager
         Currnt = newState;
         OnStateChanged?.Invoke(Currnt);
     }
-
-
 }

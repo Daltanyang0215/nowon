@@ -911,6 +911,7 @@ MonoBehaviour:
   _spawnItems:
   - {fileID: 3234211755945685621, guid: 89a10803efdda6f4aab1acf4d738a801, type: 3}
   - {fileID: 6226063919983573327, guid: 19484a447789c224ab08ff86f0659df2, type: 3}
+  - {fileID: 12105924542860587, guid: b31d45a6406103747b4e0051396295ae, type: 3}
 --- !u!1 &9097079589727198065
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour , IHp
 {
     public static Player instance;
 

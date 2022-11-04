@@ -10,6 +10,11 @@ public class AnimationManager : MonoBehaviour
     private int _monitorOffStateHash;
     public bool isPreviousStateHasFinished => _monitorOnStateHashMem == _monitorOffStateHash;
     public bool isCastingFinished { get; private set; }
+    public float speed
+    {
+        get => _animator.speed;
+        set => _animator.speed = value;
+    }
     public void SetCastingFinished() => isCastingFinished = true;
     public void Play(string clipName) => _animator.Play(clipName);
     public void SetBool(string name, bool value) => _animator.SetBool(name, value);

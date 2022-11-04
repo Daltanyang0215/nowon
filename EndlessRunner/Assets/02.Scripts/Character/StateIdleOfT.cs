@@ -14,14 +14,14 @@ public class StateIdle<T> : StateBase<T> where T : Enum
             case IState<T>.Commands.Idle:
                 break;
             case IState<T>.Commands.Prepare:
-                animationManager.SetBool("Idle", true);
+                animationManager.SetBool("DoIdle", true);
                 MoveNext();
                 break;
             case IState<T>.Commands.Casting:
                 MoveNext();
                 break;
             case IState<T>.Commands.WaitForCastingFinished:
-                animationManager.SetBool("Idle", false);
+                animationManager.SetBool("DoIdle", false);
                 MoveNext();
                 break;
             case IState<T>.Commands.Action:

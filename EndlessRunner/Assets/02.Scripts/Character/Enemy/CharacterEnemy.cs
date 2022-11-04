@@ -26,10 +26,7 @@ public class CharacterEnemy : CharacterBase
 
     [Header("Detechors")]
     public GroundDetector groundDetector;
-    public LayerMask targetLayer;
-    public GameObject target;
-    public float detectRange;
-    public float detectAttackRange;
+
     public bool movable;
     public Vector3 direction
     {
@@ -112,7 +109,7 @@ public class CharacterEnemy : CharacterBase
                     _owner.target = cols[0].gameObject;
                     return ReturnType.Success;
                 }
-                    _owner.target = null;
+                _owner.target = null;
                 return ReturnType.Failure;
             });
             executionLookPlayer = new Execution(() =>
@@ -141,16 +138,19 @@ public class CharacterEnemy : CharacterBase
             {
                 if (attackable)
                 {
-                    if (_owner._machine.currentType == EnemyStateTypes.Attack)
+                    if (root.RunningNode == null)
                     {
-                        if (_owner._machine.current.isBusy)
-                            return ReturnType.OnRunning;
-                        else
-                            return ReturnType.Success;
-                    }
-                    _owner.ChangeMachineState(EnemyStateTypes.Attack);
-                    if (_owner._machine.currentType == EnemyStateTypes.Attack)
+                        _owner.ChangeMachineState(EnemyStateTypes.Attack);
                         return ReturnType.OnRunning;
+                    }
+                    else if (_owner._machine.currentType == EnemyStateTypes.Attack)
+                    {
+                        return ReturnType.OnRunning;
+                    }
+                    else
+                    {
+                        return ReturnType.Success;
+                    }
                 }
                 return ReturnType.Failure;
             });
@@ -166,7 +166,7 @@ public class CharacterEnemy : CharacterBase
                 {
                     _owner.direction = Vector3.up * 180;
                     _owner.rb.velocity = Vector3.zero;
-                    _owner.rb.AddRelativeForce(new Vector3(0.0f, 1.0f, 1.0f)*_owner.jumpForce, ForceMode.Impulse);
+                    _owner.rb.AddRelativeForce(new Vector3(0.0f, 1.0f, 1.0f) * _owner.jumpForce, ForceMode.Impulse);
                     return ReturnType.Success;
                 }
                 return ReturnType.Failure;
@@ -177,7 +177,7 @@ public class CharacterEnemy : CharacterBase
                 {
                     _owner.direction = Vector3.up * 0;
                     _owner.rb.velocity = Vector3.zero;
-                    _owner.rb.AddRelativeForce(new Vector3(0.0f, 1.0f, 1.0f)*_owner.jumpForce, ForceMode.Impulse);
+                    _owner.rb.AddRelativeForce(new Vector3(0.0f, 1.0f, 1.0f) * _owner.jumpForce, ForceMode.Impulse);
                     return ReturnType.Success;
                 }
                 return ReturnType.Failure;
@@ -200,6 +200,8 @@ public class CharacterEnemy : CharacterBase
             if (root.RunningNode != null)
             {
                 result = root.RunningNode.Invoke(out dummy);
+                if (result == ReturnType.OnRunning)
+                    root.RunningNode = null;
             }
             else
             {
@@ -249,11 +251,11 @@ public class CharacterEnemy : CharacterBase
         Dictionary<EnemyStateTypes, EnemyStateTypes> result = new Dictionary<EnemyStateTypes, EnemyStateTypes>();
 
         result.Add(EnemyStateTypes.Idle, EnemyStateTypes.Idle);
-        result.Add(EnemyStateTypes.Move, EnemyStateTypes.Move);
-        result.Add(EnemyStateTypes.Jump, EnemyStateTypes.Move);
-        result.Add(EnemyStateTypes.Attack, EnemyStateTypes.Move);
-        result.Add(EnemyStateTypes.Hurt, EnemyStateTypes.Move);
-        result.Add(EnemyStateTypes.Die, EnemyStateTypes.Move);
+        result.Add(EnemyStateTypes.Move, EnemyStateTypes.Idle);
+        result.Add(EnemyStateTypes.Jump, EnemyStateTypes.Idle);
+        result.Add(EnemyStateTypes.Attack, EnemyStateTypes.Idle);
+        result.Add(EnemyStateTypes.Hurt, EnemyStateTypes.Idle);
+        result.Add(EnemyStateTypes.Die, EnemyStateTypes.Idle);
 
         return result;
     }

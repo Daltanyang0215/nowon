@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    
+
     public void StartGmae()
     {
         Player.instance.StartMove();
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        GameStateManager.Instance.SetState(GameStates.Paused);   
+        GameStateManager.Instance.SetState(GameStates.Idle);   
     }
 
 
