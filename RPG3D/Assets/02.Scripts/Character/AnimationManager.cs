@@ -8,7 +8,13 @@ public class AnimationManager : MonoBehaviour
     private int _monitorOnStateHash;
     private int _monitorOnStateHashMem;
     private int _monitorOffStateHash;
+
+    private int _monitorOnStateMachineHash;
+    private int _monitorOnStateMachineHashMem;
+    private int _monitorOffStateMachineHash;
+
     public bool isPreviousStateHasFinished => _monitorOnStateHashMem == _monitorOffStateHash;
+    public bool isPreviousStateMachineHasFinished => _monitorOnStateMachineHashMem == _monitorOffStateMachineHash;
     public bool isCastingFinished { get; private set; }
     public float speed
     {
@@ -43,6 +49,19 @@ public class AnimationManager : MonoBehaviour
             monitor.OnExit += (hash) =>
             {
                 _monitorOffStateHash = hash;
+            };
+        }
+        foreach (AnimationStateMachineManitor monitor in _animator.GetBehaviours<AnimationStateMachineManitor>())
+        {
+            monitor.OnEnter += (hash) =>
+            {
+                _monitorOnStateMachineHashMem = _monitorOnStateMachineHash;
+                _monitorOnStateMachineHash = hash;
+            };
+
+            monitor.OnExit += (hash) =>
+            {
+                _monitorOffStateMachineHash = hash;
             };
         }
     }
