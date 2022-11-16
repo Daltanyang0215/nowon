@@ -6,6 +6,6 @@ public class Enemy : CharacterBase
 {
     protected override IStateMachine CreateStateMachine()
     {
-        
+        throw new System.NotImplementedException();
     }
 }
