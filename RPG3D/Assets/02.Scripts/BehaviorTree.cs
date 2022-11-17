@@ -18,6 +18,7 @@ namespace BT
     {
         public abstract Status Invoke(out Behavior leaf);
     }
+    #region Behaviors
     public class Root : Behavior
     {
         public Behavior child { get; private set; }
@@ -85,7 +86,7 @@ namespace BT
             foreach (Behavior child in _children)
             {
                 _tmpResult = child.Invoke(out leaf);
-                if(_tmpResult != Status.Success)
+                if (_tmpResult != Status.Success)
                 {
                     leaf = child;
                     return _tmpResult;
@@ -156,13 +157,13 @@ namespace BT
                         break;
                 }
             }
-            if(_successPolicy == Policy.RequoreOne && successCount > 0) 
+            if (_successPolicy == Policy.RequoreOne && successCount > 0)
                 return Status.Success;
-            if(_successPolicy == Policy.RequoreAll && successCount >= _children.Count)
+            if (_successPolicy == Policy.RequoreAll && successCount >= _children.Count)
                 return Status.Success;
             if (_failurePolicy == Policy.RequoreOne && failureCount > 0)
                 return Status.Failure;
-            if(_failurePolicy == Policy.RequoreAll && failureCount >= _children.Count)
+            if (_failurePolicy == Policy.RequoreAll && failureCount >= _children.Count)
                 return Status.Failure;
 
             throw new Exception("behavior tree pararell fail");
@@ -194,4 +195,53 @@ namespace BT
             return _execute.Invoke();
         }
     }
+    public abstract class Decorator : Behavior
+    {
+        public Behavior child { get; private set; }
+        public override Status Invoke(out Behavior leaf)
+        {
+            return Decorate(child.Invoke(out leaf), out leaf);
+        }
+        public abstract Status Decorate(Status status, out Behavior leaf);
+    }
+
+    public class Repeat : Decorator
+    {
+        private int _count;
+        public Repeat(int count)
+        {
+            _count = count;
+        }
+
+        public override Status Decorate(Status status, out Behavior leaf)
+        {
+            leaf = child;
+         
+            if (status == Status.Failure)
+                return Status.Failure;
+
+            _count--;
+            while (_count > 0)
+            {
+                if (child.Invoke(out leaf) == Status.Failure)
+                    return Status.Failure;
+
+                _count--;
+            }
+            return Status.Success;
+        }
+    }
+    public class Inverter : Decorator
+    {
+        public override Status Decorate(Status status, out Behavior leaf)
+        {
+            leaf = child;
+            if (status == Status.Failure)
+                return Status.Success;
+            if (status == Status.Success)
+                return Status.Failure;
+            return Status.Running;
+        }
+    }
+    #endregion
 }
